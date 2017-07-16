@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<head>
+<meta charset="utf-8" />
+<title>自测ddd</title>
+<style type="text/css">
+div {
+	background-color: black;
+	background-image: url(flower-red.png);
+	padding: 30px;
+	color: white;
+	font-size: 2em;
+	font-weight: bold;
+	background-size: 40px 20px;
+	-webkit-background-size: 50% ， 50%;
+	/*宽+高；宽+auto；宽；%，%*/
+}
+
+#dimg {
+	background-image: url(flower-red.png), url(flower-green.png),
+		url(sky.jpg);
+	background-repeat: no-repeat, repeat-x, no-repeat;
+	background-position: 3% 98%, 85%, center center, top;
+	width: 300px;
+	padding: 90px 0px;
+} 
+</style>
+</head>
+<body>
+	<div>示例文字</div>
+	<br>
+	<div id="dimg"></div> 
+</body>
+</html>

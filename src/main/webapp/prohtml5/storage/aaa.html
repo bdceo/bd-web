@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href = "html5.css">
+<title>自测aaa</title>
+<script>
+function checkSupport(){
+	var sp = document.getElementById("support");
+	if(window.localStorage && window.sessionStorage){
+		sp.innerHTML="恭喜，浏览器支持 localStorage和sessionStoragage";
+		window.sessionStorage.aname = "laoding";
+	}else{
+		sp.innerHTML="老兄，升级一下浏览器吧！";
+	} 
+}
+
+function displayStorageEvent(e){
+	var logged = "key:" + e.key + ",newValue:" + e.newValue + ",oldValue:" + e.oldValue
+				+ ",url:" + e.url + ",storageArea:" + e.storageArea;
+	alert(logged);
+}
+window.addEventListener("storage", displayStorageEvent, true);
+
+/*  跑步测试   */
+function toRadians(num) {
+  return num * Math.PI / 180;
+}
+function distance(latitude1, longitude1, latitude2, longitude2) {
+  // R is the radius of the earth in kilometers
+  var R = 6371;
+
+  var deltaLatitude = toRadians((latitude2-latitude1));
+  var deltaLongitude = toRadians((longitude2-longitude1));
+  latitude1 = toRadians(latitude1), latitude2 = toRadians(latitude2);
+
+  var a = Math.sin(deltaLatitude/2) *
+		  Math.sin(deltaLatitude/2) +
+		  Math.cos(latitude1) *
+		  Math.cos(latitude2) *
+		  Math.sin(deltaLongitude/2) *
+		  Math.sin(deltaLongitude/2);
+
+  var c = 2 * Math.atan2(Math.sqrt(a),
+						 Math.sqrt(1-a));
+  var d = R * c;
+  return d;
+}
+// 终点坐标
+var finishLat = 39.17222;
+var finishLong = -120.13778;
+// 显示最新用户距离
+function displayRacerLocation(name, distance) { 
+	var incomingRow = document.getElementById(name);
+	if (!incomingRow) {
+		incomingRow = document.createElement('div');
+		incomingRow.setAttribute('id', name);
+		incomingRow.userText = name;
+
+		document.getElementById("leaderboard").appendChild(incomingRow);
+	}
+
+	incomingRow.innerHTML = incomingRow.userText + " is " +
+							distance.toFixed(5) + " km from the finish line";
+}
+// 接受Websocket返回数据
+function dataReturned(locationData) { 
+	var allData = JSON.parse(locationData);
+	var incomingId   = allData[1];
+	var incomingLat  = allData[2];
+	var incomingLong = allData[3];
+ 
+	var currentDistance = distance(incomingLat, incomingLong, finishLat, finishLong);
+ 
+	window.sessionStorage[incomingId] = currentDistance;
+ 
+	displayRacerLocation(incomingId, currentDistance);
+}
+function loadDemo() { 
+	if (typeof(window.sessionStorage) === "undefined") {
+		document.getElementById("leaderboardStatus").innerHTML = "Your browser does not support HTML5 storage";
+		return;
+	}
+
+	var storage = window.sessionStorage;
+ 
+	for (var i=0; i < storage.length; i++) {
+		var currRacer = storage.key(i);
+		displayRacerLocation(currRacer, storage[currRacer]);
+	}
+ 
+	if (window.WebSocket) { 
+		url = "ws://localhost:8080/bc";
+		socket = new WebSocket(url);
+		socket.onopen = function() {
+			document.getElementById("leaderboardStatus").innerHTML = "Leaderboard: Connected!";
+		}
+		// 消息返回处理
+		socket.onmessage = function(e) {
+			dataReturned(e.data);
+		}
+	}
+}
+window.addEventListener("load", loadDemo, true);
+</script>
+</head>
+
+<body onLoad="checkSupport()">
+<div id="support"></div>
+ <div id="container">
+    <header>
+        <h1>Tahoe 216</h1>
+        <h3 align="center">3 Days, 216-Miles, One Crazy Runner's High</h3>
+        <h2>&nbsp;</h2>
+        <h4>Live  Results Now!</h4>
+    </header>
+
+    <nav>
+        <h2>Links</h2>
+        <a href="index.html" title="Home">Home</a>
+        <a href="signup.html" title="Are you crazy enough?">Sign Up</a>
+        <a href="about.html" title="Learn more about the T216">About the Race</a>
+    </nav>
+
+    <section>
+      <article>
+        <h2>Live T216 Leaderboard</h2>
+        <p id="leaderboardStatus">Leaderboard: Connecting...</p>
+        <div id="leaderboard"></div>
+      </article>
+
+        <article>
+          <h2>Latest News</h2>
+          <p>Albers finally breaks magical 2:00 Hour marathon barrier! <a href="./more.html"><em>More</em></a></p>
+          <p>500-miles stil not enough for Salim. <a href="./more.html"><em>More</em></a></p>
+          <p>Lubbers: Extra weight actually helped me on downhills! <a href="./more.html"><em>More</em></a></p>
+      </article>
+
+    </section>
+
+   <aside>
+      <h2>Sponsors</h2>
+      <p align="center">Happy Trails Running Club</p>
+     <p align="center"><img src="happy-trails-rc.gif" alt="Happy Trails Running Club" width="149" height="207"></p>
+   </aside>
+
+    <footer>
+        <p>Powered by HTML5!</p>
+    </footer>
+
+</div>
+</body>
+</html>

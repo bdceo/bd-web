@@ -1,0 +1,39 @@
+<HTML>
+ <HEAD>
+  <TITLE> New Document </TITLE> 
+  <link rel="stylesheet" type="text/css" href="/jslib/extjs/resources/css/ext-all.css" />
+  <script src="/jslib/extjs/adapter/ext/ext-base.js"></script>  
+  <script src="/jslib/extjs/ext-all.js"></script>
+ </HEAD>
+<script type="text/javascript">
+    function showUrl(value){
+		return "<a href='http://"+value+"' target='_blank'>"+value+"</a>";
+	}
+	Ext.onReady(function(){	 
+		var myRecord=new Ext.data.Record.create([
+					{name:'title'},
+					{name:'username',mapping:'author'},
+					{name:'loginTimes',type:'int'},
+					{name:'lastLoginTime',mapping:'loginTime',type:'date'} ]);
+		var row=new myRecord({title:"日志标题",
+							  username:"easyjf",
+							  loginTimes:100,
+							  lastLoginTime:new Date() });
+		alert(myRecord.getField("username").mapping);
+		alert(myRecord.getField("lastLoginTime").type);
+		alert(row.data.username);
+		alert(row.get("loginTimes"));
+	});
+</script>
+ <BODY>
+   <div id="first"></div>
+   <div id="second"></div> 
+   <div id="third"></div>
+   <div id="fourth"></div>
+   <div id="fifth"></div>
+   <select id="sexList">
+	 <option>男</option>
+	 <option>女</option>
+   </select>
+ </BODY>
+</HTML>

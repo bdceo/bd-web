@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<head>
+<meta charset="utf-8"/> 
+<link rel="stylesheet" href="style.css"/>
+<title>自测aaa</title>
+<script>
+function checkSupport(){
+	if(typeof(Worker) !== "undefined"){
+		document.getElementById("support").innerHTML="恭喜，浏览器支持！";
+		
+		worker = new Worker("aaa.js");
+		worker.addEventListener("message", messageHandler, true);
+		worker.addEventListener("error", errorHandler, true);
+		
+		document.getElementById("helloButton").onclick = function(){
+			worker.postMessage("这是给你的一个消息");
+		}
+		document.getElementById("stopButton").onclick = stopWorker;
+	}else{
+		document.getElementById("support").innerHTML="老兄，升级一下浏览器吧！";
+	}
+}
+function stopWorker(){
+	worker.terminate();
+}
+
+function messageHandler(e){
+	console.log(e.data);
+}
+
+function errorHandler(e){
+	console.warn(e.message, e);
+}
+</script>
+</head>
+
+<body onLoad="checkSupport()">
+<div id="support"></div>
+
+<button id="stopButton">停止任务</button>
+<button id="helloButton">发送一个消息</button>
+</body>
+</html>

@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<head>
+<meta charset="utf-8" />
+<title>自测aaa</title>
+<style type="text/css"></style>
+<script>
+	function fun() {
+		var funs = new Array();
+		for ( var i = 0; i < 5; i++) {
+			funs[i] = function() {
+				return i;
+			};
+		}
+		return funs;
+	}
+	function funb() {
+		var funs = new Array();
+		for ( var i = 0; i < 10; i++) {
+			funs[i] = function(n) {
+				return function() {
+					return n;
+				};
+			}(i);
+		}
+		for ( var i = 0; i < 10; i++) {
+			funs[i] = function(n) {
+				return n * 2;
+			};
+		}
+		return funs;
+	}
+	// 闭包与变量
+	function fun1() {
+		var funs = fun();
+		for ( var i = 0; i < funs.length; i++) {
+			console.log(funs[i]());
+		}
+	}
+	function fun2() {
+		var funs = funb();
+		for ( var i = 0; i < funs.length; i++) {
+			console.log(funs[i](i));
+		}
+	}
+	// this
+	var name = "the window";
+	var obj = {
+		name : "the object",
+		getName : function() {
+			return function() {
+				return this.name;
+			};
+		}
+	};
+	var obj2 = {
+		name : "the object",
+		getName : function() {
+			var this2 = this;
+			return function() {
+				return this2.name;
+			};
+		}
+	};
+	function fun3() {
+		console.log(obj.getName()());
+		console.log(obj2.getName()());
+	}
+	// 内存泄露
+	function funMem() {
+		// 以下方式会引起循环引用，ele对象引用永远不会被收回
+		var ele = document.getElementById("id");
+		ele.onclick = function() {
+			console.log(ele.id);
+		};
+
+		// 稍微优化的改动
+		var id = ele.id;// 创建临时变量，再闭包中引用
+		ele.onclick = function() {
+			console.log(id);
+		};
+		ele = null;// 在fun4中销毁ele
+	}
+	// 模仿块级作用域
+	function fun4() {
+		for ( var k = 0; k < 10; k++) {
+
+		}
+		// 没有块级作用域
+		console.log(k);
+		var k;// 不会改变k的值
+		console.log(k);
+		k = 1;// 改变
+		console.log(k);
+
+		// 模仿块级作用域(function(){})();
+		(function() {
+			for ( var m = 0; m < k; m++) {
+			}
+		})();
+		//console.log(m);// undefined
+	}
+	// 私有变量
+	function fun5() {
+		var privateVar = 10;
+		function privateFun() {
+			return false;
+		}
+		this.publicFun = function() {
+			privateVar++;
+			return privateFun();
+		};
+
+		function Person(name) {
+			this.getName = function() {
+				return name;
+			}
+			this.setName = function(value) {
+				name = value;
+			}
+		}
+
+		var per = new Person("bdceo");
+		console.log(per.getName());
+		per.setName("bdcfo");
+		console.log(per.getName());
+	}
+	// 静态私有变量
+	(function() {
+		var pv = 10;
+		function pf() {
+			return pv;
+		}
+		GO = function() {
+		};
+		GO.prototype.pubf = function() {
+			pv++;
+			return pf();
+		};
+	})();
+	var g = new GO();
+	var r = g.pubf();
+	console.log(r);
+
+	// 模块模式
+	function fun6() {
+		var singleton = function() {
+			var pv = 10;
+			function pf() {
+				return pv;
+			}
+			return {
+				pp : true,
+				pm : function() {
+					pv++;
+					return pf();
+				}
+			};
+		}();
+		// 示例
+		function BaseComp() {
+		}
+		function OtherComp() {
+		}
+		var app = function() {
+			var comps = new Array();
+			comps.push(new BaseComp());
+			return {
+				getCompCount : function() {
+					return comps.length;
+				},
+				regComp : function(comp) {
+					if (typeof comp == "object") {
+						comps.push(comp);
+					}
+				}
+			};
+		}();
+		console.log(app.getCompCount());
+		app.regComp(new OtherComp());
+		console.log(app.getCompCount());
+	}
+	var a = 100;
+	function fun7() {
+
+	}
+	(function() {
+		console.log("谁调用=" + arguments.callee.caller);
+		alert(a);
+		var a = 1;
+	})();
+</script>
+</head>
+<body>
+	<br />
+	<input type="button" onclick="fun1()" value="fun1()">
+	<br />
+	<input type="button" onclick="fun2()" value="fun2()">
+	<br />
+	<input type="button" onclick="fun3()" value="fun3()">
+	<br />
+	<input type="button" onclick="fun4()" value="fun4()">
+	<br />
+	<input type="button" onclick="fun5()" value="fun5()">
+	<br />
+	<input type="button" onclick="fun6()" value="fun6()">
+	<br />
+	<input type="button" onclick="fun7()" value="fun7()">
+</body>
+</html>

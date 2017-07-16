@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<head>
+<meta charset="utf-8"/> 
+<title>自测bbb</title>
+<style type="text/css"></style>
+<script> 
+	//示例引用自：http://extjs.org.cn/node/400 
+	//闭包（能够读/写函数内部的某些变量的子函数,并将这些变量保存在内存中.）
+	function PoliceMan(){
+		var lifeAng = 100;
+		InBullet = function(){
+			lifeAng -= 10;
+		}
+		function showLifeAng(){
+			alert(lifeAng);
+		}
+		return showLifeAng;
+	}
+	var pa = new PoliceMan();
+	pa();
+	InBullet();
+	pa();
+</script>
+</head>
+<body>
+</body>
+</html>

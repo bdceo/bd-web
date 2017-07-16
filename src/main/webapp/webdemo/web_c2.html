@@ -1,0 +1,31 @@
+<!DOCTYPE html> 
+<html>
+<head> 
+    <meta charset="utf-8" />
+	<title>web_c2</title>
+</head>
+<script type="text/javascript">
+	var c, ctx;
+	var r = Math.PI;
+	function init(){
+		c=document.getElementById("myc");
+		ctx=c.getContext("2d"); 
+		
+		ctx.lineWidth = 20;
+	    ctx.shadowOffsetX = 3;
+	    ctx.shadowOffsetY = 3;
+	    ctx.shadowBlur = 2;
+	    ctx.font = '18px monospace';
+	    
+	    ctx.beginPath();
+        ctx.strokeStyle = "rgb(0, 52, 200)";
+        ctx.shadowColor = "rgba(200, 100, 99, 0.5)";
+        ctx.arc(140, 100, 70, -r/2, 0, false);
+        ctx.stroke();
+    		
+	}
+</script>
+<body onLoad="init();">
+	<canvas id="myc" width="400" height="600"></canvas> 
+</body>
+</html>

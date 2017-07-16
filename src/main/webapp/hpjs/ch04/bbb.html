@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<head>
+<meta charset="utf-8" />
+<title>自测bbb</title>
+<style type="text/css"></style>
+<script>
+	var pp = [ "as", "fd", "ed", "ss", "zz", "ef", "sg", "ah", "eb" ];
+	var ccc = 0;
+	function fun1() {
+		console.info("pp=" + pp.toString());
+		//mergeSort(pp);
+
+		mergeSort2(pp);
+	}
+	// 递归-合并排序算法
+	function mergeSort(items) {
+		var len = items.length;
+		if (len == 1) {
+			return items;
+		}
+		var middle = Math.floor(len / 2), left = items.slice(0, middle), right = items
+				.slice(middle);
+		return merge(mergeSort(left), mergeSort(right));
+	}
+	function merge(left, right) {
+		console.info("");
+		ccc++;
+		console.info("第" + ccc + "次进来");
+		console.info("left=" + left.toString());
+		console.info("right=" + right.toString());
+		var results = [];
+		while (left.length > 0 && right.length > 0) {
+			if (left[0] < right[0]) {
+				results.push(left.shift());
+			} else {
+				results.push(right.shift());
+			}
+		}
+		var tfp = results.concat(left).concat(right)
+		console.info("tfp=" + tfp.toString());
+		return tfp;
+	}
+
+	function mergeSort2(items) {
+		if (items.length == 1) {
+			return items;
+		}
+		var work = [];
+		var len = items.length;
+		for ( var i = 0; i < len; i++) {
+			work.push([ items[i] ]);
+		}
+		if ((len % 2) > 0) {
+			work.push([]);
+		}
+		console.info("work=" + work.toString());
+		for ( var lim = len; lim > 1; lim = Math.floor((lim + 1) / 2)) {
+			console.info("-----------------------lim=" + lim);
+			for ( var j = 0, k = 0; k < lim; j++, k += 2) {
+				work[j] = merge(work[k], work[k + 1]);
+			}
+		}
+		console.info("work=" + work[0].toString());
+	}
+	// 缓存Memoization-推荐手工实现
+	function memfun(n) {
+		if (!memfun.cache) {// 不存在缓存，初始化
+			memfun.cache = {
+				"0" : 1,
+				"1" : 1
+			};
+		}
+		// 每一次结算结果都缓存
+		if (!memfun.cache.hasOwnProperty(n)) {
+			memfun.cache[n] = n * memfun(n - 1);
+		}
+		return memfun.cache[n];
+	}
+	// 通用缓存函数
+	function memutil(fun, cache) {
+		cache = cache || {};
+		var shell = function(arg) {
+			if (!cache.hasOwnProperty(arg)) {
+				cache[arg] = fun(arg);
+			}
+			return cache[arg];
+		}
+		return shell;
+	}
+	// 调用
+	function test() {
+		var memtest = memutil(factorial, {
+			"0" : 1,
+			"1" : 1
+		});
+		memtest(6);
+	}
+	// 斐波那契额数列-递归实现
+	function factorial(n) {
+		if (n == 0) {
+			return 1;
+		} else {
+			return n * factorial(n - 1);
+		}
+	}
+</script>
+</head>
+<body onload="fun1();">
+</body>
+</html>

@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<head>
+<meta charset="utf-8" />
+<title>自测aaa</title>
+<style type="text/css"></style>
+<script>
+	function fun() {
+		var v;
+		console.log("var v " + typeof v);
+		v = "variable";
+		console.log("v = \"variable\" " + typeof v);
+		v = true;
+		console.log("v = true " + typeof v);
+		v = 4;
+		console.log("v = 4 " + typeof v);
+		v = {};
+		console.log("v = {} " + typeof v);
+		v = function() {
+		};
+		console.log("v = function(){} " + typeof v);
+		v = null;
+		console.log("v = null " + typeof v);
+
+		console.log("undefined == null " + (undefined == null));
+	}
+	function fun1() {
+		var v = true;
+		console.log("v = true " + v);
+		// 任何非空字符串=true
+		v = "";
+		console.log("v = '' " + Boolean(v));
+		v = "jjj";
+		console.log("v = 'jjj' " + Boolean(v));
+		// 任何非零数字值=true
+		v = 1;
+		console.log("v = 1 " + Boolean(v));
+		v = 0;
+		console.log("v = 0 " + Boolean(v));
+		v = -1;
+		console.log("v = -1 " + Boolean(v));
+		// 任何对象=true,null=false
+		v = Math;
+		console.log("v = Math " + Boolean(v));
+		v = null;
+		console.log("v = null " + Boolean(v));
+		v = {};
+		console.log("v = {} " + Boolean(v));
+		// 任何未初始化=false
+		var v2;
+		console.log("var v2; " + Boolean(v2));
+	}
+	function fun2() {
+		// 建议不要将特定的浮点数作比较，web中尽量使用整数做判断
+		var a = 0.1, b = 0.2;
+		console.log("a+b = " + (a + b));
+		a = 0.05;
+		b = 0.25;
+		console.log("a+b = " + (a + b));
+	}
+	function fun3() {
+		console.log("最大值=" + Number.MAX_VALUE);
+		console.log("最小值=" + Number.MIN_VALUE);
+		console.log("负无穷=" + Number.NEGATIVE_INFINITY);
+		console.log("正无穷=" + Number.POSITIVE_INFINITY);
+		var n = Number.MAX_VALUE * 2;
+		console.log("Number.MAX_VALUE * 2 = " + n);
+		console.log("Number.MAX_VALUE * 2 isFinite = " + isFinite(n));
+
+		console.log("isNaN(NaN) = " + isNaN(NaN));
+		console.log("isNaN(10) = " + isNaN(10));
+		console.log("isNaN(\"10\") = " + isNaN("10"));
+		console.log("isNaN(true) = " + isNaN(true));
+		console.log("isNaN(\"red\") = " + isNaN("red"));
+		var o = {};
+		console.log("var o = {} = " + isNaN(o));
+		o = function() {
+		};
+		console.log("var o = function(){} = " + isNaN(o));
+		o = {
+			valueOf : function() {
+				return 4;
+			}
+		};
+		console.log("var o = {valueOf:function(){return 4;}}; = " + isNaN(o));
+	}
+	function fun4() {
+		console.log("Number(true) = " + Number(true));
+		console.log("Number(4) = " + Number(4));
+		console.log("Number(null) = " + Number(null));
+		console.log("Number(undefined) = " + Number(undefined));
+		console.log("Number(\"\") = " + Number(""));
+		console.log("Number(\"123\") = " + Number("123"));
+		console.log("Number(\"12.3\") = " + Number("12.3"));
+		console.log("Number(\"0x1f\") = " + Number("0x1f"));
+		console.log("Number(\"12f\") = " + Number("12f"));
+		console.log("Number(\"000071\") = " + Number("000071"));
+
+		console.log("parseInt(\"000071\") = " + parseInt("000071"));
+		console.log("parseInt(\"71xxx\") = " + parseInt("71xxx"));
+		console.log("parseInt(\"\") = " + parseInt(""));
+		console.log("parseInt(\"0x1a\") = " + parseInt("0x1a"));
+		console.log("parseInt(22.11) = " + parseInt(22.11));
+
+		console.log("parseInt(10,2) = " + parseInt(10, 2));
+		console.log("parseInt(10,8) = " + parseInt(10, 8));
+		console.log("parseInt(10,10) = " + parseInt(10, 10));
+		console.log("parseInt(10,16) = " + parseInt(10, 16));
+
+		console.log("parseFloat(\"71xxx\") = " + parseFloat("71xxx"));// 只解析整数部分
+		console.log("parseFloat(\"0xa\") = " + parseFloat("0xa"));// 16进制都是0
+		console.log("parseFloat(\"22.112\") = " + parseFloat("22.112"));
+		console.log("parseFloat(\"22.11.2\") = " + parseFloat("22.11.2")); // 第二个小数点后忽略
+		console.log("parseFloat(\"022.112\") = " + parseFloat("022.112"));// 开头零忽略
+		console.log("parseFloat(\"3.125e7\") = " + parseFloat("3.125e7"));
+	}
+	function fun5() {
+		var v = "a\nb";
+		console.log("v='a\\nb' = " + v);
+		v = 'a\tb';
+		console.log("v='a\\tb' = " + v);
+
+		v = 15;
+		console.log("(v=15).toString() = " + v.toString());
+		v = true;
+		console.log("(v=true).toString() = " + v.toString());
+		v = {};
+		console.log("(v={}).toString() = " + v.toString());
+		// null 和 undefined 没有toString() 方法
+		v = null;
+		//console.log("(v=null).toString() = " + v.toString());
+		console.log("String(null) = " + String(v));
+		var v2;
+		//console.log("(var v2;).toString() = " + v.toString());
+		console.log("String(undefined) = " + String(v2));
+
+		var num = 10;
+		console.log("10 = " + num.toString(2));
+		console.log("10 = " + num.toString(8));
+		console.log("10 = " + num.toString(10));
+		console.log("10 = " + num.toString(16));
+	}
+	// 位操作
+	function fun6() {
+		// *** 负数：绝对值的二进制进行反码再加1
+		var num = -18;
+		console.log("-18 = " + num.toString(2));
+
+		// 按位非：~  返回数值的反码
+		var a = 25;
+		var b = ~a;
+		console.log("~25 = " + b);
+		// 按位非 == 操作数的负值减1
+		a = 25;
+		b = -25 - 1;
+		console.log("-25 - 1 = " + b);
+
+		// 按位与：& 对应位都为1才返回1
+		console.log("25 & 3 = " + (25 & 3));
+		// 按位或：| 有一个位是1就返回1
+		console.log("25 | 3 = " + (25 | 3));
+		// 按位异或： ^ 只有一个位是1时才返回1，相同都为0或1时返回0
+		console.log("25 ^ 3 = " + (25 ^ 3));
+
+		// 左移： << 以零填充空位
+		console.log("2 << 5 = " + (2 << 5));
+		// 有符号右移： >> 同左移相反，空位由符号位填充
+		console.log("64 >> 5 = " + (64 >> 5));
+		// 无符号右移： >>> 正数的有符号右移与无符号右移相同；负数先获取补码再右移，结果会非常大
+		console.log("64 >>> 5 = " + (64 >>> 5));
+		console.log("-64 >>> 5 = " + (-64 >>> 5).toString(2));
+	}
+	function fun7() {
+		// 逻辑非： ！
+		console.log("!false = " + (!false));
+		console.log("!'blue' = " + (!"blue"));
+		console.log("!'' = " + (!""));
+		console.log("!NaN = " + (!NaN));
+		console.log("!12 = " + (!12));
+		console.log("!0 = " + (!0));
+		// 两个逻辑非==Boolean()转换函数功能
+		console.log("!!'blue' = " + (!!"blue"));
+		console.log("!!0 = " + (!!0));
+		console.log("!!12 = " + (!!12));
+		console.log("!!NaN = " + (!!NaN));
+	}
+	function fun8(){
+		var n = Number.MAX_VALUE * 2 * 0;
+		console.log(n);
+		
+		// 逗号操作符，赋值时，返回最后一个值
+		n = (1988,5,17);
+		console.log(n);
+	}
+	
+	function fun9(){
+		// 不存在块级作用域
+		for(var i=0;i<4;i++){
+		}
+		console.log(i);
+		for(var pn in window){
+			console.log(pn);
+		}
+	}
+	function fun9(){
+		console.log("second fun of 9");
+		fun(1);
+		fun(1,2);
+	}
+	function fun(a,b){
+		console.log("参数有：" + arguments.length);
+		console.log(a + " and " + arguments[1]);
+		console.log(arguments[2]);
+	}
+</script>
+</head>
+<body onload="fun9();">
+</body>
+</html>

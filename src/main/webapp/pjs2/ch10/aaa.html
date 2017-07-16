@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<head>
+<meta charset="utf-8" />
+<title>自测aaa</title>
+<style type="text/css"></style>
+<script>
+	// 节点的childNodes转换成数组
+	function convertToArray(nodes) {
+		var arr = null
+		try {
+			arr = Array.prototype.slice.call(nodes, 0);
+		} catch (e) {
+			arr = new Array();
+			for ( var i = 0; i < nodes.length; i++) {
+				arr.push(nodes[i]);
+			}
+		}
+		return arr;
+	}
+	function fun() {
+		// document 属性举例
+		var dc = document.doctype;
+		console.log("doctype = " + dc);
+		console.log("url = " + document.URL);// 浏览器完整地址
+		console.log("domain = " + document.domain);// 域名
+		console.log("referre = " + document.referrer);// 引用源页面
+
+		// DOM一致性检测
+		var b = document.implementation.hasFeature("XML", "1.0");
+		console.log(b);
+
+		// DOM扩展
+		// 呈现模式
+		var mode = document.compatMode;
+		console.log("浏览器模式 = " + mode);
+
+		console.log(!16);
+		console.log(!!16);
+	}
+	// 通用contains函数
+	function contains(refNode, otherNode) {
+		if (typeof document.contains == "function"
+				&& (!client.engine.webkit || client.engine.webkit >= 522)) {
+			return refNode.contains(otherNode);
+		} else if (typeof refNode.compareDocumentPosition == "function") {
+			return !!(refNode.compareDocumentPosition(otherNode) & 16);
+		} else {
+			var node = otherNode.parentNode;
+			do {
+				if (node === refNode) {
+					return true;
+				} else {
+					node = node.parentNode;
+				}
+			} while (node !== null);
+			return false;
+		}
+	}
+	// 通用innerText属性
+	function getInnerText(ele) {
+		return (typeof ele.innerText == "string") ? ele.innerText
+				: ele.textContent;
+	}
+	function setInnerText(ele, text) {
+		if (typeof ele.textContent == "string") {
+			ele.textContent = text;
+		} else {
+			ele.innerText = text;
+		}
+	}
+	// 动态脚本
+	function loadScript(url) {
+		var ele = document.createElement("script");
+		ele.type = "text/javascript";
+		ele.src = url;
+		document.body.appendChild(ele);
+	}
+	function loadScriptCode(code) {
+		var ele = document.createElement("script");
+		ele.type = "text/javascript";
+		try {
+			ele.appnedChild(document.createTextNode(code));
+		} catch (e) {// ie支持text属性
+			ele.text = code;
+		}
+		document.body.appendChild(ele);
+	}
+	function loadStyle(url) {
+		var ele = document.createElement("script");
+		ele.rel = "stylesheet";
+		ele.type = "text/css";
+		ele.src = url;
+		document.getElementsByTagName("head")[0].appendChild(ele);
+	}
+	function loadStyleCode(css) {
+		var ele = document.createElement("style");
+		ele.type = "text/css";
+		try {
+			ele.appnedChild(document.createTextNode(css));
+		} catch (e) {// ie支持text属性
+			ele.styleSheet.cssText = css;
+		}
+		document.getElementsByTagName("head")[0].appendChild(ele);
+	}
+	function fun1(){
+		var table = document.createElement("table");
+		table.border = 1;
+		table.width = '100%';
+		
+		var tbody = document.createElement("tbody");
+		table.appendChild(tbody);
+		
+		tbody.insertRow(0);
+		tbody.rows[0].insertCell(0);
+		tbody.rows[0].cells[0].appendChild(document.createTextNode("cell 1-1"));
+		tbody.rows[0].insertCell(1);
+		tbody.rows[0].cells[1].appendChild(document.createTextNode("cell 1-2"));
+		
+		document.body.appendChild(table);
+	}
+</script>
+</head>
+<body>
+	<br />
+	<input type="button" onclick="fun()" value="fun()">
+	<br />
+	<input type="button" onclick="fun1()" value="fun1()">
+</body>
+</html>

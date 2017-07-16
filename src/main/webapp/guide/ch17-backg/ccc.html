@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<head>
+<meta charset="utf-8" />
+<title>自测ccc</title>
+<style type="text/css">
+div {
+	background-color: black;
+	background-image: url(flower-green.png);
+	background-repeat: no-repeat;
+	border: dashed 15px green;
+	padding: 30px;
+	color: white;
+	font-size: 2em;
+	font-weight: bold;
+}
+
+div.div1 {
+	-moz-background-origin: border;
+	-webkit-background-origin: border;
+}
+
+div.div2 {
+	-moz-background-origin: padding;
+	-webkit-background-origin: padding;
+}
+
+div.div3 {
+	-moz-background-origin: content;
+	-webkit-background-origin: content;
+}
+
+#b1 {
+	border-image: url(borderimage.png) 18/5px repeat repeat;
+	-webkit-border-image: url(borderimage.png) 18/5px repeat repeat;
+	-moz-border-image: url(borderimage.png) 18/5px repeat repeat;
+	width: 300px;
+	height: 200px;
+}
+
+#b2 {
+	border-image: url(borderimage.png) 18/5px stretch stretch;
+	-webkit-border-image: url(borderimage.png) 18/5px stretch stretch;
+	-moz-border-image: url(borderimage.png) 18/5px stretch stretch;
+	width: 300px;
+	height: 200px;
+}
+
+#b3 {
+	border-image: url(borderimage.png) 18/5px repeat stretch;
+	-webkit-border-image: url(borderimage.png) 18/5px repeat stretch;
+	-moz-border-image: url(borderimage.png) 18/5px repeat stretch;
+	width: 300px;
+	height: 200px;
+}
+
+#b4 {
+	border-image: url(borderimage.png) 18/5px stretch repeat;
+	-webkit-border-image: url(borderimage.png) 18/5px stretch repeat;
+	-moz-border-image: url(borderimage.png) 18/5px stretch repeat;
+	width: 300px;
+	height: 200px;
+}
+
+#b5 {
+	border-image: url(borderimage.png) 18/5px round round;
+	-webkit-border-image: url(borderimage.png) 18/5px round round;
+	-moz-border-image: url(borderimage.png) 18/5px round round;
+	width: 300px;
+	height: 200px;
+}
+</style>
+</head>
+<body>
+	<div class="div1">示例文字1</div>
+	<br />
+	<div class="div2">示例文字2</div>
+	<br />
+	<div class="div3">示例文字3</div>
+	<br />
+	<div id="b1"></div>
+	<br />
+	<div id="b2"></div>
+	<br />
+	<div id="b3"></div>
+	<br />
+	<div id="b4"></div>
+	<br />
+	<div id="b5"></div>
+</body>
+</html>

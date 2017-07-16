@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+	<resource>
+		<id>0001</id>
+		<mp3.name>a1.mp3</mp3.name>
+		<mp3.size>7254818</mp3.size>
+		<lrc.name>a1.lrc</lrc.name>
+		<lrc.size>2431</lrc.size>
+	</resource>
+	<resource>
+		<id>0002</id>
+		<mp3.name>dazuiba.mp3</mp3.name>
+		<mp3.size>11218212</mp3.size>
+		<lrc.name>dazuiba.lrc</lrc.name>
+		<lrc.size>2779</lrc.size>
+	</resource>
+	<resource>
+		<id>0003</id>
+		<mp3.name>Endless.mp3</mp3.name>
+		<mp3.size>6676907</mp3.size>
+		<lrc.name>Endless.lrc</lrc.name>
+		<lrc.size>1108</lrc.size>
+	</resource>
+	<resource>
+		<id>0004</id>
+		<mp3.name>snow.mp3</mp3.name>
+		<mp3.size>3093270</mp3.size>
+		<lrc.name>snow.lrc</lrc.name>
+		<lrc.size>966</lrc.size>
+	</resource>
+</resources>

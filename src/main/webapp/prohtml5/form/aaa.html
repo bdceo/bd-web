@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<head>
+<meta charset="utf-8"/> 
+<title>自测aaa</title>
+<script>
+function checkSupport(){
+	if(true){
+		document.getElementById("support").innerHTML="恭喜，浏览器支持！";
+		document.getElementById("age").valueAsNumber(30);
+		
+		document.passwordChange.addEventListener("", pwdInvalidHandler,false);
+	}else{
+		document.getElementById("support").innerHTML="老兄，升级一下浏览器吧！";
+	}
+}
+
+function showValue(v){
+	document.getElementById("ageDis").innerHTML = v;
+}
+
+function checkPasswords(){
+	var pass1 = document.getElementById("password1");
+	var pass2 = document.getElementById("password2");
+
+	if (pass1.value !== pass2.value)
+		pass1.setCustomValidity("密码不一致");
+	else
+		pass1.setCustomValidity("");	
+}
+
+function pwdInvalidHandler(evt){
+	evt.srcElement.style.background = 'red';
+	evt.stopPropagation();
+	evt.preventDefault();
+}
+
+function filterList(field){
+	var currVal = field.value; 
+	currVal = currVal.replace(/([.*+?|(){}[\]\\])/ig, "\\$1");
+	field.pattern = currVal + ".*";
+}
+</script>
+</head>
+
+<body onLoad="checkSupport()">
+<div id="support"></div>
+<label>Range/You age：</label>
+<span id="ageDis">20</span>
+<input type="range" id="age" max="40" min="20" step="2" onChange="showValue(this.value)"/>
+<br/><br/>
+<label>Placeholder/required：</label>
+<input name="name" placeholder="请输入您的真实姓名" required/>
+<br/><br/>
+<label>Autocomplete：</label>
+<input type="text" name="creditcard" autocomplete="on"/>
+<br/><br/>
+<label>autofocus：</label>
+<input type="search" name="criteria" autofocus/><br>
+<br/><br/>
+<label>list/datalist：</label>
+<datalist id="cantactList">
+	<option value="bdceo@qq.com" label="ceo"/>
+    <option value="bdcfo@qq.com" label="cfo"/>
+</datalist>
+<input type="email" id="contacts" list="cantactList"/>
+<hr/>
+
+<form name="passwordChange">
+    <p><label for="password1">New Password:</label>
+    <input type="password" id="password1" onchange="checkPasswords()"></p>
+    <p><label for="password2">Confirm Password:</label>
+    <input type="password" id="password2" onchange="checkPasswords()"></p>
+</form>
+<button onclick="document.passwordChange.password1.checkValidity()">Check Validity</button>
+<hr/>
+
+<form name="listForm">
+    <p><label for="patternChoice">Select from the list:</label>
+    <input type="text" id="patternChoice" list="fullList" onkeydown="filterList(this)"></p>
+    <datalist id="fullList">
+        <option value="one">
+        <option value="two">
+        <option value="three">
+        <option value="four">
+        <option value="five">
+        <option value="six">
+        <option value="seven">
+        <option value="eight">
+        <option value="nine">
+        <option value="ten">
+    </datalist>
+    <span>Type in the field to filter the options.</span>
+</form>
+</body>
+</html>

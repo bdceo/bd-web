@@ -1,0 +1,83 @@
+<HTML>
+ <HEAD>
+  <TITLE> New Document </TITLE> 
+  <link rel="stylesheet" type="text/css" href="/jslib/extjs/resources/css/ext-all.css" />
+  <script src="/jslib/extjs/adapter/ext/ext-base.js"></script>  
+  <script src="/jslib/extjs/ext-all.js"></script>
+ </HEAD>
+<script type="text/javascript">
+	var i=0,group;
+	Ext.onReady(function(){
+		group=new Ext.WindowGroup();
+		Ext.get("btn").addListener("click",clk);
+		Ext.get("back").on("click",back);
+		Ext.get("hide").on("click",hide);	 
+		Ext.get("alt").on("click",function(){
+			//Ext.Msg.alert("the Ext's alert","hello how are you?");
+			Ext.MessageBox.alert("the Ext's alert","hello how are you?");
+		});
+		Ext.get("cm").on("click",function(){ 
+			Ext.MessageBox.confirm("Please","are you ready?",function(button,text){
+				if(button=="yes"){
+					alert("success delete!");
+				}				
+				//alert(text);
+			});
+		});
+		Ext.get("ppt").on("click",function(){ 
+			Ext.MessageBox.prompt("Please input...","how old are you?",function(button,text){
+				if(button=="ok"){
+					alert("i know what you input ,is't ?"+text);
+				}				
+				else 
+				alert("you had input nothing!");
+			});
+		});
+		Ext.get("me").on("click",function(){ 
+			Ext.MessageBox.show({title:"save data?",
+								msg:"you had input sth would like to save those?",
+								buttons:Ext.Msg.YESNOCANCEL,
+								fn:se,
+								icon:Ext.MessageBox.QUESTION});
+		});
+	});
+	function clk(){
+		var win=new Ext.Window({title:"window"+i++,
+								width:300,height:200,
+								maximizable:true,
+								manager:group});
+		win.show();
+	}
+	function back(){
+		if(group!=null){
+			group.sendToBack(group.getActive());
+		}
+	}
+	function hide(){
+		if(group!=null){
+			group.hideAll();
+		}
+	} 	
+	function se(button){
+		if(button=="yes"){	
+			alert("save success!");
+		}
+	} 
+</script>
+ <BODY>
+   <div id="first"></div>
+   <input type="button" id="back" value="back"/>
+   <br/>
+   <input type="button" id="hide" value="hide"/>
+   <br/>
+   <input type="button" id="btn" value="show"/> 
+   <br/>
+   <input type="button" id="alt" value="alert"/>
+   <br/>
+	<input type="button" id="cm" value="confirm"/>
+	<br/>
+	<input type="button" id="ppt" value="prompt"/>
+	<br/>
+	<input type="button" id="me" value="myself"/>
+ </BODY>
+</HTML>

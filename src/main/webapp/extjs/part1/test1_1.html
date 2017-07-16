@@ -1,0 +1,48 @@
+<HTML>
+ <HEAD>
+  <TITLE> New Document </TITLE> 
+  <link rel="stylesheet" type="text/css" href="/jslib/extjs/resources/css/ext-all.css" />
+  <script src="/jslib/extjs/adapter/ext/ext-base.js"></script>  
+  <script src="/jslib/extjs/ext-all.js"></script>
+ </HEAD>
+ <script type="text/javascript"> 
+	Ext.onReady(function(){
+		//alert("is all ready!");
+		//Ext.MessageBox.alert("hello","hello easy if open source!");
+		var win=new Ext.Window({title:"Hello",
+								width:300,
+								height:200,
+								html:'<h1>Hello ,easy if open source</h1>',
+								listeners:{"beforedestroy":function(obj){
+									alert("canot be closed!");
+									obj.show();	return false;
+								}}
+								});        
+		//win.show();
+		var obj={title:"Jdi",width:300,height:200,html:'just so easy!',renderTo:"first"};
+		var tab={width:400,height:200,items:[{title:"tab_1"},{title:"tab_2"},{title:"tab_3"}],renderTo:"second"};
+		var panel=new Ext.Panel(obj);
+		//panel.render("first"); 
+		var tabpanel=new Ext.TabPanel(tab);		
+		Ext.get("b").addListener("click",fn);
+		Ext.get("b").on("click",fn,this,{delay:1500});
+		win.on("beforedestroy",function(obj){	
+			//alert("cannt be closed!");
+			//obj.show();
+			//return false;
+		}); 
+	});
+	//Ext.onReady(fn);
+	function fn(){
+		alert("is ok ?");
+	}
+	window.onload=function(){
+//		document.getElementById("b").onclick=fn;
+	}
+ </script>
+ <BODY>
+  <div id="first"></div>
+    <div id="second"></div>
+	<input type="button" value="alert" id="b"/>
+ </BODY>
+</HTML>

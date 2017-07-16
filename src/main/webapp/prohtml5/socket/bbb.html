@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<head>
+<meta charset="utf-8"/> 
+<title>自测bbb</title>
+<link rel="stylesheet" href="styles.css"/>
+<script>
+var socket;
+var myId = Math.floor(100000 * Math.random());
+var rowCount = 0;
+
+function updateSocketStatus(message){
+	document.getElementById("socketStatus").innerHTML = message;
+}
+
+function updateGeolocationStatus(message){
+	document.getElementById("geoStatus").innerHTML = message;
+}
+
+function handleLocationError(error){
+	switch(error.code){
+	case 0:
+		updateStatus("获取位置信息出错：" + error.message);
+		break;
+	case 1:
+		updateStatus("用户拒绝共享位置信息。");
+		break;
+	case 2:
+		updateStatus("获取位置信息失败：" + error.message);
+		break;
+	case 3:
+		updateStatus("获取数据超时。");
+		break;
+	}
+}
+
+function checkSupport(){
+	if(window.WebSocket){
+		document.getElementById("support").innerHTML="恭喜，浏览器支持！";
+		url = "ws://localhost:8080";
+		socket = new WebSocket(url);
+		socket.onopen = function(){ 
+			 updateSocketStatus("已连接WebSocket服务器");
+		}
+		w.onmessage = function(e){
+			updateSocketStatus("收到位置更新：" + dataReturned(e.data));
+		}
+	}else{
+		document.getElementById("support").innerHTML="老兄，升级一下浏览器吧！";
+	} 
+}
+
+var geolocation;
+if(navigator.geolocation){
+	geolocation = navigator.geolocation;
+	updateGeolocationStatus("浏览器支持定位");
+}
+geolocation.watchPosition(updateLocation, handleLocationError, {maximumAge:20000});
+
+function updateLocation(position){
+	 var latitude = position.coords.latitude;
+	 var longitude = position.coords.longitude;
+	 var timestamp = position.timestamp;
+	 
+	 updateGeolocationStatus("位置发生改变：" + timestamp);
+	 
+	 var toSend = JSON.stringify([myId, latitude, longitude]);
+	 sendMyLocation(toSend);
+}
+
+function sendMyLocation(newLocation){
+	if(socket){
+		socket.send(newLocation);
+	}
+}
+
+function dataReturned(locationData){
+	var allData = JSON.parse(locationData);
+	var incomingId = allData[1];
+	var incomingLat = allData[2];
+	var incomingLong = allData[3];
+	
+	var incomingRow = document.getElementById(incomingId);
+	if(!incomingRow){
+		incomingRow = document.createElement("div");
+		incomingRow.setAttribute("id", incomingId);
+		incomingRow.userText = (incomingId == myId)? "我": "用户：" + rowCount;
+		rowCount++;
+		document.body.appendChild(incomingRow);
+	}
+	incomingRow.innerHTML = incomingRow.userText + "\\Lat:" + incomingLat + "\\Lon:" + incomingLong;
+	return incomingRow.userText;
+}
+</script>
+</head>
+
+<body onLoad="checkSupport()">
+<div id="support"></div>
+
+<h1>HTML5 WebSocket / Geolocation Tracker</h1>
+
+<div><strong>Geolocation</strong>: <p id="geoStatus">HTML5 Geolocation is <strong>not</strong> supported in your browser.</p></div>
+<div><strong>WebSocket</strong>: <p id="socketStatus">HTML5 Web Sockets are <strong>not</strong> supported in your browser.</p></div>
+</body>
+</html>

@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+
+<head>
+<meta charset="utf-8"/>
+<title>自试aaa</title>
+<script>
+function checkSupport(){
+	try{
+		document.createElement("canvas").getContext("2d");
+		document.getElementById("support").innerHTML="恭喜，浏览器支持！";
+	}catch(e){
+		document.getElementById("support").innerHTML="老兄，升级一下浏览器吧！";
+	}
+}
+// 页面加载，绑定监听事件
+//window.addEventListener("load", drawDiagonal, true);
+
+/*树干引用背景图
+var bark = new Image();
+bark.src = "bark.jpg";
+bark.onload = function(){
+	drawDiagonal();
+}*/
+
+var gravel = new Image();
+gravel.src = "gravel.jpg";
+gravel.onload = function(){
+	drawDiagonal();
+}
+
+function drawDiagonal(){
+	// 1，获取上下文
+	var canvas = document.getElementById("diagonal");
+	var context = canvas.getContext("2d");
+	
+	// 2，在上下文中执行动作(用绝对坐标来创建一条路径)
+	/* canvas第一个示例-绘制对角线
+	context.beginPath();
+	context.moveTo(70,140);
+	context.lineTo(140,70);
+	
+	// 3，将动作应用到上下文中(将这条线绘制到canvas上)
+	context.stroke();*/
+	
+    /* canvas第二个示例-绘制对角线
+	// 保存当前绘图状态
+	context.save();
+	
+	// 向右下方移动绘图上下文
+	context.translate(70, 140);
+	
+	// 以原点为起点，绘制与前面相同的线段
+	context.beginPath();
+	context.moveTo(0, 0);
+	context.lineTo(70, -70);
+	context.stroke();
+	
+	// 恢复原有的绘图状态
+	context.restore();*/
+	
+	/* canvas第三个示例-绘制树干*/
+	context.save();//保存以便后续使用 
+	context.translate(130, 250);// 平移
+	drawTree(context);// 画树
+	
+	// 缩放，绘制第二棵树
+	context.save();
+	context.translate(260, 500);
+	// 将第二棵数的宽高分别扩大至原来的两倍
+	context.scale(2, 2);
+	drawTree(context); 	
+} 
+function drawTree(context){
+	// 创建表现树冠的路径
+	createCanopyPath(context);
+		
+	/* canvas第四个示例-绘制曲线*/
+	context.save();//保存以便后续使用	
+	context.translate(-10,350);// 平移
+	// 绘制曲线
+	createCurve(context);
+}
+function createCurve(context){
+	context.beginPath();
+	
+	context.moveTo(0, 0); 
+	// 第一条曲线向右上方弯曲
+	context.quadraticCurveTo(170, -50, 260, -190);
+	// 第二条曲线向右下方弯曲
+	context.quadraticCurveTo(310, -250, 500, -250);
+	
+	// 描边样式
+	//context.strokeStyle = "#ffaa00";
+	// 背景图
+	context.strokeStyle = context.createPattern(gravel, "repeat");
+	
+	context.lineWidth = 25;
+	context.stroke();
+	
+	context.restore();
+}
+function createCanopyPath(context){
+	context.beginPath();
+	
+	context.moveTo(-25, -50);
+	context.lineTo(-10, -80);
+	context.lineTo(-20, -80);
+	context.lineTo(-5, -110);
+	context.lineTo(-15, -110);
+	
+	// 树的顶点
+	context.lineTo(0, -140);
+	
+	context.lineTo(15, -110);
+	context.lineTo(5, -110);
+	context.lineTo(20, -80);
+	context.lineTo(10, -80);
+	context.lineTo(25, -50);
+	
+	// 连接起点，闭合路径
+	context.closePath();	
+	
+	// 描边样式
+	context.lineWidth = 4; // 线宽
+	context.lineJoin = "bevel"; // 线段的连接方式
+	context.strokeStyle = "#ff99aa";// 线条的颜色
+    // context.lineCap = "square";// 线条末端的样式
+	// 绘制当前路径
+	context.stroke();
+	
+	// 填充样式
+	context.fillStyle = "#339900";// 填充色
+	context.fill();// 填充
+	
+	// 填充矩形区域
+	//context.fillStyle = "#66ff00";
+	//context.fillRect(-5, -50, 10, 50);
+	
+	// 在canvas中插入图片
+	//context.drawImage(bark, -5, -50, 10, 50);
+	
+	// 渐变：1，创建渐变对象，2-为渐变对象设置颜色，指明过渡方式，3-为描边样式或渐变样式设置渐变
+	// 树干纹理的三阶 水平渐变
+	var trunkGradient = context.createLinearGradient(-5, -50, 5, -50);
+	// 左侧边缘是一般程度棕色
+	trunkGradient.addColorStop(0, "#663300");
+	// 中间偏左颜色稍淡一些
+	trunkGradient.addColorStop(0.4, "#aa6600");
+	// 右侧边缘颜色深一些
+	trunkGradient.addColorStop(1, "#553300");
+	// 使用渐变色填充树干
+	context.fillStyle = trunkGradient;
+	context.fillRect(-5, -50, 10, 50);
+	
+	// 垂直渐变，树冠在树干上投影
+	var canopyShadow = context.createLinearGradient(0, -50, 0, 0);
+	// 投影渐变的起点是透明度设为50%的黑色
+	canopyShadow.addColorStop(0, "rgba(0, 0, 0, 0.5)");
+	// 方向垂直向下，渐变色在很短的距离内迅速渐变至完全透明，这段长度之外的树干上没有投影
+	canopyShadow.addColorStop(0.3, "rgba(0, 0, 0, 0.0)");
+	// 在树干上填充投影渐变
+	context.fillStyle = canopyShadow;
+	context.fillRect(-5, -50, 10, 50);
+	
+	context.restore();
+}
+</script>
+</head>
+<body onLoad="checkSupport();">
+<div id="support"></div>
+<canvas id="diagonal" width="400" height="600" style="border:1px solid;"></canvas>
+</body>
+</html>

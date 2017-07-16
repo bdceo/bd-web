@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+
+<head>
+<meta charset="utf-8"/>
+<title>自试bbb</title>
+<script>
+function checkSupport(){
+	try{
+		document.createElement("canvas").getContext("2d");
+		document.getElementById("support").innerHTML="恭喜，浏览器支持！";
+	}catch(e){
+		document.getElementById("support").innerHTML="老兄，升级一下浏览器吧！";
+	}
+}
+// 页面加载，绑定监听事件
+//window.addEventListener("load", drawDiagonal, true);
+ 
+var gravel = new Image();
+gravel.src = "gravel.jpg";
+gravel.onload = function(){
+	drawDiagonal();
+}
+
+/* 图片旋转 */
+var rlake = new Image();
+rlake.src = "lake.jpg";
+rlake.onload = function(){
+	//imageRotateTest();
+}
+function imageRotateTest(){
+	var canvas = document.getElementById("diagonal");
+	var context = canvas.getContext("2d");
+	context.save();
+	context.rotate(0.2);
+	context.drawImage(rlake, 0, 0, 220, 220);
+	context.restore();
+}
+
+function drawDiagonal(){
+	// 1，获取上下文
+	var canvas = document.getElementById("diagonal");
+	var context = canvas.getContext("2d");
+	
+	/* canvas第三个示例-绘制树干*/
+	context.save();//保存以便后续使用 
+	context.translate(130, 250);// 平移
+	drawTree(context);// 画树
+	
+	// 缩放，绘制第二棵树
+	context.save();
+	context.translate(260, 500);
+	// 将第二棵数的宽高分别扩大至原来的两倍
+	context.scale(2, 2);
+	drawTree(context); 
+	
+	createCurve(context);	
+	
+	drawText(context);
+} 
+function drawText(context){
+	context.save();
+	
+	context.font = "45px impact";// 字体大小
+	context.fillStyle = "#996600";
+	context.textAlign = "center";
+	// 应用阴影
+	// 黑色，30%透明
+	context.shadowColor = "rgba(0, 0, 0, 0.3)";
+	// 将阴影向上移动10px，向右移动15px
+	context.shadowOffsetX = 15;
+	context.shadowOffsetY = -10;
+	// 轻微模糊阴影
+	context.shadowBlur = 2;
+	// 文本
+	context.fillText("HTML5-Canvas", 200, 60, 400);
+	
+	context.restore();
+}
+function drawTree(context){
+	context.save();
+	
+	// canvas - 变换
+	// x值随着y值的增加而增加，借助拉伸变换，可以创建一棵用作阴影的倾斜的树
+	context.transform(1, 0, -0.5, 1, 0, 0);	
+	// y轴方向，将阴影的高度压缩为原来的60&%
+	context.scale(1, 0.6);	
+	// 使用透明度为20%的黑色填充树干
+	context.fillStyle = "rgba(0, 0, 0, 0.2)";
+	context.fillRect(-5, -50, 10, 50);
+	
+	// 创建表现树冠的路径
+	createCanopyPath(context);	
+	context.fill();
+	
+	context.restore();
+	
+	var trunkGradient = context.createLinearGradient(-5, -50, 5, -50);
+	// 左侧边缘是一般程度棕色
+	trunkGradient.addColorStop(0, "#663300");
+	// 中间偏左颜色稍淡一些
+	trunkGradient.addColorStop(0.4, "#aa6600");
+	// 右侧边缘颜色深一些
+	trunkGradient.addColorStop(1, "#553300");
+	// 使用渐变色填充树干
+	context.fillStyle = trunkGradient;
+	context.fillRect(-5, -50, 10, 50);
+	
+	// 垂直渐变，树冠在树干上投影
+	var canopyShadow = context.createLinearGradient(0, -50, 0, 0);
+	// 投影渐变的起点是透明度设为50%的黑色
+	canopyShadow.addColorStop(0, "rgba(0, 0, 0, 0.5)");
+	// 方向垂直向下，渐变色在很短的距离内迅速渐变至完全透明，这段长度之外的树干上没有投影
+	canopyShadow.addColorStop(0.3, "rgba(0, 0, 0, 0.0)");
+	// 在树干上填充投影渐变
+	context.fillStyle = canopyShadow;
+	context.fillRect(-5, -50, 10, 50);
+	
+	createCanopyPath(context);	
+	
+	context.lineWidth = 4;
+	context.lineJoin = 'round';
+	context.strokeStyle = '#663300';
+	context.stroke();
+
+	context.fillStyle = '#339900';
+	context.fill();
+	
+	context.restore();
+}
+function createCanopyPath(context){
+	context.beginPath();
+	
+	context.moveTo(-25, -50);
+	context.lineTo(-10, -80);
+	context.lineTo(-20, -80);
+	context.lineTo(-5, -110);
+	context.lineTo(-15, -110);
+	
+	// 树的顶点
+	context.lineTo(0, -140);
+	
+	context.lineTo(15, -110);
+	context.lineTo(5, -110);
+	context.lineTo(20, -80);
+	context.lineTo(10, -80);
+	context.lineTo(25, -50);
+	
+	// 连接起点，闭合路径
+	context.closePath();	
+}
+function createCurve(context){
+	context.save();
+	context.translate(-10, 350);
+	
+	context.beginPath();	
+	context.moveTo(0, 0);
+	// 第一条曲线向右上方弯曲
+	context.quadraticCurveTo(170, -50, 260, -190);
+	// 第二条曲线向右下方弯曲
+	context.quadraticCurveTo(310, -250, 500, -250);
+	
+	// 背景图
+	context.strokeStyle = context.createPattern(gravel, "repeat");
+	context.lineWidth = 20;
+	context.stroke();
+	
+	context.restore();
+}
+</script>
+</head>
+<body onLoad="checkSupport();">
+<div id="support"></div>
+<canvas id="diagonal" width="400" height="600" style="border:1px solid;"></canvas>
+</body>
+</html>

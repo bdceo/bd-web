@@ -1,0 +1,20 @@
+/* CSS Document */
+body{
+     background-color:#9ACDCD; 
+}
+div{
+    display: -moz-box;
+    display: -webkit-box;    
+    -moz-box-pack:center;
+    -webkit-box-pack:center;
+    width:100%;
+}
+ul{
+    display: -moz-box;
+    display: -webkit-box;
+    list-style:none;
+    list-style-image: url(side.gif);
+}
+li{
+    width:100px;
+}

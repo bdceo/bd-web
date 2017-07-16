@@ -1,0 +1,46 @@
+<html>
+	<head>
+		<title>Search Suggest</title>
+		<style type="text/css" media="screen">
+body {
+	font: 11px arial;
+}
+
+.suggest_link {
+	background-color: #FFFFFF;
+	padding: 2px 6px 2px 6px;
+}
+
+.suggest_link_over {
+	background-color: #E8F2FE;
+	padding: 2px 6px 2px 6px;
+}
+
+#search_suggest {
+	position: absolute;
+	background-color: #FFFFFF;
+	text-align: left;
+	border: 0px solid #000000;
+	left: 392px;
+}
+</style>
+		<script language="JavaScript" type="text/javascript"
+			src="ajax_search.js"></script>
+	</head>
+	<body>
+		<center>
+			<h2>
+				Search Suggest
+			</h2>
+			<form id="frmSearch" action="">
+				<input type="text" id="txtSearch" name="txtSearch"
+					alt="Search Criteria" onkeyup="searchSuggest();" autocomplete="off" />
+				<input type="submit" id="cmdSearch" name="cmdSearch" value="Search"
+					alt="Run Search" />
+				<br />
+			</form>
+			<div id="search_suggest">
+			</div>
+		</center>
+	</body>
+</html>

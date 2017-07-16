@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<head>
+<meta charset="utf-8"/> 
+<title>自测bbb</title>
+<script>
+function saveStorage(id){
+	var data = document.getElementById(id).value;
+	var time = new Date().getTime();
+	localStorage.setItem(time, data);
+	console.log("数据以保存");
+	loadStorage("msg");
+}
+function loadStorage(id){
+	var result = "<table border='1'>";
+	for(var i=0; i<localStorage.length; i++){
+		var key = localStorage.key(i);
+		var value = localStorage.getItem(key);
+		var date = new Date();
+		date.setTime(key);
+		var dateStr = date.toGMTString();
+		result += "<tr><td>" + value + "</td><td>" + dateStr + "</td></tr>";
+	}
+	result += "</table>";
+	var target = document.getElementById(id);
+	target.innerHTML = result;
+}
+function clearStorage(id){
+	localStorage.clear();
+	console.log("全部数据已清空");
+	loadStorage(id)
+}
+</script>
+</head>
+
+<body>
+<h1>简单Web留言本</h1>
+<textarea id="memo" cols="60" rows="10"></textarea><br>
+<input type="button" value="追加" onclick="saveStorage('memo');">
+<input type="button" value="初始化" onclick="clearStorage('msg');">
+<hr>
+<p id="msg"></p>
+</body>
+</html>

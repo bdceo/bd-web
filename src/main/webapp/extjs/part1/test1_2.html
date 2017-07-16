@@ -1,0 +1,41 @@
+<HTML>
+ <HEAD>
+  <TITLE> New Document </TITLE> 
+  <link rel="stylesheet" type="text/css" href="/jslib/extjs/resources/css/ext-all.css" />
+  <script src="/jslib/extjs/adapter/ext/ext-base.js"></script>  
+  <script src="/jslib/extjs/ext-all.js"></script>
+ </HEAD>
+ <script type="text/javascript">
+	Ext.onReady(function(){
+		new Ext.Panel({
+			renderTo:"first",
+			title:"head part",
+			width:300,
+			height:200,
+			html:'<h2>the main part</h2>',
+			tools:[{id:"save"},{id:"close"},{id:"help",handler:function(){
+				Ext.Msg.alert("help","Please help me!");}
+				}],
+			tbar:[new Ext.Toolbar.TextItem('tool bar:'),				  
+				  {xtype:"tbfill"},
+				  {text:"save",pressed:true},
+				  {xtype:"tbseparator"},
+				  {text:"submit",pressed:true}],
+			bbar:[{text:"bottom tool bar"}],
+			buttons:[{text:"the button at bottom"}]
+		});
+		new Ext.Viewport({	
+			enableTabScroll:true,
+			layout:"border",
+			items:[{title:"Panel",region:"north",height:50,html:"<h2>XXX manager System</h2>"},
+				   {title:"Menu",region:"west",width:200,collapsible:true,html:"menus"},
+				   {xtype:"tabpanel",region:"center",items:[{title:"tab_1"},{title:"tab_2"}]
+				   }]
+			});
+	});
+ </script>
+ <BODY>
+   <div id="first"></div>
+   <div id="second"></div>
+ </BODY>
+</HTML>

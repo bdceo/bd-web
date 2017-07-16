@@ -1,0 +1,34 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=gbk">
+        <title>Untitled Document</title>
+    </head>
+    <script language="javascript"> 
+    	var h = 0, m = 0, s = 0;
+    	function testTimeOut(){
+    		s++;
+    		if(s == 60){
+    			m++;
+    			s = 0;
+    		}
+    		if(m == 60){
+    			m = 0;
+    			h++;
+    		}
+    		//alert("你好：" + (new Date()).getSeconds());
+    		//document.write("你好："+ (new Date()).getSeconds());
+    		document.sdf.name.value=h + "小时" + m + "分" + s +"秒";
+    	    window.setTimeout("testTimeOut();",1000);
+    	}
+    </script>
+    <body onload="testTimeOut()">
+    	<form name="sdf" action="http://www.google.cn"> 
+    		<input type="text" name="name" id="name">
+			<br/>
+			<input type="radio" name="sex" value="男">男，
+			<input type="radio" name="sex" value="女">女
+			<input type="button" name="btn" onclick="dis();" value="kankan">
+    	</form>
+    </body>
+</html>

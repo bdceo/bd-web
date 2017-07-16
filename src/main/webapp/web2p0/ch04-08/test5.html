@@ -1,0 +1,30 @@
+<html>
+	<head>
+		<title>test</title>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+		<script type="text/javascript">
+	 function sendRequest(){
+	 	var xhr=init();
+	 	function init(){
+	 		if(window.XMLHttpRequest){
+	 			return new XMLHeepRequest();
+	 		}else if(window.ActiveXObject){
+	 			return new ActiveXObject("Microsoft.XMLHTTP");
+	 		}
+	 	}
+	 }	 
+	 function te(){
+	 	alert(document.getElementById("cid").value);
+	 	alert(document.forms["validateForm"].elements["cid"].value);
+	 }
+</script>
+	</head>
+	<body onLoad="te()">
+		<form action="validateServlet" name="validateForm" method="post">
+			CategoryId:
+			<input type="text" id="cid" onkeyup="sendRequest()" value="hello">
+			<br>
+			<div id="dis"></div>
+		</form>
+	</body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<head>
+<meta charset="utf-8"/> 
+<title>自测aaa</title>
+<script>
+	var v1 = document.getElementById("v1");
+	// 读取媒体数据出错信息
+	v1.addEventListener("error", function(){
+		var err = video.error;
+		switch(err.code){
+			case 1:
+				alert("视频下载过程被终止");
+				break;
+			case 2:
+				alert("网络故障，下载失败");
+				break;
+			case 1:
+				alert("解码出错");
+				break;
+			case 1:
+				alert("不支持的视频格式");
+				break;
+		}
+	}, false);
+	// 读取网络状态
+	v1.addEventListener("progress", function(e){
+		var nsd = document.getElementById("nsd");
+		if(v1.networkState == 2){
+			nsd.innerHTML = "加载中...[" + e.loaded + "/" + t.total + " byte";
+		}else if(v1.networkState == 3){
+			nsd.innerHTML = "加载失败";
+		}
+	}, false);
+</script>
+</head>
+
+<body>
+ <video id="v1" src="tets.ogv"/>
+ <div id="nsd" />
+</body>
+</html>

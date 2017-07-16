@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<head>
+<meta charset="utf-8" />
+<title>自测bbb</title>
+<style type="text/css"></style>
+<script>
+	function fun() {
+		// 原型链模拟实现
+		function SuperType() {
+			this.property = true;
+		}
+		SuperType.prototype.getSuperValue = function() {
+			return this.property;
+		};
+
+		function SubType() {
+			this.subProperty = false;
+		}
+		SubType.prototype = new SuperType();
+		SubType.prototype.getSubValue = function() {
+			return this.subProperty;
+		}
+
+		var ins = new SubType();
+		console.log("getSuperValue = " + ins.getSuperValue());
+		console.log("Object = " + (ins instanceof Object));
+		console.log("SuperType = " + (ins instanceof SuperType));
+		console.log("SubType = " + (ins instanceof SubType));
+		console.log("Object = " + (Object.prototype.isPrototypeOf(ins)));
+		console.log("SuperType = " + (SuperType.prototype.isPrototypeOf(ins)));
+		console.log("SubType = " + (SubType.prototype.isPrototypeOf(ins)));
+	}
+	function fun1() {
+		// 原型链的问题：引用类型，无法传递参数
+		function SuperType() {
+			this.colors = [ "red", "blue" ];
+		}
+		SuperType.prototype.dis = function() {
+			console.log(new Date().toLocaleString());
+		};
+		function SubType() {
+		}
+		SubType.prototype = new SuperType();
+		var ins = new SubType();
+		ins.colors.push("white");
+		console.log(ins.colors);
+		var ins2 = new SubType();
+		console.log(ins2.colors);
+
+		// 借用构造函数
+		function SubType2() {
+			SuperType.call(this);// 继承
+		}
+		ins = new SubType2();
+		ins.colors.push("white");
+		console.log(ins.colors);
+		var ins2 = new SubType2();
+		console.log(ins2.colors);
+		//ins2.dis();// 不可见，因为只是调用了超类的构造函数，原型方法，无法继承
+	}
+	// 组合继承
+	function fun2() {
+		function SuperType(name) {
+			this.name = name;
+			this.colors = [ "blue", "red" ];
+		}
+		SuperType.prototype.sayName = function() {
+			console.log("my name is " + this.name);
+		};
+		function SubType(name, age) {
+			SuperType.call(this, name);
+			this.age = age;
+		}
+		SubType.prototype = new SuperType();
+		SubType.prototype.sayAge = function() {
+			console.log(" and i'm " + this.age + " years old.");
+		};
+		var ins1 = new SubType("bdceo", 24);
+		ins1.colors.push("yellow");
+		console.log(ins1.colors);
+		ins1.sayName();
+		ins1.sayAge();
+		var ins2 = new SubType("bdcoo", 30);
+		console.log(ins2.colors);
+		ins2.sayName();
+		ins2.sayAge();
+	}
+	// 原型式继承
+	function fun3() {
+		var person = {
+			name : "bdceo",
+			friends : [ "bdcoo", "bdcfo" ]
+		};
+		var p1 = object(person);
+		p1.name = "bdceo@qq.com";
+		p1.friends.push("bdcto");
+		console.log(p1.name);
+
+		var p2 = object(person);
+		p2.name = "bdceo@foxmail.com";
+		p2.friends.push("bdcmo");
+		console.log(p2.name);
+
+		console.log(person.friends);
+	}
+	function object(o) {
+		function F() {
+		}
+		F.prototype = o;
+		return new F();
+	}
+	function createAnother(original) {
+		var clone = object(original);
+		// 内部增强
+		clone.sayHi = function() {
+			console.log("Hi");
+		};
+		return clone;
+	}
+	// 寄生式继承
+	function fun4() {
+		var person = {
+			name : "bdceo",
+			friends : [ "bdcoo", "bdcfo" ]
+		};
+		var p1 = createAnother(person);
+		p1.sayHi();
+	}
+	function inheritPrototype(subType, superType) {
+		/* 参考：http://www.ruanyifeng.com/blog/2010/05/object-oriented_javascript_inheritance.html
+		var F = function(){}
+		F.prototype = superType.prototype;
+		subType.prototype = new F();
+		subType.prototype.constructor = subType;
+		subType.uber = superType.prototype;*/
+		// 创建父类对象副本
+		var prototype = object(superType.prototype);
+		// 子类构造函数引用自己
+		prototype.constructor = subType;
+		// 子类原型指向父类,实现继承
+		subType.prototype = prototype;
+	}
+	// 寄生组合式继承
+	function fun5() {
+		function SuperType(name) {
+			this.name = name;
+			this.colors = [ "blue", "red" ];
+		}
+		SuperType.prototype.sayName = function() {
+			console.log("my name is " + this.name);
+		};
+
+		function SubType(name, age) {
+			SuperType.call(this, name);
+			this.age = age;
+		}
+
+		inheritPrototype(SubType, SuperType);
+
+		SubType.prototype.sayAge = function() {
+			console.log(" and i'm " + this.age + " years old.");
+		};
+
+		var ins1 = new SubType("bdceo", 24);
+		ins1.colors.push("yellow");
+		console.log(ins1.colors);
+		ins1.sayName();
+		ins1.sayAge();
+
+		var ins2 = new SubType("bdcoo", 30);
+		console.log(ins2.colors);
+		ins2.sayName();
+		ins2.sayAge();
+	}
+</script>
+</head>
+<body>
+	<br />
+	<input type="button" onclick="fun()" value="fun()">
+	<br />
+	<input type="button" onclick="fun1()" value="fun1()">
+	<br />
+	<input type="button" onclick="fun2()" value="fun2()">
+	<br />
+	<input type="button" onclick="fun3()" value="fun3()">
+	<br />
+	<input type="button" onclick="fun4()" value="fun4()">
+	<br />
+	<input type="button" onclick="fun5()" value="fun5()">
+</body>
+</html>

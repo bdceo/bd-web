@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<title>small fruit machine</title>
+	<link href="css/css.css" rel="stylesheet" type="text/css" />
+	<script type="text/javascript" src="js/jquery.min.js"></script> 
+	<script type="text/javascript" src="js/fruit.js"></script>
+</head>
+<body onLoad="init();">
+<div class="main">
+<div class="head">
+<p>水果机小游戏</p>
+</div>
+<div class="center">
+<table width="400">
+  <tr bordercolor="#FFFFFF">
+    <td><img src="images/shuoguo_53.png" id="i0"/></td>
+    <td><img src="images/shuoguo_60.png" id="i1"/></td>
+    <td><img src="images/shuoguo_55.png" id="i2"/></td>
+    <td><img src="images/shuoguo_57.png" id="i3"/></td>
+    <td style="border-right:0px"><img src="images/shuoguo_50.png" id="i4"/></td>
+  </tr>
+  <tr>
+    <td><img src="images/shuoguo_57.png" id="i19"/></td>
+    <td colspan="3" style=" text-align:center; padding-left:72px; border-bottom:0px;"><img src="images/shuoguo_26.png"/></td>
+    <td style="border-right:0px"><img src="images/shuoguo_60.png" id="i5"/></td>
+  </tr>
+  <tr>
+    <td><img src="images/shuiguo_73.png" id="i18"/></td>
+    <td colspan="3" rowspan="2" style=" padding-left:60px; vertical-align:top; padding-top:25px; border-bottom:0px"><img src="images/shuoguo_33.png" onclick="startRolling();"/></td>
+    <td style="border-right:0px"><img src="images/shuoguo_57.png" id="i6"/></td>
+  </tr>
+  <tr>
+    <td><img src="images/shuiguo_76.png" id="i17"/></td>
+    <td colspan="3" style=" border-right:0px;"><img src="images/shuoguo_53.png" id="i7"/></td>
+  </tr>
+  <tr>
+    <td><img src="images/shuoguo_53.png" id="i16"/></td>
+    <td colspan="3" style="border-bottom:0px;">&nbsp;</td> 
+    <td style="border-right:0px"><img src="images/shuiguo_70.png" id="i8"/></td>
+  </tr>
+  <tr>
+    <td><img src="images/shuoguo_50.png" id="i15"/></td>
+    <td colspan="3">&nbsp;</td>
+    <td style="border-right:0px"><img src="images/shuoguo_53.png" id="i9"/></td>
+  </tr>
+  <tr>
+    <td><img src="images/shuoguo_60.png" id="i14"/></td>
+    <td><img src="images/shuoguo_55.png" id="i13"/></td>
+    <td><img src="images/shuoguo_53.png" id="i12"/></td>
+    <td><img src="images/shuoguo_55.png" id="i11"/></td>
+    <td style="border-right:0px"><img src="images/shuoguo_60.png" id="i10"/></td>
+  </tr>
+</table>
+</div>
+<div class="defen">
+	<form action="" method="get">
+    <p style="padding-top:20px;">
+    <h2>得分:</h2>
+    <p><input id="winScore" value="" type="text" class="btn1"/></p>
+    </p>
+    <p style="clear:both; padding-top:30px;">
+    <h2>总分:</h2>
+    <p><input id="totalScore" value="" type="text" class="btn2"/></p>
+    </p></form>
+</div>
+<div class="bottom">
+<ul>
+<li><input id="e0" type="text" value="0" class="ib"/>x5</li>
+<li><input id="e1" type="text" value="0" class="ib"/>x10</li>
+<li><input id="e2" type="text" value="0" class="ib"/>x15</li>
+<li><input id="e3" type="text" value="0" class="ib"/>x20</li>
+<li style="clear:both;"><img src="images/shuoguo_53.png" onclick="addBet(0);"/></li>
+<li><img src="images/shuoguo_60.png" onclick="addBet(1);"/></li>
+<li><img src="images/shuoguo_55.png" onclick="addBet(2);"/></li>
+<li><img src="images/shuoguo_57.png" onclick="addBet(3);"/></li>
+<li style=" clear:both;"><input id="e4" type="text" value="0" class="ib"/>x25</li>
+<li><input id="e5" type="text" value="0" class="ib"/>x30</li>
+<li><input id="e6" type="text" value="0" class="ib"/>x40</li>
+<li><input id="e7" type="text" value="0" class="ib"/>x50</li>
+<li style="clear:both;"><img src="images/shuoguo_50.png" class="imgSel" onclick="addBet(4);"/></li>
+<li><img src="images/shuiguo_70.png" onclick="addBet(5);"/></li>
+<li><img src="images/shuiguo_73.png" onclick="addBet(6);"/></li>
+<li><img src="images/shuiguo_76.png" onclick="addBet(7);"/></li>
+</ul>
+</div>
+</div> 
+<audio id="media">
+    <source src="arrp.wav">
+  </audio>
+</body>
+</html>

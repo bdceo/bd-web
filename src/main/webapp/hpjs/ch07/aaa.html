@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<head>
+<meta charset="utf-8" />
+<title>自测aaa</title>
+<style type="text/css"></style>
+<script>
+	// Ajax -XHR
+	function fun() {
+		var url = '/server.jsp';
+		var params = [ 'id=4', 'name=bdceo' ];
+		var req = new XMLHttpRequest();
+		req.onreadystatechange = function() {
+			if (req.readyState === 4) {
+				var responseHeaders = req.getAllResponseHeaders();// 返回数据头
+				var data = req.responseText();// 返回数据
+			}
+		};
+		req.onerror = function() {
+			setTimeout(function() {
+				fun();// 失败重发
+			}, 1000);
+		};
+		req.open('GET', url + '?' + params.join('&'), true);// 请求地址
+		req.setRequestHeaders('X-Requested-With', 'XMLHttpRequest');// 请求头
+		req.send(null);// 发送请求
+	}
+	// 动态脚本注入
+	function fun1() {
+		var sptEle = document.createElement("script");
+		sptEle.src = "http://other-domain.com/js/server.js";
+		document.getElementsByTagName("header")[0].appendChild(sptEle);
+
+	}
+	function jsonBack(jsonData) {
+		var data = eval('(' + jsonData + ')');
+		// 处理数据
+	}
+	// Beacons - 信标
+	function fun2() {
+		var url = '/bdh5/server.jsp';
+		var params = [ "step=2", "time=12332221212" ];
+		var beacon = new Image();
+		beacon.src = url + '?' + params.join('&');
+		beacon.onload = function() {
+			console.log("back ok!");
+		};
+		beacon.onerror = function() {
+			console.log("error");
+		};
+	}
+	function parseXml(data) {
+		var users = [];
+		var usersNode = data.getElementsByTagName("users");
+		var len = 0;
+		if (usersNode && usersNode[0]) {
+			len = usersNode.getAttribute("total");
+			var userNodes = data.getElementsByTagName("user");
+			var node, usernameNodes, usernameNode, username, realnameNodes, realnameNode, realname, emailNodes, emailNode, email;
+			for ( var i = 0; i < len; i++) {
+				node = userNodes[i];
+				username = realname = email = "";
+
+				usernameNodes = node.getElementsByTagName("username");
+				if (usernameNodes && usernameNodes[0]) {
+					usernameNode = usernameNodes[0];
+					username = (usernameNode.firstChild) ? usernameNode.firstChild.nodeValue
+							: '';
+				}
+
+				realnameNodes = node.getElementsByTagName("realname");
+				if (realnameNodes && realnameNodes[0]) {
+					realnameNode = realnameNodes[0];
+					realname = (realnameNode.firstChild) ? realnameNode.firstChild.nodeValue
+							: '';
+				}
+
+				emailNodes = node.getElementsByTagName("email");
+				if (emailNodes && emailNodes[0]) {
+					emailNode = emailNodes[0];
+					email = (emailNode.firstChild) ? emailNode.firstChild.nodeValue
+							: '';
+				}
+				users[i] = {
+					id : node.getAttribute("id"),
+					username : username,
+					realname : realname,
+					email : email
+				};
+			}
+		} else {
+			console.log("data is null");
+		}
+		return users;
+	}
+	function parseXml2(data) {
+		var users = [];
+		var userNodes = data.getElementsByTagName("user");
+		for ( var i = 0, len = userNodes.length; i < len; i++) {
+			var node = userNodes[i];
+			users[i] = {
+				id : node.getAttribute('id'),
+				username : node.getAttribute('username'),
+				realname : node.getAttribute('realname'),
+				email : node.getAttribute('email')
+			};
+		}
+		return users;
+	}
+	function parseJson(data) {
+		// 解析数组形式的Json
+		var usres = [];
+		var usersArray = eval('(' + data + ')');
+		for ( var i = 0, len = usersArray.length; i < len; i++) {
+			users[i] = {
+				id : usersArray[i][0],
+				username : usersArray[i][1],
+				realname : usersArray[i][2],
+				email : usersArray[i][3]
+			}
+		}
+		return users;
+	}
+</script>
+</head>
+<body onload="fun2();">
+	<h1>2012</h1>
+</body>
+</html>

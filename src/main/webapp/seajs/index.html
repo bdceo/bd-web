@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Sea.js 测试</title>
+<script type="text/javascript" src="./sea.js"></script>
+<script type="text/javascript">
+	seajs.config({
+		base : "./modules/",
+		alias : {
+			"jquery" : "jquery-1.4.4.min.js",
+			"bdu" : "bdutils.js"
+		}
+	});
+
+	// 相当于是加载页面的入口模块
+	seajs.use("./apps/main");
+
+	// 加载模块后执行回调
+	seajs.use('./apps/index', function(idx) {
+		idx.init();
+	});
+</script>
+
+</head>
+<body>
+	<div id="hello">hello SeaJS by bdceo</div>
+	<p class="check_buy" id="1"><span>bdceo</span></p>
+	<p class="check_buy" id="2"><span>bdcfo</span></p>
+	<p class="check_buy" id="3"><span>bdcto</span></p>
+	
+	<hr/>
+	
+	<a href="#" class="show" id="show_1" gid="1">打开</a>
+	<a href="#" class="hide" id="hide_1" gid="1">关闭</a>
+	
+</body>
+</html>

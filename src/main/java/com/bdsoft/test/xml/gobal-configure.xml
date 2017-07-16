@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sys-configure>
+	<jdbc-info>
+		<driver-class-name>
+			oracle.jdbc.driver.OracleDriver
+		</driver-class-name>
+		<urls>jdbc:oracle:thin:@127.168.1.101:1521:jdi</urls>
+		<user-name>scott</user-name>
+		<password>tiger</password>
+	</jdbc-info>
+	<beans>
+		<bean id="ajaxDao" class="com.code.dao.AjaxDao" />
+		<bean id="dwrDao" class="com.code.dao.DwrDao" />
+	</beans>
+</sys-configure>

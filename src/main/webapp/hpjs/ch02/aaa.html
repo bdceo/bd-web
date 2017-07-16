@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<head>
+<meta charset="utf-8"/> 
+<title>自测aaa</title>
+<style type="text/css"></style>
+<script>
+function fun1(){
+	var bd = document.body,
+		links = document.getElementsByTagName("a"),
+		i = 0,
+		len = links.length;
+	while(i < len){
+		update(links[i++]);
+	}
+	document.getElementById("go-btn").onclick = function(){
+		start();
+	};
+	bd.className = "active";
+		
+}
+// 如果某个跨域的值在函数中被引用一次以上，那么就把它存储到局部变量里（尽可能的使用局部变量）
+function fun2(){
+	var doc = document,
+		bd = doc.body,
+		links = doc.getElementsByTagName("a"),
+		i = 0,
+		len = links.length;
+	while(i < len){
+		start();
+	}
+	doc.getElementById("btn-go").onclick = function(){
+		start();
+	};
+	bd.className = "active";
+}
+// with:引起作用域链被临时改变，顶部的是指定参数对象的所有属性
+function fun3(){
+	with(document){
+		var bd =  body,
+			links = getElementsByTagName("a"),
+			i = 0,
+			len = links.length;
+		while(i < len){
+			start();
+		}
+		getElementById("btn-go").onclick = function(){
+			start();
+		};
+		bd.className = "active";
+	}
+}
+// try-catch:执行到catch，作用域链被临时改变，异常对象被放在作用域链顶部
+function fun4(){
+	try{
+		var r = 1/0;
+	}catch(e){
+		handleError(e);// 委托给其他方法处理
+	}
+}
+</script>
+</head>
+<body>
+</body>
+</html>

@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<head>
+<meta charset="utf-8" />
+<title>自测aaa</title>
+<style type="text/css"></style>
+<script>
+	function fun() {
+		console.log(client.engine.ver);
+	}
+	//能力检测
+	function getElement(id) {
+		if (document.getElementById) {
+			return document.getElementById(id);
+		} else if (document.all) {
+			return document.all[id];
+		} else {
+			throw new Error("Not support!");
+		}
+	}
+	// 浏览器检测
+	var client = function() {
+		// 浏览器内核
+		var engine = {
+			ie : 0,
+			gecko : 0,
+			webkit : 0,
+			khtml : 0,
+			opera : 0,
+			// 完整的版本号
+			ver : null
+		};
+		// 浏览器
+		var browser = {
+			ie : 0,
+			firefox : 0,
+			konq : 0,
+			opera : 0,
+			chrome : 0,
+			safari : 0,
+			// 具体的版本号
+			ver : null
+		};
+		// 平台，设备，操作系统
+		var system = {
+			win : false,
+			mac : false,
+			xll : false,
+			// 移动设备
+			iphone : false,
+			ipod : false,
+			nokiaN : false,
+			winMObile : false,
+			macMobile : false,
+			// 游戏系统
+			wii : false,
+			ps : false
+		};
+		
+		// 检测浏览器内核及版本信息
+		var ua = navigator.userAgent;
+		if(window.opera){// opera
+			engine.ver = browser.ver = window.opera.version();
+			engine.opera = browser.opera = parseFloat(engine.ver);
+		}else if(/AppleWebkit\/(\S+)/.test(ua)){
+			engine.ver = RegExp["$1"];
+			engine.webkit = parseFloat(engine.ver);
+			
+			// 确实是Chrome还是Safair
+			if(/Chrome\/(\S+)/.test(ua)){
+				browser.ver = RegExp["$1"];
+				browser.chrome = parseFloat(browser.ver);
+			}else if(/Version\/(\S+)/.test(ua)){
+				browser.ver = RegExp["$1"];
+				browser.safari = parseFloat(browser.ver);
+			}else{
+				var safariVer = 1;
+				if(engine.webkit <100){
+					safariVer = 1;
+				}else if(engine.webkit < 312){
+					safariVer = 1.2;
+				}else if(engine.webkit < 412){
+					safariVer = 1.3;
+				}else{
+					safariVer = 2;
+				}
+				browser.safari = browser.ver = safariVer;
+			}
+		}else if(/KHTML\/(\S+)/.test()||/Konqueror\/([]^;]+)/.test(ua)){
+			engine.ver = browser.ver = RegExp["$1"];
+			engine.khtml = browser.konq = parseFloat(engine.ver);
+		}else if(/rv:([^\)]+)\) Gecko\/\d{8}/.test(ua)){
+			engine.ver = RegExp["$1"];
+			engine.gecko = parseFloat(engine.ver);
+			// 确定是不是FireFox
+			if(/Firefox\/(\S+)/.test(ua)){
+				browser.ver = RegExp["$1"];
+				browser.firefox = parseFloat(browser.ver);
+			}
+		}else if(/MSIE ([^;]+)/.test(ua)){
+			engine.ver = browser.ver = RegExp["$1"];
+			engine.ie = browser.ie = parseFloat(engine.ver);
+		}
+		
+		// 检测平台
+		ver p = navigator.platform;
+		system.win = p.indexOf("Win") == 0;
+		system.mac = p.indexOf("Mac") == 0;
+		system.xll = (p == "Xll")||(p.indexOf("Linux") == 0);
+		
+		// 检测Windows操作系统版本
+		if(system.win){
+			if(/Win(?:dows )?([^do]{2})\s?(\d+\.\d+)?/.test(ua)){
+				if(RegExp["$1"] == "NT"){
+					switch(RegExp["$2"]){
+					case "5.0": system.win = "2000";break;
+					case "5.1":system.win = "XP";break;
+					case "6.0":system.win = "Vista";break;
+					default:system.win = "NT";break; 
+					}
+				}else if(RegExp["$1"] == "9x"){
+					system.win = "ME";
+				}else{
+					system.win = RegExp["$1"];
+				}
+			}
+		}
+		
+		// 移动设备
+		system.iphone = ua.indexOf("iPhone")>-1;
+		system.ipod = ua.indexOf("iPod")>-1;
+		system.nokiaN = ua.indexOf("NokiaN")>-1;
+		system.winMobile = (system.win == "CE");
+		system.macMobile = (system.iphone || system.ipod);
+		
+		// 游戏系统
+		system.wii = ua.indexOf("Wii")>-1;
+		system.ps = /playstation/i.test(ua);
+		
+		// 返回
+		return{
+			engine:engine,
+			browser:browser,
+			system:system
+		}
+	}();
+</script>
+</head>
+<body>
+	<br />
+	<input type="button" onclick="fun()" value="fun()">
+</body>
+</html>

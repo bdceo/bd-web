@@ -1,0 +1,39 @@
+.menu2 {
+	Z-INDEX: 1; MARGIN: 0px auto; WIDTH: 625px; FONT-FAMILY: verdana, arial, sans-serif; POSITION: relative
+}
+.menu2 UL {
+	BORDER-TOP-WIDTH: 0px; PADDING-RIGHT: 0px; PADDING-LEFT: 0px; BORDER-LEFT-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 0px; PADDING-BOTTOM: 0px; MARGIN: 0px; PADDING-TOP: 0px; LIST-STYLE-TYPE: none; BORDER-RIGHT-WIDTH: 0px
+}
+.menu2 UL LI {
+	FLOAT: left
+}
+.menu2 UL LI A {
+	BORDER-RIGHT: #fff 1px solid; BORDER-TOP: #fff 1px solid; DISPLAY: block; FONT-SIZE: 11px; BACKGROUND: #c9c9a7; FLOAT: left; BORDER-LEFT: #fff 0px solid; WIDTH: 124px; COLOR: #000; LINE-HEIGHT: 30px; BORDER-BOTTOM: #fff 0px solid; HEIGHT: 30px; TEXT-ALIGN: center; TEXT-DECORATION: none
+}
+.menu2 UL LI A:visited {
+	BORDER-RIGHT: #fff 1px solid; BORDER-TOP: #fff 1px solid; DISPLAY: block; FONT-SIZE: 11px; BACKGROUND: #c9c9a7; FLOAT: left; BORDER-LEFT: #fff 0px solid; WIDTH: 124px; COLOR: #000; LINE-HEIGHT: 30px; BORDER-BOTTOM: #fff 0px solid; HEIGHT: 30px; TEXT-ALIGN: center; TEXT-DECORATION: none
+}
+.menu2 UL LI UL {
+	DISPLAY: none
+}
+.menu2 UL LI:hover A {
+	BACKGROUND: #b3ab79; COLOR: #fff
+}
+.menu2 UL LI:hover UL {
+	DISPLAY: block; LEFT: 0px; POSITION: absolute; TOP: 31px; TEXT-ALIGN: left
+}
+.menu2 UL LI:hover UL LI {
+	BORDER-RIGHT: #b3ab79 20px solid; PADDING-RIGHT: 60px; BORDER-TOP: #b3ab79 20px solid; PADDING-LEFT: 60px; BACKGROUND: #eee; PADDING-BOTTOM: 40px; BORDER-LEFT: #b3ab79 20px solid; WIDTH: 464px; COLOR: #000; PADDING-TOP: 40px; BORDER-BOTTOM: #b3ab79 20px solid; POSITION: relative; HEIGHT: 365px
+}
+.menu2 UL LI:hover UL LI A IMG {
+	BORDER-TOP-WIDTH: 0px; BORDER-LEFT-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 0px; MARGIN: 5px; WIDTH: 100px; HEIGHT: 75px; BORDER-RIGHT-WIDTH: 0px
+}
+.menu2 UL LI:hover UL LI A {
+	BORDER-RIGHT: #888 1px solid; BORDER-TOP: #888 1px solid; BACKGROUND: #eee; FLOAT: left; MARGIN: 1px; BORDER-LEFT: #888 1px solid; WIDTH: 110px; BORDER-BOTTOM: #888 1px solid; HEIGHT: 85px
+}
+.menu2 UL LI:hover UL LI A:hover {
+	POSITION: relative
+}
+.menu2 UL LI:hover LI A:hover IMG {
+	BORDER-RIGHT: #888 1px solid; PADDING-RIGHT: 5px; BORDER-TOP: #888 1px solid; PADDING-LEFT: 5px; BACKGROUND: #ccc; LEFT: -50px; PADDING-BOTTOM: 5px; BORDER-LEFT: #888 1px solid; WIDTH: 200px; PADDING-TOP: 5px; BORDER-BOTTOM: #888 1px solid; POSITION: absolute; TOP: -38px; HEIGHT: 150px
+}

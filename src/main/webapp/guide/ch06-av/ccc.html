@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+
+<head>
+<meta charset="utf-8"/>
+<title>自测ccc</title>
+<script>
+function playOrPauseVideo(){
+	 var videoUrl = document.getElementById("videoUrl").value;
+	 var video = document.getElementById("video");
+	 
+	 video.addEventListener("timeupdate", function(){
+			var timeDisplay = document.getElementById("time");
+			timeDisplay.innerHTML = Math.floor(video.currentTime) + " /" + Math.floor(video.duration) + " (秒) ";
+		}, false);
+	
+	 if(video.paused){
+			if(videoUrl != video.src){
+				video.src = videoUrl;
+				video.load();
+			}else{
+				video.play();
+			}
+			document.getElementById("playButton").value = "暂停";
+	 }else{
+	 	video.pause();
+		document.getElementById("playButton").value = "播放";	
+	 }	 
+}
+</script>
+</head>
+
+<body>
+<video id="video" width="400" height="300" autoplay loop="loop"> </video>
+<br />
+视频地址：
+<input type="text" id="videoUrl"/>
+<input id="playButton" type="button" 
+onclick="playOrPauseVideo()" value="播放"/>
+<span id="time"></span>
+</body>
+</html>

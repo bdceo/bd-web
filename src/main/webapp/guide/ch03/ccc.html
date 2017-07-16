@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<head>
+<meta charset="utf-8"/>
+<title>自测ccc</title>
+<link rel="stylesheet" href="stl2.css"/>
+
+
+<hr/>
+<h1>Footer 示例</h1>
+<hr/>
+<footer>
+  <ul>
+    <li>版权信息</li>
+    <li>站点地图</li>
+    <li>联系方式</li>
+  </ul>
+</footer>
+<hr/>
+<article> 文章内容
+  <footer> 文章的脚注 </footer>
+</article>
+<hr/>
+<section> 分段内容
+  <footer> 分段内容的脚注 </footer>
+</section>
+<hr/>
+<h1>网页级内容区块标题</h1>
+<p>网页级内容区块的正文</p>
+<section>
+  <h2>section级内容区块的标题</h2>
+  <p>section级内容区块的正文</p>
+</section>
+<hr/>
+<h1>网页级内容区块标题</h1>
+<p>网页级内容区块的正文</p>
+<!--分析器根据h2等元素判断生成内容区块-->
+<h2>section级内容区块的标题</h2>
+<p>section级内容区块的正文</p>
+<hr/>
+<section>
+  <h2>section级别的内容区块的标题</h2>
+  <p>section级别的内容区块的正文</p>
+  <!--因为下面的标题级别比上一个标题级别高，所以自动创建新的内容区块 -->
+  <h1>新的section级别的内容区块的标题</h1>
+  <p>新的section级别的内容区块的正文</p>
+</section>
+<hr/>
+<section>
+  <h2>section级别的内容区块的标题</h2>
+  <p>section级别的内容区块的正文</p>
+</section>
+<section>
+  <h1>新的section级别的内容区块的标题</h1>
+  <p>新的section级别的内容区块的正文</p>
+</section>
+<hr/>
+<h1>网页的标题</h1>
+<article>
+  <header>
+    <hgroup>
+      <h1>文章标题</h1>
+      <h2>文章子标题</h2>
+    </hgroup>
+    <p>文章正文</p>
+  </header>
+</article>
+<hr/>
+<!-- 网页标题 -->
+<header>
+  <h1>网页标题</h1>
+  <!-- 网站导航链接 -->
+  <nav>
+    <ul>
+      <li><a href="index.html">首页</a></li>
+      <li><a href="help.html">帮助</a></li>
+    </ul>
+  </nav>
+</header>
+<!-- 文章正文 -->
+<article>
+  <hgroup>
+    <h1>文章主标题</h1>
+    <h2>文章子标题</h2>
+  </hgroup>
+  <p>文章正文</p>
+  <!--文章评论 -->
+  <section class="comments">
+    <article>
+      <h1>评论标题</h1>
+      <p>评论正文</p>
+    </article>
+  </section>
+</article>
+<!-- 版权信息 -->
+<footer> <small>版权所有：陆凌牛</small> </footer>

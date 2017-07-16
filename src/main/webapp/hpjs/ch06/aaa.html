@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<head>
+<meta charset="utf-8" />
+<title>自测aaa</title>
+<style type="text/css"></style>
+<script>
+	// 定时器处理数组循环
+	function processArray(items, process, callback) {
+		var todo = items.concat();// 克隆原数组
+		setTimeout(function() {
+			process(todo.shift());
+			if (todo.length > 0) {
+				setTimeout(arguments.callee, 25);
+			} else {
+				callback(items);
+			}
+		}, 25);
+	}
+	// 批处理多任务，通过do-while循环
+	function timedProcessArray(items, process, callback) {
+		var todo = items.concat();// 克隆原数组
+		setTimeout(function() {
+			var start = +new Date();
+			do {
+				process(todo.shift());
+			} while (todo.length > 0 && (+new Date() - start < 50));
+			if (todo.length > 0) {
+				setTimeout(arguments.callee, 25);
+			} else {
+				callback(items);
+			}
+		}, 25);
+	}
+	function disItem(v) {
+		console.log(v);
+	}
+	// 定时器处理多任务
+	function multistep(steps, args, callback) {
+		var tasks = steps.concat();
+		setTimeout(function() {
+			var task = tasks.shift();
+			task.apply(null, args || []);
+			if (tasks.length > 0) {
+				setTimeout(arguments.callee, 25);
+			} else {
+				callback();
+			}
+		}, 25);
+	}
+	function fun() {
+		var start = +new Date();
+		console.log(start);
+		var items = [ 123, 22, 423, 4321, 435, 123 ];
+		processArray(items, disItem, function() {
+			console.log("Process Over!");
+		});
+		var id = "004";
+		var tasks = [ openDoc, writeTxt, closeDoc, updateUI ];
+		multistep(tasks, [ id ], function() {
+			console.log("Execute Over!");
+		});
+		var end = +new Date();
+		console.log(end);
+		if (end - start < 50) {
+			console.log("good");
+		} else {
+			console.log("bad");
+		}
+	}
+	// Web Workers
+	function fun1() {
+		var worker = new Worker("code.js");
+		var d = +new Date();
+		console.log("main = " + d);
+		worker.postMessage(d);
+		worker.onmessage = function(e) {
+			console.log("back = " + e.data);
+		};
+	}
+</script>
+</head>
+<body onload="fun1();">
+</body>
+</html>

@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<head>
+<meta charset="utf-8" />
+<title>自测ccc</title>
+<style type="text/css"></style>
+<script src="../pjs.js" type="text/javascript"></script>
+</head>
+<body>
+	<br />
+	<input type="button" onclick="fun()" value="fun()">
+	<span id="stat"></span>
+	<div class="draggable" id="dragDiv"
+		style="position: absolute; background: yellow; width: 200px; height: 300px;">Move</div>
+
+
+	<script>
+		// 自定义事件
+		function EventTarget() {
+			this.handlers = {};
+		}
+		EventTarget.prototype = {
+			constructor : EventTarget,
+			addHandler : function(type, handler) {
+				if (typeof this.handlers[type] == "undefined") {
+					this.handlers[type] = [];
+				}
+				this.handlers[type].push(handler);
+			},
+			fire : function(event) {
+				if (!event.target) {
+					event.target = this;
+				}
+				if (this.handlers[event.type] instanceof Array) {
+					var handlers = this.handlers[event.type];
+					for ( var i = 0, len = handlers.length; i < len; i++) {
+						handlers[i](event);
+					}
+				}
+			},
+			removeHandler : function(type, handler) {
+				if (this.handlers[type] instanceof Array) {
+					var handlers = this.handlers[type];
+					for ( var i = 0, len = handlers.length; i < len; i++) {
+						if (handlers[i] === handler) {
+							break;
+						}
+					}
+					handlers.splice(i, 1);
+				}
+			}
+		};
+
+		function handlerMsg(event) {
+			console.log("msg: " + event.msg);
+		}
+
+		function fun() {
+			var target = new EventTarget();
+			var event = {
+				type : "msg",
+				msg : "my event"
+			};
+			target.addHandler("msg", handlerMsg);
+			target.fire(event);
+
+			DragDrop.addHandler("dragStart", function(event) {
+				var st = document.getElementById("stat");
+				st.innerHTML = "开始移动:" + event.target.id;
+			});
+			DragDrop.addHandler("drag", function(event) {
+				var st = document.getElementById("stat");
+				st.innerHTML = "移动中:" + event.x + "/" + event.y;
+			});
+			DragDrop.addHandler("dragEnd", function(event) {
+				var st = document.getElementById("stat");
+				st.innerHTML = "移动结束:" + event.x + "/" + event.y;
+			});
+			DragDrop.enable();
+		}
+
+		// 拖放
+		var DragDrop = function() {
+			var dragdrop = new EventTarget();
+			var dragging = null;
+			var diffX = 0;
+			var diffY = 0;
+			function handleEvent(event) {
+				event = EventUtil.getEvent(event);
+				var target = EventUtil.getTarget(event);
+				switch (event.type) {
+				case "mousedown":
+					if (target.className.indexOf("draggable") > -1) {
+						dragging = target;
+						diffX = event.clientX - target.offsetLeft;
+						diffY = event.clientY - target.offsetTop;
+						// 触发自定义事件
+						var evt = {
+							type : "dragStart",
+							target : dragging,
+							x : event.clientX,
+							y : event.clientY
+						};
+						dragdrop.fire(evt);
+					}
+					break;
+				case "mousemove":
+					if (dragging !== null) {
+						// 鼠标位于元素的左上角
+						//dragging.style.left = event.clientX + "px";
+						//dragging.style.top = event.clientY + "px";
+						// 鼠标位于元素的点击位置
+						dragging.style.left = (event.clientX - diffX) + "px";
+						dragging.style.top = (event.clientY - diffY) + "px";
+						// 触发自定义事件
+						var evt = {
+							type : "drag",
+							target : dragging,
+							x : event.clientX,
+							y : event.clientY
+						};
+						dragdrop.fire(evt);
+					}
+					break;
+				case "mouseup":
+					dragging = null;
+					// 触发自定义事件
+					var evt = {
+						type : "dragEnd",
+						x : event.clientX,
+						y : event.clientY
+					};
+					dragdrop.fire(evt);
+					break;
+				}
+			}
+			dragdrop.enable = function() {
+				EventUtil.addHandler(document, "mousedown", handleEvent);
+				EventUtil.addHandler(document, "mousemove", handleEvent);
+				EventUtil.addHandler(document, "mouseup", handleEvent);
+			};
+			dragdrop.disable = function() {
+				EventUtil.removeHandler(document, "mousedown", handleEvent);
+				EventUtil.removeHandler(document, "mousemove", handleEvent);
+				EventUtil.removeHandler(document, "mouseup", handleEvent);
+			};
+			return dragdrop;
+		}();
+	</script>
+</body>
+</html>

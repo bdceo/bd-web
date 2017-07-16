@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<head>
+<meta charset="utf-8" />
+<title>自测aaa</title>
+<style type="text/css"></style>
+<script>
+	console.clear();
+	var iteFilter = function(node) {
+		return (node.tagName.toLowerCase() == "li") ? NodeFilter.FILTER_ACCEPT
+				: NodeFilter.FILTER_SKIP;
+	};
+	// 遍历
+	function fun() {
+		// NodeIterator
+		var div = document.getElementById("dv");
+		var ite = document.createNodeIterator(div, NodeFilter.SHOW_ELEMENT,
+				iteFilter, false);
+		var node = ite.nextNode();
+		console.log("NodeIterator-->");
+		while (node !== null) {
+			console.log(node.tagName);
+			node = ite.nextNode();
+		}
+		console.log("TreeWalker-->");
+		ite = document.createTreeWalker(div, NodeFilter.SHOW_ELEMENT, null,
+				false);
+		ite.firstChild();//p
+		ite.nextSibling();//ul
+		node = ite.firstChild();
+		while (node !== null) {
+			console.log(node.tagName);
+			node = ite.nextSibling();
+		}
+	}
+	// 范围
+	function fun1() {
+		var s = document.implementation.hasFeature("Range", "2.0");
+		console.log("范围 = " + s);
+		
+		
+	}
+</script>
+</head>
+<body>
+<p id="pp"><b>Hello</b> owrld!</p>
+	<br />
+	<input type="button" id="btn" onclick="fun()" value="fun()">
+	<br />
+	<input type="button" id="btn" onclick="fun1()" value="fun1()">
+	<br />
+	<div id="dv">
+		<p>
+			<b>Hello</b> Javascript!
+		</p>
+		<ul>
+			<li>diyi</li>
+			<li>dier</li>
+			<li>disan</li>
+		</ul>
+	</div>
+</body>
+</html>

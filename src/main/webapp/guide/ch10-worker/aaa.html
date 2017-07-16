@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<head>
+<meta charset="utf-8"/> 
+<title>自测aaa</title>
+<script>
+function calculate(){
+	 var num = parseInt(document.getElementById("num").value, 10);
+	 var result = 0;
+	 for(var i=0; i<=num; i++){
+		result += i;		
+	 }
+	 alert("合计 " + result);
+}
+var wk = new Worker("calc.js");
+wk.onmessage = function(event){
+	alert("合计 " + event.data);
+};
+function calc2(){
+	var num = parseInt(document.getElementById("num").value, 10);
+	wk.postMessage(num);
+}
+</script>
+</head>
+<body>
+<h1>从1到给定数值的求和示例</h1>
+输入数值:<input type="text" id="num">
+<button onclick="calculate()">计算</button>
+<button onclick="calc2()">计算2</button>
+</body>
+</html>

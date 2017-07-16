@@ -1,0 +1,40 @@
+<HTML>
+ <HEAD>
+  <TITLE> New Document </TITLE> 
+  <link rel="stylesheet" type="text/css" href="/jslib/extjs/resources/css/ext-all.css" />
+  <script src="/jslib/extjs/adapter/ext/ext-base.js"></script>  
+  <script src="/jslib/extjs/ext-all.js"></script>
+ </HEAD>
+<script type="text/javascript"> 
+	Ext.onReady(function(){	 
+		Ext.MessageBox.alert('Hello!','Jdi Hello£¡');
+		var cm=new Ext.grid.ColumnModel([
+			{header:"±àºÅ",dataIndex:"id"},
+			{header:"Ãû³Æ",dataIndex:"name"},
+			{header:"ÃèÊö",dataIndex:"descn"}
+		]);
+		var data=[
+			["01","name_1","descn_1"],
+			["02","name_2","descn_2"],
+			["03","name_3","descn_3"]
+		];
+		var store=new Ext.data.Store(
+			proxy:new Ext.data.MemoryProxy(data),
+			reader:new Ext.data.ArrayReader({},[
+				{name:"id",mapping:1},
+				{name:"name"},
+				{name:"descn"}
+			])
+		);
+		store.load();
+		var grid=new Ext.grid.Grid({
+			renderTo:"grid",
+			store:store,
+			cm:cm
+		}); 
+	});
+</script>
+ <BODY>
+   <div id="grid"></div>  
+ </BODY>
+</HTML>

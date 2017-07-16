@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<head>
+<meta charset="utf-8" />
+<title>自测bbb</title>
+<style type="text/css">
+div {
+	background-color: black;
+	background-image: url(flower-green.png);
+	border: dashed 15px green;
+	padding: 30px;
+	color: white;
+	font-size: 2em;
+	font-weight: bold;
+}
+
+div.div1 {
+	-moz-background-clip: border;
+	-webkit-background-clip: border;
+}
+
+div.div2 {
+	-moz-background-clip: padding;
+	-webkit-background-clip: padding;
+}
+
+#bi1 {
+	border-image: url(borderimage2.png) 20 20 20 20/20px;
+	-webkit-border-image: url(borderimage2.png) 20 20 20 20/20px;
+	-moz-border-image: url(borderimage2.png) 20 20 20 20/20px;
+	width: 300px;
+}
+
+#bi2 {
+	border: solid 5px;
+	border-image: url(borderimage.png) 18 18 18 18;
+	-webkit-border-image: url(borderimage.png) 18 18 18 18;
+	-moz-border-image: url(borderimage.png) 18 18 18 18;
+	width: 300px;
+}
+
+#bi3 {
+	border: solid;
+	border-image: url(borderimage.png) 18 18 18 18/18px;
+	-webkit-border-image: url(borderimage.png) 18 18 18 18/18px;
+	-moz-border-image: url(borderimage.png) 18 18 18 18/18px;
+	width: 300px;
+}
+
+#bi4 {
+	border: solid;
+	border-image: url(borderimage.png) 18/5px 10px 15px 20px;
+	-webkit-border-image: url(borderimage.png) 18/5px 10px 15px 20px;
+	-moz-border-image: url(borderimage.png) 18/5px 10px 15px 20px;
+	width: 300px;
+}
+
+#bi5 {
+	border: solid;
+	border-image: url(borderimage.png) 18/5px;
+	-webkit-border-image: url(borderimage.png) 18/5px;
+	-moz-border-image: url(borderimage.png) 18/5px;
+	width: 300px;
+}
+</style>
+</head>
+<body>
+	<div class="div1">示例文字1</div>
+	<br>
+	<div class="div2">示例文字2</div>
+	<br>
+	<div id="bi1">示例文字</div>
+	<br>
+	<div id="bi2">示例文字</div>
+	<br>
+	<div id="bi3">示例文字</div>
+	<br>
+	<div id="bi4">示例文字</div>
+	<br>
+	<div id="bi5">
+		示例文字示例文字示例文字示例文字示例文字示例文字示例文字示例文字示例文字示例文字示例文字示例文字示例文字示例文字示例文字示例文字示例文字示例文字示例文字示例文字示例文字示例文字示例文字示例文字示例文字示例文字示例文字示例文字示例文字示例文字
+	</div>
+</body>
+</html>

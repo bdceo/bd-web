@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<head>
+<meta charset="utf-8" />
+<title>自测aaa</title>
+<style type="text/css"></style>
+<script>
+	// Cookie,读取，写入，删除
+	var CookieUtil = {
+		get : function(name) {
+			var cookieName = encodeURIComponent(name) + "=", cookieStart = document.cookie
+					.indexOf(cookieName), cookieValue = null;
+			if (cookieStart > -1) {
+				var cookieEnd = document.cookie.indexOf(";", cookieStart);
+				if (cookieEnd == -1) {
+					cookieEnd = document.cookie.length;
+				}
+				cookieValue = decodeURIComponent(document.cookie.substring(
+						cookieStart + cookieName.length, cookieEnd));
+			}
+			return cookieValue;
+		},
+		add : function(name, value, expires, path, domain, secure) {
+			var cookieText = encodeURIComponent(name) + "="
+					+ encodeURIComponent(value);
+			if (expires instanceof Date) {
+				cookieText += "; expires=" + expires;
+			}
+			if (path) {
+				cookieText += "; path=" + path;
+			}
+			if (domain) {
+				cookieText += "; domain=" + domain;
+			}
+			if (secure) {
+				cookieText += "; secure";
+			}
+			document.cookie = cookieText;
+		},
+		del : function(name, path, domain, secure) {
+			this.add(name, "", new Date(0), path, domain, secure);
+		}
+	};
+	var SubCookieUtil = {
+		get : function(name, subName) {
+			var subCookies = this.getAll(name);
+			if (subCookies) {
+				return subCookies[subName];
+			} else {
+				return null;
+			}
+		},
+		getAll : function(name) {
+			var cookieName = encodeURIComponent(name) + "=", cookieStart = document.cookie
+					.indexOf(cookieName), cookieValue = null, result = {};
+			if (cookieStart > -1) {
+				var cookieEnd = document.cookie.indexOf(";", cookieStart);
+				if (cookieEnd == -1) {
+					cookieEnd = document.cookie.length;
+				}
+				cookieValue = document.cookie.substring(cookieStart
+						+ cookieName.length, cookieEnd);
+				if (cookieValue.length > 0) {
+					var subCookies = cookieValue.split(" & ");
+					for ( var i = 0, len = subCookies.length; i < len; i++) {
+						var parts = subCookies[i].split("=");
+						result[decodeURIComponent(parts[0])] = decodeURIComponent(parts[1]);
+					}
+					return result;
+				}
+			}
+			return null;
+		},
+		add : function(name, subName, value, expires, path, domain, secure) {
+			var subCookies = this.getAll(name) || {};
+			subCookies[subName] = value;
+			this.addAll(name, subCookies, expires, path, domain, secure);
+		},
+		addAll : function(name, subCookies, expires, path, domain, secure) {
+			var cookieText = encodeURIComponent(name) + "=";
+			var subCookieParts = new Array();
+			for ( var subName in subCookies) {
+				if (subName.length > 0 && subCookies.hasOwnProperty(subName)) {
+					subCookieParts.push(encodeURIComponent(subName) + "="
+							+ encodeURIComponent(subCookies[subName]));
+				}
+			}
+			if (cookieParts.length > 0) {
+				cookieText += subCookieParts.join(" & ");
+				if (expires instanceof Date) {
+					cookieText += "; expires=" + expires;
+				}
+				if (path) {
+					cookieText += "; path=" + path;
+				}
+				if (domain) {
+					cookieText += "; domain=" + domain;
+				}
+				if (secure) {
+					cookieText += "; secure";
+				}
+			} else {
+				cookieText += "; expires=" + (new Date()).toGMTString();
+			}
+			document.cookie = cookieText;
+		},
+		del : function(name, subName, path, domain, secure) {
+			var subCookies = this.getAll(name);
+			if (subCookies) {
+				delete subCookies[subName];
+				this.addAll(name, SubCookies, null, path, domain, secure);
+			}
+		},
+		delAll : function(name, path, domain, secure) {
+			this.addAll(name, null, new Date(0), path, domain, secure);
+		}
+	};
+	function fun() {
+		CookieUtil.add("name", "bdceo");
+		var cv = CookieUtil.get("name");
+		console.log(cv);
+	}
+</script>
+</head>
+<body>
+	<br />
+	<input type="button" onclick="fun()" value="fun()">
+</body>
+</html>

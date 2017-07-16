@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<newslist>
+	<news id="1">
+		<title>Java编程思想</title>
+		<submittime>Bruce Eckel</submittime>
+	</news>
+	<news id="2">
+		<title>做最好的自己</title>
+		<submittime>李开复</submittime>
+	</news>
+	<news id="3">
+		<title>精通Hibernate</title>
+		<submittime>孙卫琴</submittime>
+	</news>
+	<news id="4">
+		<title>代码大全</title>
+		<submittime>Steve McConnell</submittime>
+	</news>
+	<news id="5">
+		<title>人性的弱点</title>
+		<submittime>戴尔卡耐基</submittime>
+	</news>
+	<news id="6">
+		<title>人性的优点</title>
+		<submittime>戴尔卡耐基</submittime>
+	</news>
+	<news id="7">
+		<title>编译原理</title>
+		<submittime>俸远桢</submittime>
+	</news>
+	<news id="8">
+		<title>深入浅出设计模式</title>
+		<submittime>Freeman</submittime>
+	</news>
+	<news id="9">
+		<title>重构</title>
+		<submittime>Fowler</submittime>
+	</news>
+	<news id="10">
+		<title>如何掌控自己的时间和生活</title>
+		<submittime>阿兰拉金</submittime>
+	</news>
+	<news id="11">
+		<title>高效能人士的七个习惯</title>
+		<submittime>史蒂芬柯维</submittime>
+	</news>
+	<news id="12">
+		<title>西游记</title>
+		<submittime>吴承恩</submittime>
+	</news>
+	<news id="13">
+		<title>三国演义</title>
+		<submittime>罗贯中</submittime>
+	</news>
+	<news id="14">
+		<title>红楼梦</title>
+		<submittime>曹雪芹</submittime>
+	</news>
+	<news id="15">
+		<title>企业应用架构模式</title>
+		<submittime>Folwer</submittime>
+	</news>
+	<news id="16">
+		<title>C程序设计</title>
+		<submittime>谭浩强</submittime>
+	</news>
+</newslist>

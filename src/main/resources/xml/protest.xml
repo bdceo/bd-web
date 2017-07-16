@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="gbk"?>
+
+<!-- 这是用proxool配置的数据库连接池 -->
+
+<something-else-entirely>
+	<proxool>
+		<alias>dglabour</alias>
+		<driver-url>
+			jdbc:sqlserver://localhost:1433;DatabaseName=test;SelectMethod=cursor;
+		</driver-url>
+		<driver-class>com.microsoft.sqlserver.jdbc.SQLServerDriver</driver-class>
+		<driver-properties>
+			<property name="user" value="sa" />
+			<property name="password" value="sa" />
+		</driver-properties>
+		<maximum-connection-count>10</maximum-connection-count>
+		<house-keeping-test-sql>
+			select CURRENT_DATE
+		</house-keeping-test-sql>
+	</proxool>
+</something-else-entirely>

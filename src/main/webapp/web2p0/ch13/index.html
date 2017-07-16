@@ -1,0 +1,32 @@
+<html>
+	<head>
+		<title>草稿自动保存</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<script type="text/javascript" src="ajaxrequest.js"></script>
+		<script type="text/javascript" src="autosave.js"></script>
+	</head>
+
+	<body onload='init()'>
+		<h2>
+			草稿自动保存
+		</h2>
+		用户名：
+		<input type="text" name="memName" id="memName" size="20"
+			value="backup" disabled="true" />
+		&nbsp;&nbsp;&nbsp;&nbsp;
+		<input onclick="SetAutoSave();" type="checkbox" id="Draft_AutoSave"
+			value="1" checked="true" />
+		自动保存？
+		<br />
+		<br />
+		内容：
+		<textarea cols=40 rows=8 id="message">你编辑的内容将被自动保存,以便恢复</textarea>
+		<br />
+		<br />
+		<div id="AutoSaveMsg"></div>
+		<br />
+		<input type="submit" onclick="Save()" value="Save" />
+		&nbsp;&nbsp;
+		<input type="button" onclick="AutoSaveRestore()" value="Restore" />
+	</body>
+</html>

@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<head>
+<meta charset="utf-8" />
+<title>自测bbb</title>
+<style type="text/css"></style>
+<script>
+	// 参考：http://www.iteye.com/topic/481228
+	// JavaScript 正则表达式
+	function fun() {
+		var str = "";
+		// 创建：对象方式
+		var re = new RegExp();
+		// 第一个参数：正则式-a开头的
+		re = new RegExp("/^a/");
+		// 第二个参数：g-全文查找，i-不区分大小写，m-多行查找
+		re = new RegExp("/^a/", "g/i/m");
+		// 字面量方式
+		var re2 = /^a/gi;// 不区分大小写所有a或A开头的
+
+		// 对象方法
+		re.test();// boolean-返回字符串中是否存在正则式模式
+		re.exec();// array-在指定字符串中运行查找，返回匹配模式的字符串数组
+		re.compile();// 编译运行，效率快
+		// 对象属性
+		re.source;// 只读，返回正则式模式的文本
+		re.lastIndex;// 匹配位置
+		re.$1;// $1...$9-只读，返回指定数量匹配模式的字符串
+		// String类似的方法
+		str.match(re2);// 返回所有的匹配字符串
+		str.replace();// 替换符合指定模式的字符内容
+		str.search();// 检索匹配字符的索引位置
+		str.split();// 按指定模式分隔字符串
+	}
+	//测试正则表达式是如何工作的! 
+	function fun1() {
+		var str = "he";
+		var re = /he/;
+		console.log("1=" + re.test(str));
+
+		str = "we";
+		console.log("2=" + re.test(str));
+
+		str = "HE";
+		console.log("3=" + re.test(str));
+
+		re = /he/i;
+		console.log("4=" + re.test(str));
+
+		str = "Certainly!He loves her!";
+		console.log("5=" + re.test(str));
+
+		re = /^he/i;
+		console.log("6=" + re.test(str));
+
+		str = "He is a good boy!";
+		console.log("7=" + re.test(str));
+
+		re = /^he$/i;
+		console.log("8=" + re.test(str));
+
+		str = "He";
+		console.log("9=" + re.test(str));
+
+		re = /\s/;
+		str = "user Name";
+		console.log("10=" + re.test(str));
+
+		str = "user     Name";
+		console.log("11=" + re.test(str));
+
+		re = /^[a-z]/i;
+		str = "variableName";
+		console.log("12=" + re.test(str));
+
+		str = "123abc";
+		console.log("13=" + re.test(str));
+	}
+	//哪些字符匹配了模式
+	function fun2() {
+		var str = "Ubuntu 8";
+		var re = /^[a-z]+\s+\d+$/i;
+		console.log("1=" + re.test(str));
+
+		var arr = re.exec(str);
+		console.log("/^[a-z]+\s+\d+$/i = " + arr.toString());
+
+		re = /\d/;
+		arr = re.exec(str);
+		console.log("/\d/ = " + arr.toString());
+
+		re = /^[a-z]+\s+(\d+)$/i;// 子匹配
+		arr = re.exec(str);
+		console.log("/^[a-z]+\s+(\d+)$/i = " + arr.toString());
+
+		re = /^[a-z]+\s+(\d+)\.(\d+)$/i;
+		str = "Ubuntu 8.12";
+		arr = re.exec(str);
+		console.log("/^[a-z]+\s+(\d+)\.(\d+)$/i = " + arr.toString());
+	}
+	//String对象的一些和正则表达式有关的方法 
+	function fun3() {
+		var str = "some money";
+		console.log("replace = " + str.replace("some", "much"));
+
+		var re = /\s/;
+		console.log("replace /\s/ = " + str.replace(re, "%"));
+
+		str = "some some             \tsome\t\f";
+		re = /\s+/;// 匹配一次退出
+		console.log("replace /\s+/ = " + str.replace(re, "#"));
+
+		re = /\s+/g;// 全局匹配
+		console.log("replace /\s+/g = " + str.replace(re, "@"));
+
+		str = "a-bd-c";
+		var arr = str.split("-");
+		console.log("split = " + arr.toString());
+
+		str = "a_db-c";
+		re = /[^a-z]/i;// 除a-z之外的所有字符(^表示字符开始,但在[]里它表示一个负字符集)
+		arr = str.split(re);
+		console.log("split /[^a-z]/i = " + arr.toString());
+
+		str = "My age is 18.Golden age!";
+		re = /\d+/;// 找到第一个立即返回
+		console.log("search /\d+/ = " + str.search(re));
+
+		str = "My name is CJ.Hello everyone!";
+		re = /[A-Z]/;
+		arr = str.match(re);
+		console.log("match /[A-Z]/ = " + arr.toString());
+
+		re = /[A-Z]/g;
+		arr = str.match(re);
+		console.log("match /[A-Z]/g = " + arr.toString());
+
+		re = /\b[a-z]+\b/gi;// \b-单词边界
+		str = "one two three four";
+		arr = str.match(re);
+		console.log("match /\b[a-z]+\b/gi = " + arr.toString());
+	}
+	//RegExp对象实例的一些属性 
+	function fun4() {
+		var re = /[a-z]/i;
+		console.log("source /[a-z]/i = " + re.source);
+
+		// lastIndex 被查找字符串中下一次成功匹配的开始位置,默认值是-1
+		re = /[A-Z]/;
+		var str = "Hello,World!!!";
+		var arr = re.exec(str);
+		console.log("lastIndex /[A-Z]/ = " + re.lastIndex);
+
+		re = /[A-Z]/g;
+		arr = re.exec(str);
+		console.log("lastIndex /[A-Z]/g = " + re.lastIndex);
+
+		arr = re.exec(str);
+		console.log("lastIndex /[A-Z]/g = " + re.lastIndex);
+
+		//当匹配失败（后面没有匹配），或lastIndex值大于字符串长度时，再执行exec等方法会将lastIndex设为0(开始位置) 
+		re = /[A-Z]/;
+		re.lastIndex = 120;// 可修改
+		arr = re.exec(str);
+		console.log("lastIndex /[A-Z]/ = " + re.lastIndex);
+	}
+	//RegExp对象的静态属性 
+	function fun5() {
+		var re = /[A-Z]/;
+		var str = "Hello,World!!!";
+		var arr = re.exec(str);
+		//input 最后用于匹配的字符串（传递给test,exec方法的字符串）
+		console.log("RegExp.input = " + RegExp.input);
+
+		re.exec("tempstr");
+		console.log("RegExp.input = " + RegExp.input);
+
+		// lastMatch 最后匹配的字符  
+		re = /[a-z]/g;
+		str = "hi";
+		re.test(str);
+		console.log("RegExp.lastMatch = " + RegExp.lastMatch);
+		re.test(str);
+		console.log("RegExp[\"$&\"] = " + RegExp["$&"]);// $&是lastMatch的短名字
+
+		// lastParen 最后匹配的分组
+		re = /[a-z](\d+)/gi;
+		str = "Class1 Class2 Class3";
+		re.test(str);
+		console.log("RegExp.lastParen = " + RegExp.lastParen);
+
+		//leftContext  返回被查找的字符串中从字符串开始位置到最后匹配之前的位置之间的字符  
+		//rigthContext 返回被搜索的字符串中从最后一个匹配位置开始到字符串结尾之间的字符  
+		re = /[A-Z]/g;
+		str = "123ABC456";
+		re.test(str);
+		console.log("RegExp.leftContext = " + RegExp.leftContext);
+		console.log("RegExp.rigthContext = " + RegExp.rightContext);
+		re.test(str);
+		console.log("RegExp[\"$`\"] = " + RegExp["$`"]);
+		console.log("RegExp[\"$'\"] = " + RegExp["$'"]);
+
+		// 这个属性不针对某个正则表达式实例，而是针对所有正则表达式
+		console.log("RegExp.multiline = " + RegExp.multiline);
+		re = /[a-z]/m;
+		console.log("RegExp[\"$*\"] = " + RegExp["$*"]);
+		RegExp.multiline = true;
+		console.log("RegExp[\"$*\"] = " + RegExp["$*"]);
+	}
+	// 元字符需要转译：( [ { \ ^ $ | ) ? * + . 
+	function fun6() {
+		var str = "?";
+		// var re = /?/;
+		//console.log(re.test(str)); // wrong
+		var re = /\?/;
+		console.log("/\?/ = " + re.test(str));
+
+		// 对象声明时注意需要转译两次-双重转译
+		str = "\?";
+		console.log("\? = " + str);//只会输出?
+		re = /\?/;//将匹配?  
+		console.log("/\?/ = " + re.test(str));//true
+		// re = new RegExp("\?");//出错,因为这相当于re = /\?/  
+		re = new RegExp("\\?");//正确，将匹配？ 
+		console.log("RegExp(\\?) = " + re.test(str));//true
+
+		// 使用特殊字符
+		//ASCII方式用十六进制数来表示特殊字符  
+		re = /^\x43\x4A$/;//将匹配CJ  
+		console.log("/^\x43\x4A$/ = " + re.test("CJ"));//true  
+		//使用八进制方式  
+		re = /^\103\112$/;//将匹配CJ  
+		console.log("/^\103\112$/ = " + re.test("CJ"));//true  
+		//使用Unicode编码 ，必须使用u开头，接着是字符编码的四位16进制表现形式
+		re = /^\u0043\u004A$/;
+		console.log("/^\u0043\u004A$/ = " + re.test("CJ"));
+
+		/* 其它预定义特殊字符: 
+			字符    描述 
+			\n      换行符 
+			\r      回车符 
+			\t      制表符 
+			\f      换页符（Tab） 
+			\cX     与X对应的控制字符 
+			\b      退格符(BackSpace) 
+			\v      垂直制表符 
+			\0      空字符("") */
+
+		//字符类 ---〉简单类，反向类，范围类，组合类，预定义类
+		//简单类  
+		re = /[abc123]/;//将匹配abc123这6个字符中一个
+		//负向类  
+		re = /[^abc]/;//将匹配除abc之外的一个字符  
+		//范围类  
+		re = /[a-b]/;//将匹配小写a-b 26个字母  
+		re = /[^0-9]/;//将匹配除0-9 10个字符之处的一个字符  
+		//组合类  
+		re = /[a-z0-9A-Z_]/;//将匹配字母，数字和下划线  
+
+		/* 正则表达式中的预定义类 
+		代码  等同于                  匹配 
+		.     IE下[^\n]，其它[^\n\r]    匹配除换行符之外的任何一个字符 
+		\d    [0-9]                   匹配数字 
+		\D    [^0-9]                  匹配非数字字符 
+		\s    [ \n\r\t\f\x0B]         匹配一个空白字符 
+		\S    [^ \n\r\t\f\x0B]        匹配一个非空白字符 
+		\w    [a-zA-Z0-9_]            匹配字母数字和下划线 
+		\W    [^a-zA-Z0-9_]           匹配除字母数字下划线之外的字符 */
+	}
+	// 量词与换行匹配
+	function fun7() {
+		/*量词(下表量词单个出现时皆是贪婪量词) 
+		代码  描述 
+		 *     匹配前面的子表达式零次或多次。例如，zo* 能匹配 "z" 以及 "zoo"。 * 等价于{0,}。 
+		+     匹配前面的子表达式一次或多次。例如，'zo+' 能匹配 "zo" 以及 "zoo"，但不能匹配 "z"。+ 等价于 {1,}。 
+		?     匹配前面的子表达式零次或一次。例如，"do(es)?" 可以匹配 "do" 或 "does" 中的"do" 。? 等价于 {0,1}。 
+		{n}   n 是一个非负整数。匹配确定的 n 次。例如，'o{2}' 不能匹配 "Bob" 中的 'o'，但是能匹配 "food" 中的两个 o。 
+		{n,}  n 是一个非负整数。至少匹配n 次。例如，'o{2,}' 不能匹配 "Bob" 中的 'o'，但能匹配 "foooood" 中的所有 o。'o{1,}' 等价于 'o+'。'o{0,}' 则等价于 'o*'。 
+		{n,m} m 和 n 均为非负整数，其中n <= m。最少匹配 n 次且最多匹配 m 次。 "o{1,3}" 将匹配 "fooooood" 中的前三个 o。'o{0,1}' 等价于 'o?'。*/
+
+		/*贪婪量词与惰性量词 :
+		•用贪婪量词进行匹配时，它首先会将整个字符串当成一个匹配，如果匹配的话就退出，如果不匹配，就截去最后一个字符进行匹配，
+			如果不匹配，继续将最后一个字符截去进行匹配，直到有匹配为止。 (从后向前，匹配立马退出)
+		•用惰性量词进行匹配时，它首先将第一个字符当成一个匹配，如果成功则退出，如果失败，则测试前两个字符，依些增加，直到遇到合适的匹配为止 
+			惰性量词仅仅在贪婪量词后面加个"?"而已,如"a+"是贪婪匹配的,"a+?"则是惰性的 （从前向后，知道匹配到末尾）*/
+		var str = "abc";
+		var re = /\w+/;//将匹配abc
+		var arr = re.exec(str);
+		console.log("exec /\w+/ = " + arr.toString());
+		re = /\w+?/;//将匹配a
+		arr = re.exec(str);
+		console.log("exec /\w+?/ = " + arr.toString());
+
+		str = "ab\ncdef";
+		re = /[a-z]$/;
+		console.log("/[a-z]$/ = " + str.replace(re, "换"));
+		re = /[a-z]$/m;
+		console.log("/[a-z]$/m = " + str.replace(re, "换"));
+
+		/*贪婪量词，惰性量词与支配性量词:
+		贪婪量词，所有简单量词。就像成语中说的巴蛇吞象那样，一口吞下整个字符串，发现吞不下（匹配不了），
+			再从后面一点点吐出来（去掉最后一个字符，再看这时这个整个字符串是否匹配，不断这样重复直到长度为零）
+		隋性量词，在简单量词后加问号。由于太懒了，先吃了前面第一个字符，如果不饱再捏起多添加一个（发现不匹配，就读下第二个，
+			与最初的组成一个有两个字符串的字符串再尝试匹配，如果再不匹配，再吃一个组成拥有三个字符的字符串……）。其工作方式与贪婪量词相反。*/
+		// 参考：http://hi.baidu.com/hello188988/item/544eb50f544032c274cd3cff
+		/* 怎么理解贪婪和惰性，这个从字面上去理解就是贪婪的总是企图要匹配整个字符串，而惰性的只要匹配出结果就行了。
+		一个大的特点是：贪婪的是从字符串后面开始匹配,从后面到前面，如果有匹配的了就再也不匹配了。而惰性的是从前面开始匹配，找到匹配的了。
+		记录下匹配结果，又从下面一个字符开始匹配。直到字符串最后。*/
+		str = "abbbaabbbaaabbbb1234";
+		re = /.*bbb/g;
+		console.log("test /.*bbb/g = " + re.test(str));
+		arr = str.match(re);
+		console.log("match /.*bbb/g = " + arr.toString());
+
+		re = /.*?bbb/g;
+		console.log("test /.*bbb/g = " + re.test(str));
+		arr = str.match(re);
+		console.log("match /.*bbb/g = " + arr.toString());
+	}
+	// 分组与非捕获性组，或
+	function fun8() {
+		var str = "abcabcc ###";
+		var re = /abc{2}/;
+		var arr = re.exec(str);
+		console.log("/abc{2}/ = " + arr.toString());
+
+		// 捕获性组
+		re = /(abc){2}/;
+		arr = re.exec(str);
+		console.log("/(abc){2}/ = " + arr.toString());
+
+		// 非捕获性组 (?: xxx)
+		re = /(?:abc){2}/;
+		arr = re.exec(str);
+		console.log("/(?:abc){2}/ = " + arr.toString());
+
+		str = "<p><a href='http://www.cnblogs.com/rubylouvre/'>Ruby Louvre</a> by <em>司徒正美</em></p>";
+		re = /<(?:.|\s)*?>/g;
+		arr = str.match(re);
+		console.log("match /<(?:.|\s)*?>/g = " + arr.toString());
+		console.log("replace /<(?:.|\s)*?>/g = " + str.replace(re, ""));
+
+		// 或
+		str = "adaddbabc";
+		re = /^a|bc$/;//将匹配开始位置的a或结束位置的bc  
+		console.log("/^a|bc$/ = " + re.test(str));
+
+		str = "bc";
+		re = /^(a|bc)$/;//将匹配a或bc(中间没有任何东西)
+		console.log("/^(a|bc)$/ = " + re.test(str));
+	}
+	// 反向引用
+	function fun9() {
+		// 当包含分组的正则表达式进行过test,match,search这些方法之后，
+		// 每个分组都被放在一个特殊的地方以备将来使用，这些存储是分组中的特殊值，称之为反向引用 
+		var re = /(A?(B?(C?)))/;
+		// 生成三个分组：(A?(B?(C?))) ；(B?(C?)) ；(C?)
+		var str = "ABC";
+		console.log("test /(A?(B?(C?)))/ = " + re.test(str));
+		var arr = re.exec(str);
+		console.log("exec /(A?(B?(C?)))/ = " + arr.toString());
+
+		//反向引用被存储在RegExp对象的静态属性$1—$9中  
+		console.log("$1 = " + RegExp.$1);
+		console.log("$2 = " + RegExp.$2);
+		console.log("$3 = " + RegExp.$3);
+
+		//反向引用也可以在正则表达式中使用\1 ,\2...这类的形式使用  
+		re = /\d+(\D)\d+\1\d+/;
+		str = "2012-12-5";
+		console.log("test /\d+(\D)\d+\1\d+/ = " + re.test(str));
+		str = "2012-12=5";
+		console.log("test /\d+(\D)\d+\1\d+/ = " + re.test(str));
+
+		//使用反向引用可以要求字符串中某几个位置上的字符必须相同,在replace这类方法中可用特殊字符序列来表示反向引用
+		str = "1234 6789";
+		re = /(\d+)\s(\d+)/;
+		arr = re.exec(str);
+		console.log("exec /(\d+)\s(\d+)/ = " + arr.toString());
+		console.log("exec /(\d+)\s(\d+)/ = " + str.replace(re, "$2 $1"));
+	}
+	// 正向前瞻，负向前瞻   (?= xxx)不是分组zc
+	function fun10() {
+		//正向前瞻?=,用来捕获出现在特定字符之前的字符,只有当字符后面跟着某个特定字符才去捕获它。
+		var str = "abcd every1 efg-";
+		var re = /([a-z]+(?=\d))/i;// 匹配单词后跟数字的，只返回单词本身而不返回数字
+		var arr = re.exec(str);
+		console.log("test /([a-z]+(?=\d))/i = " + re.test(str));
+		console.log("exec /([a-z]+(?=\d))/i = " + arr.toString());
+		console.log("RegExp.$1 = " + RegExp.$1);
+		console.log("re.lastIndex = " + re.lastIndex);
+
+		//负向前瞻?!,它用匹配只有当字符后面不跟着某个特定字符时才去匹配它
+		re = /[a-z]+(?!\d)/i;
+		arr = re.exec(str);
+		console.log("test /[a-z]+(?!\d)/i = " + re.test(str));
+		console.log("exec /[a-z]+(?!\d)/i = " + arr.toString());
+		console.log("RegExp.$1 = " + RegExp.$1);
+		console.log("re.lastIndex = " + re.lastIndex);
+	}
+</script>
+</head>
+<body onload="fun8();">
+</body>
+</html>

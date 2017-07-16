@@ -1,0 +1,25 @@
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<script type="text/javascript" src="/js/jquery_1.3.js"></script>
+		<script type="text/javascript" src="js/verify.js"></script>		
+		<title>Jdi用户名校验的ajax实例</title>
+	</head>
+	<body>
+		Jdi用户名校验的ajax实例
+		<hr>
+		<!-- 基于标准的一些好习惯：首先标签名小写，其次标签必须关闭，第三属性名必须是小写的 -->
+		<!-- ajax方式下不需要使用表单来进行数据提交， -->
+		请输入用户名：
+		<!-- ajax方式不需要name属性，需要一个id属性 -->
+		<input type="text" id="userName" />
+		<input type="button" value="校验" onClick="verify()" />
+		<!-- 这个div用于存放返回服务器端的信息，开始为空 -->
+		<!-- id属性是为了利用dom的方式找到某一个节点，进行操作 -->
+		<div id="result"></div>
+		<!-- <div>456</div>
+		<span>123</span>
+		<span>456</span> -->
+		<!-- div和span的直观差异：div中的内容独占一行，span中的内容和前后其他内容相处的很好 -->
+	</body>
+</html>

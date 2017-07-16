@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<head>
+<meta charset="utf-8" />
+<title>自测aaa</title>
+<style type="text/css"></style>
+<script>
+	// IE对xml的支持
+	function createIEXMLDoc() {
+		if (typeof arguments.callee.activeXString != "string") {
+			var versions = [ "MSXML2.DOMDocument.6.0",
+					"MSXML2.DOMDocument.3.0", "MSXML2.DOMDocument" ];
+			for ( var i = 0, len = versions.length; i < len; i++) {
+				try {
+					var xmldom = new ActiveXObject(versions[i]);
+					arguments.callee.activeXString = versions[i];
+					return xmldom;
+				} catch (e) {
+				}
+			}
+		}
+		return new ActiveXObject(arguments.callee.activeString);
+	}
+	// 跨浏览器xml解析、序列化
+	function parseXml(xml) {
+		var xmldom = null;
+		if (typeof DOMParser != "undefined") {
+			xmldom = (new DOMParser()).parseFromString(xml, "text/xml");
+			var errors = xmldom.getElementByTagName("parsererror");
+			if (errors.length) {
+				throw new Error("XML parsing error:" + errors[0].textContent);
+			}
+		} else if (document.implementation.hasFeature("LS", "3.0")) {
+			var impt = document.implementation;
+			var parser = impt.createLSParser(impementation.MODE_SYNCHRONOUS,
+					null);
+			var input = implementation.createLSInput();
+			input.stringData = xml;
+			xmldom = parser.parse(input);
+		} else if (typeof ActiveXObject != "undefined") {
+			xmldom = createIEXMLDoc();
+			xmldom.loadXML(xml);
+			if (xmldom.parseError != 0) {
+				throw new Error("XML parsing error:" + xmldom.parseError.reason);
+			}
+		} else {
+			throw new Error("No XML parser avaliable.");
+		}
+		return xmldom;
+	}
+	function serializeXml(xmldom) {
+		if(typeof XMLSerializer != "undefined"){
+			return ((new XMLSerializer()).serializeToString(xmldom);
+		}else if(document.implementation.hasFeature("LS","3.0")){
+			var impt = document.implementation;
+			var seriz = impt.createLSSerializer();
+			return seriz.writeToString(xmldom);
+		}else if(typeof xmldom.xml != "undefined"){
+			return xmldom.xml;
+		}else {
+			throw new Error("Could not serialize XML DOM.");
+		}
+	}
+	function fun() {
+	}
+</script>
+</head>
+<body>
+	<br />
+	<input type="button" onclick="fun()" value="fun()">
+</body>
+</html>

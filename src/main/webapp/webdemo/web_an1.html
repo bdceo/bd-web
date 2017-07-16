@@ -1,0 +1,71 @@
+<!DOCTYPE html> 
+<html>
+<head> 
+    <meta charset="utf-8" />
+<title>无标题文档</title>
+</head>
+
+<body>
+ <canvas id="canvas1" width="250" height="300" style="background-color:black">   
+    你的浏览器不支持 Canvas 标签，请使用 Chrome 浏览器 或者 FireFox 浏览器   
+</canvas><br/>   
+帧数：<input  id="txt1" type="text" value="25"/><br/>   
+每次移动距离：<input type="text" id="txt2" value="10"/><br/>   
+<input type="button" value="开始" onclick="move_box()"/>   
+<input type="button" value="暂停" onclick="stop()"/>   
+<script type="text/javascript">   
+    //定时器   
+    var interval=null;   
+    //停止动画   
+    function stop(){   
+        clearInterval(interval);   
+    }   
+    //===================================================================   
+    //基本动画   
+    //====================================================================   
+    function move_box(){   
+        //停止动画   
+        stop();   
+        //移动速度   
+        var delta=parseInt(document.getElementById('txt1').value);   
+        //每秒绘制多少次   
+        var fps=parseInt(document.getElementById('txt2').value);   
+        //画布对象   
+        var canvas=document.getElementById("canvas1")   
+        //获取上下文对象   
+        var ctx = canvas.getContext("2d");   
+        //设置颜色   
+        ctx.fillStyle="red";   
+        //方块的初始位置   
+        var x=100;var y=50;   
+        //方块的长度和宽度   
+        var w=30;var h=30;   
+        //开始动画   
+        interval = setInterval(function(){   
+            //改变 y 坐标   
+            yy=y+delta;   
+            //上边缘检测   
+            if(y<0){   
+                y=0;   
+                delta=-delta;   
+            }   
+            //下边缘检测   
+            if((y+h)>canvas.getAttribute("height")){   
+                y=canvas.getAttribute("height")-h;   
+                delta=-delta;   
+            }   
+            //清空画布   
+            ctx.clearRect(0,0,canvas.getAttribute("width"),canvas.getAttribute("height"));   
+            //保存状态   
+            ctx.save();   
+            //移动坐标   
+            ctx.translate(x,y);   
+            //重新绘制   
+            ctx.fillRect(0,0,w,h);   
+            //恢复状态   
+            ctx.restore();   
+        },1000/fps);   
+    }   
+</script> 
+</body>
+</html>

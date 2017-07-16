@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<head>
+<meta charset="utf-8"/> 
+<title>自测bbb </title>
+<link rel="stylesheet" href="styles.css"/>
+<script>
+function checkSupport(){
+	if(typeof window.postMessage !== undefined){
+		document.getElementById("support").innerHTML="恭喜，浏览器支持！";
+	}else{
+		document.getElementById("support").innerHTML="老兄，升级一下浏览器吧！";
+	}
+}
+
+var targetOrigin = "http://portal.example.net:8080";
+
+function messageHandler(e){
+	if(e.origin === targetOrigin){
+		document.getElementById("status").textContent = e.data;
+	}else{
+		// 不可信源，不处理
+		console.log("不可信源，不处理");
+	}
+}
+
+function sendString(s){
+	window.top.postMessage(s, targetOrigin);
+}
+
+function loadDemo(){
+	document.getElementById("actionButton").addEventListener("click", 
+		function(){
+			var messageText = document.getElementById("messageText").value;
+			sendString(messageText);
+		}, true);
+	sendStatus();
+}
+
+window.addEventListener("load", loadDemo, true);
+window.addEventListener("message", messageHandler, true);
+</script>
+</head>
+
+<body onLoad="checkSupport()">
+<div id="support"></div>
+<h1>ifram组件</h1>
+<p><b>源</b>： http://chat.example.net:9999</p>
+<p>来自父页面的状态信息：<strong id="status"></strong> </p>
+<div>
+	<input type="text" id="messageText" value="组件通知"/>
+    <button id="actionButton">发送</button>
+</div>
+<p>
+	通知父页面，闪烁标题。
+</p>
+</body>
+</html>

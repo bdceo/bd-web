@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<head>
+<meta charset="utf-8" />
+<title>自测aaa</title>
+<style type="text/css"></style>
+<script>
+	var pp = [ "as", "fd", "ed", "ss", "zz", "ef", "sg", "ah", "eb" ];
+	// 原始循环
+	function fun() {
+		for ( var i = 0; i < pp.length; i++) {
+			process(pp[i]);
+		}
+		var i = 0;
+		while (i < pp.length) {
+			process(pp[i++]);
+		}
+		i = 0;
+		do {
+			process(pp[i++]);
+		} while (i < pp.length);
+	}
+	// 改良循环-1：最小化属性查找
+	function fun2() {
+		for ( var i = 0, len = pp.length; i < len; i++) {
+			process(pp[i]);
+		}
+		var len = pp.length;
+		var i = 0;
+		while (i < len) {
+			process(pp[i++]);
+		}
+		do {
+			process(pp[i++]);
+		} while (i < len);
+	}
+	// 改良循环-2：倒序循环
+	function fun3() {
+		for ( var i = pp.length; i--;) {
+			process(pp[i]);
+		}
+		var i = pp.length;
+		while (i--) {
+			process(pp[i]);
+		}
+		i = pp.length - 1;
+		do {
+			process(pp[i]);
+		} while (i--);
+	}
+	// 改良循环-3：达夫设备算法,减少迭代次数
+	function fun4() {
+		var itc = Math.floor(pp.length / 5);// 迭代次数
+		var start = pp.length % 5;// 从索引开始
+		var i = 0;// 索引计数器
+		do {
+			switch (start) {
+			case 0:
+				process(pp[i++]);
+			case 4:
+				process(pp[i++]);
+			case 3:
+				process(pp[i++]);
+			case 2:
+				process(pp[i++]);
+			case 1:
+				process(pp[i++]);
+			}
+			start = 0;
+		} while (--itc);
+
+	}
+	// 改良循环-3：达夫设备算法,减少迭代次数
+	function fun5() {
+		var len = pp.length;
+		alert((len % 5) + '|' + Math.floor(len / 5));
+		// 继续改良：余数处理和主循环分开
+		var i = len % 5;
+		while (i) {
+			console.log(pp[--i]);
+		}
+		console.log("-");
+		i = Math.floor(len / 5);
+		while (i--) {
+			console.log(pp[--len]);
+			console.log(pp[--len]);
+			console.log(pp[--len]);
+			console.log(pp[--len]);
+			console.log(pp[--len]);
+		}
+	}
+	// 基于函数的迭代
+	function fun6() {
+		pp.forEach(function(v, i, pp) {
+			console.log(i + '_' + v);
+		});
+	}
+</script>
+</head>
+<body onload="fun6();">
+</body>
+</html>

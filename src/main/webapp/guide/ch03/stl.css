@@ -1,0 +1,38 @@
+/* CSS Document */ 
+body{
+    color:white;
+}
+a{
+    color:white;
+}
+header{
+    background-image:url(bg.jpg);
+    width:900px;
+    height:270px;
+    padding-left:50px;
+    display: -moz-box;
+    display: -webkit-box;
+    -moz-box-pack: center;
+    -webkit-box-pack: center;
+    -moz-box-orient: vertical; 
+    -webkit-box-orient: vertical;
+    
+}
+ul{
+    display: -moz-box;
+    display: -webkit-box;
+    list-style:none;
+    list-style-image: url(side.gif); 
+    margin-left:-40px;
+}
+li{
+    margin-left:10px;
+    height:20px;
+}
+a{
+    text-decoration:none;
+    font-weight:bold;
+    with:80px;
+} 
+
+ 

@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<head>
+<meta charset="utf-8" />
+<title>自测aaa</title>
+<style type="text/css"></style>
+<script>
+	// 双重求值
+	function fun() {
+		console.clear();
+		var a = 5, b = 8;
+		var r = eval("a+b");
+		console.log("eval('a+b') = " + r);
+
+		var f = new Function('a', 'b', 'return a*b');
+		console.log("new Function('a', 'b', 'return a*b') = " + f(a, b));
+
+		r = 0;
+		setTimeout(function() {  
+			r = a - b;
+		}, 100);
+		setTimeout(function() {
+			console.log("setTimeout('r=a+b', 100) = " + r);
+		}, 200);
+
+		/*r = 0;
+		setInterval(function() {
+			r = a + b;
+		}, 100);
+		setInterval(function() {
+			console.log("setInterval('r=a+b', 100) = " + r);
+		}, 150);	*/
+	}
+	// 对象和数组，使用直接量
+	function fun1() {
+		// 原始典型方式：
+		var obj = new Object();
+		obj.name = "";
+		obj.sex = 1;
+		obj.flag = true;
+		obj.poiner = null;
+
+		var arr = new Array();
+		arr[0] = "";
+		arr[1] = 1;
+		arr[2] = true;
+		arr[3] = null;
+
+		// 使用直接量
+		var oo = {
+			name : "",
+			sex : 1,
+			flag : true,
+			poiner : null
+		};
+		var aa = [ "", 1, true, null ];
+	}
+	// 不要做重复的工作
+	function fun2() {
+		// 事件判断
+		addHandler();
+		removeHandler();
+
+		//延迟加载-适用于函数不是立马调用
+		addHandler2();
+		removeHandler2();
+
+		// 条件预加载-适用于函数调用频繁且立马使用
+		var addHandler3 = document.body.addEventListener ? function(target,
+				eventType, handler) {
+			target.addEventListener(eventType, handler, false);
+		} : function(target, eventType, handler) {
+			target.attachEvent("on" + eventType, handler);
+		};
+		var removeHandler3 = document.body.removeEventListener ? function(
+				target, eventType, handler) {
+			target.removeEventListener(eventType, handler, false);
+		} : function(target, eventType, handler) {
+			target.detachEvent("on" + eventType, handler)
+		};
+	}
+	function addHandler(target, eventType, handler) {
+		if (target.addEventListener) {// DOM2 Events
+			target.addEventListener(eventType, handler, false);
+		} else {// IE
+			target.attachEvent("on" + eventType, handler);
+		}
+	}
+	function removeHandler(target, eventType, handler) {
+		if (target.removeEventListener) {// DOM2 Events
+			target.removeEventListener(eventType, handler, false);
+		} else {
+			target.detachEvent("on" + eventType, handler)
+		}
+	}
+	// 原始函数被包含正确操作的新函数覆盖，检测代码已经被新的函数覆盖
+	function addHandler2(target, eventType, handler) {
+		if (target.addEventListener) {// DOM2 Events
+			addHandler2 = function(target, eventType, handler) {
+				target.addEventListener(eventType, handler, false);
+			}
+		} else {// IE
+			addHandler2 = function(target, eventType, handler) {
+				target.attachEvent("on" + eventType, handler);
+			}
+		}
+		addHandler2(target, eventType, handler);
+	}
+	function removeHandler2(target, eventType, handler) {
+		if (target.removeEventListener) {// DOM2 Events
+			removeHandler2 = function(target, eventType, handler) {
+				target.removeEventListener(eventType, handler, false);
+			}
+		} else {
+			removeHandler2 = function(target, eventType, handler) {
+				target.detachEvent("on" + eventType, handler)
+			}
+		}
+		removeHandler2(target, eventType, handler);
+	}
+
+	// 位操作
+	function fun3() {
+		var a = 25, b = 3;
+		console.log("a.toString(2) = " + a.toString(2));
+		console.log("b.toString(2) = " + b.toString(2));
+		for ( var i = 1; i <= 10; i++) {
+			console.log(i);
+			console.log("i%2==true = " + (i % 2 == true));
+			console.log("i&1==true = " + ((i & 1) == true));
+		}
+	}
+</script>
+</head>
+<body onload="fun3();">
+</body>
+</html>

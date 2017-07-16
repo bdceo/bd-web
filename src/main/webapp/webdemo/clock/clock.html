@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+<title>Canvas-Clock</title>
+</head>
+<body> 
+<h1>珍惜生命，不要浪费时间，谢谢！</h1>
+<canvas id="canvas" width="600" height="400"></canvas> 
+<script type="text/javascript">
+var canvas = document.getElementById('canvas'); 
+if (canvas.getContext) {
+    var ctx = canvas.getContext('2d');
+    ctx.lineWidth = 20;
+    ctx.shadowOffsetX = 3;
+    ctx.shadowOffsetY = 3;
+    ctx.shadowBlur = 2;
+    ctx.font = '18px monospace';
+    var startAngle = -Math.PI / 2; 
+    
+    function drawClock() {
+        var time = new Date();
+        var hours = time.getHours();
+        var minutes = time.getMinutes();
+        var seconds = time.getSeconds();
+
+        ctx.clearRect(0, 0, 600, 400);
+
+        ctx.beginPath();
+        ctx.strokeStyle = "rgb(200, 97, 0)";
+        ctx.shadowColor = "rgba(10, 100, 21, 0.5)";
+        ctx.arc(100, 100, 70, startAngle, (hours / 6 + minutes / 360 + seconds / 21600 - 0.5) * Math.PI, false);
+        ctx.stroke();
+
+        ctx.beginPath();
+        ctx.strokeStyle = "rgb(112, 200, 0)";
+        ctx.shadowColor = "rgba(100, 100, 45, 0.5)";
+        ctx.arc(270, 100, 70,startAngle, (minutes / 30 + seconds / 1800 - 0.5) * Math.PI, false);
+        ctx.stroke();
+
+        ctx.beginPath();
+        ctx.strokeStyle = "rgb(0, 52, 200)";
+        ctx.shadowColor = "rgba(200, 100, 99, 0.5)";
+        ctx.arc(440, 100, 70,startAngle, (seconds / 30 - 0.5) * Math.PI, false);
+        //ctx.arc(440, 100, 70,startAngle, (6*seconds*Math.PI)/180, false);
+        ctx.stroke();
+    		
+        ctx.fillText(hours + " 点", 80, 105);
+		
+        ctx.fillText(minutes + " 分", 245, 105);
+		
+        ctx.fillText(seconds + " 秒", 415, 105);
+    }
+
+    drawClock();
+    setInterval(drawClock, 1000);
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,79 @@
+#comment{
+    background-color: #FFFF99;
+    width: 550px;
+    height:300px;
+    margin-top:10px;
+    }
+    #comment-bar{
+        color:white;
+        padding-top: 5px;
+        padding-bottom: 5px;
+        text-align: center;
+        background-color: #FFCC33;
+    }
+    #comment-form{
+        padding-left:20px;
+    }
+    .button{
+        BORDER-RIGHT: #283043 1px solid; PADDING-RIGHT: 1px; BORDER-TOP: #9097a2 1px solid;
+    PADDING-LEFT: 1px; BACKGROUND: #FFCCFF; PADDING-BOTTOM: 1px; 
+    BORDER-LEFT: #9097a2 1px solid; COLOR: #fff; 
+    PADDING-TOP: 1px; BORDER-BOTTOM: #283043 1px solid;
+    margin: 10px;
+    }
+    #comment-lists{
+    background-color: #FFFF99;
+    width: 550px;
+    margin-bottom:10px;
+    }
+    div.comment-list{
+        text-align: left;
+        border:1px solid ActiveCaption;
+        margin: 5px;
+    }
+    div.observer-info{
+        color:white;
+        padding-top: 5px;
+        padding-bottom: 5px;
+        padding-left: 5px;
+        text-align: left;
+        background-color: #FFCC66;
+        font-size: 14px;
+    }
+    div.observer-comment{
+        padding-top: 5px;
+        padding-bottom: 5px;
+        text-align: left;
+    }
+    #process-indicator{
+     margin:10px;padding-top:15px;padding-right:5px;padding-left:5px;
+     background-color:cyan;position:absolute;border:2px solid ActiveCaption;
+    }
+    .success {
+    COLOR: #FFCC66;
+}
+.failure {
+    COLOR: #ff665b£»
+}
+#cinfoDiv {
+    position:absolute;
+    top:200px;
+    width:200px;
+    height:120px;
+    z-index:1000;
+    background-color:#F0F8FF;
+    border:1px solid #009999;
+}
+#cinfoDiv h2{
+background-color:#FFCC66;
+font-size:14px;
+color:#fff;
+text-align:center;
+margin-top:0px;
+}
+#cinfoDiv p{
+margin:5px;
+text-align:center;
+vertical-align: top;
+font-size:14px;
+}

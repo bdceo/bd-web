@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<head>
+<meta charset="utf-8"/> 
+<title>自测aaa</title>
+<link rel="stylesheet" href="styles.css"/>
+<script>
+	var hasVideo = !!(document.createElement("vedio").canPlayType);
+	//console.log(hasVideo);
+	
+	function toggleSound(){
+		var music = document.getElementById("clickSound");
+		var toggle = document.getElementById("toggle");
+		
+		if(music.paused){
+			music.play();
+			toggle.innerHTML="Pause";
+		}else{
+			music.pause();
+			toggle.innerHTML="Play";
+		}
+	}
+	/*时序查看器*/
+	var updateInterval = 5000;// 抓帧时间间隔，单位ms
+	var frameWidth = 100;// 时序中帧的尺寸
+	var frameHeight = 75;
+	var frameRows = 4;// 时序的总帧数
+	var frameColumns = 4;
+	var frameGrid = frameRows * frameColumns;
+	
+	var frameCount = 0;// 当前帧
+	var intervalId;// 定时器
+	var videoStarted = false;
+	
+	
+	function updateFrame(){
+		var video = document.getElementById("movies");
+		var timeline = document.getElementById("timeline");	
+		var ctx = timeline.getContext("2d");
+		// 根据帧数计算当前播放位置，然后以视频为输入参数绘制图像
+		var framePosition = frameCount % frameGrid;
+		var frameX = (framePosition % frameColumns) * frameWidth;
+		var frameY = (Math.floor(framePosition / frameRows)) * frameHeight;
+		ctx.drawImage(video, 0, 0, 400, 300, frameX, frameY, frameWidth, frameHeight);
+		
+		frameCount++;
+	}
+	function startVideo(){
+		if(videoStarted){
+			return;
+		}	
+		videoStarted = true;
+		// 计算初始帧，然后以规定时间间隔创建其他帧
+		updateFrame();
+		intervalId = setInterval(updateFrame, updateInterval);
+		
+		var timeline = document.getElementById("timeline");	
+		timeline.onclick = function(e){
+			var offX = e.layerX - timeline.offsetLeft;
+			var offY = e.layerY - timeline.offsetTop;
+			
+			// 计算以零为基准索引的网格中哪帧被点击
+			var clickedFrame = Math.floor(offY / frameHeight) * frameRows;
+			clickedFrame += Math.floor(offX / frameWidth);
+			
+			// 从视频开始后已经播放到多少帧
+			var seekedFrame = (((Math.floor(frameCount / frameGrid)) * frameGrid) + clickedFrame);
+			
+			// 如果用户点击的帧在当前帧之前，则假定是上一轮的帧
+			if(clickedFrame > (frameCount % frameGrid)){
+				seekedFrame -= frameGrid;
+			}
+			// 不允许跳出当前视频
+			if(seekedFrame < 0){
+				return;
+			}
+			
+			// 计算出一帧对应的视频
+			var video = document.getElementById("movies");
+			video.currentTime = seekedFrame * updateInterval / 1000;
+			frameCount = seekedFrame;
+		}
+	}
+	function stopTimeline(){
+		clearInterval(intervalId);
+	}
+	
+</script>
+</head>
+<body>
+默认示例<br/>
+<audio controls src="johann_sebastian_bach_air.ogg">
+	一个音频文件
+</audio>
+<br/><br/>
+备用声明<br/>
+<audio controls>
+	<source  src="johann_sebastian_bach_air.ogg" type="audio/ogg;codecs=vorbis"/>
+	<source  src="johann_sebastian_bach_air.mp3" type="audio/mpeg"/>    
+	一个音频文件
+</audio>
+<br/><br/>
+自动播放autoplay<br/>
+<audio id="clickSound">
+	<source  src="johann_sebastian_bach_air.ogg" type="audio/ogg;codecs=vorbis"/>
+	<source  src="johann_sebastian_bach_air.mp3" type="audio/mpeg"/>    
+	一个音频文件
+</audio>
+<button id="toggle" onClick="toggleSound()">Play</button>
+<br/><br/>
+视频时序查看器<br/>
+<video id="movies" autoplay loop onCanPlay="startVideo()" onEnded="stopTimeline()" autobuffer="true" width="400px" height="300px"
+onMouseOver="this.play()" onMouseOut="this.pause()">
+	<source src="Intermission-Walk-in.ogv" type='video/ogg;codecs="theora, vorbis"'/>
+    <source src="Intermission-Walk-in_512kb.mp4" type='video/mp4; "avc1.42E01E, mp4a.40.2"'/>
+</video>
+<canvas id="timeline" width="400px" height="300px"></canvas>
+<br/> 
+</body>
+</html>

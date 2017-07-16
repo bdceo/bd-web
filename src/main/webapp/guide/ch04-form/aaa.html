@@ -1,0 +1,237 @@
+<!DOCTYPE html><head>
+<meta charset="utf-8"/>
+<title>自测aaa</title>
+<hr/>
+<h4>form 属性测试</h4>
+<form id="testform">
+  <input type="text">
+</form>
+<textarea form="testform"></textarea>
+<hr/>
+<h4>formaction 和 formmethod 属性测试</h4>
+<form id="testform2" action="serve.jsp">
+  <input type="submit" name="s1" value="v1" formaction="s1.jsp" formmethod="post">
+  提交到S1
+  <input type="submit" name="s2" value="v2" formaction="s2.jsp" formmethod="get">
+  提交到S2
+  <input type="submit" name="s3" value="v3" formaction="s3.jsp" formmethod="post">
+  提交到S3
+  <input type="submit">
+</form>
+<hr/>
+<h4>list 属性测试</h4>
+text：
+<input type="text" name="greeting" list="greetings">
+<!--使用style="display:none;"将detalist元素设定为不显示-->
+<datalist id="greetings" style="display: none;">
+  <option value="Good Morning">Good Morning</option>
+  <option value="Hello">Hello</option>
+  <option value="Good Afternoon">Good Afternoon</option>
+</datalist>
+<hr/>
+<h4>autocomplete 属性测试</h4>
+<input type="text" name="greeting2" list="greetings" autocomplete="on"/>
+<hr/>
+<h3>form input 新元素 测试</h3>
+<form name="form1">
+  <label for=username>姓名</label>
+  <input name=username id=username type=text required />
+  <br/>
+  <label for=age>年龄</label>
+  <input name=age id=age type=number min=0 max=100/>
+  <br/>
+  <label for=birthday>出生日期</label>
+  <input name=birthday id=birthday type=date/>
+  <br/>
+  <label for=email>Email</label>
+  <input name=email id=email type=email required />
+  <br/>
+  <label for=url>个人主页</label>
+  <input name=url id=url type=url />
+  <br/>
+  <label for=memo>个人简介</label>
+  <textarea name=memo id=memo required ></textarea>
+  <br/>
+  <input type=submit>
+</form>
+<hr/>
+<h4>output 元素测试</h4>
+<form id="testform">
+  请选择一个数值：
+  <input name="range1" type=range min=0 max=100 step=5/>
+  <output onFormInput="value=range1.value">50</output>
+</form>
+<hr/>
+<h4>表单自动验证 测试</h4>
+<form method="post">
+  <input name="text" type="text" required pattern="^\w.*$">
+  <input type="text" name="suibian" pattern="[0-9][a-z]{2}" placeholder="输入内容：一个数字两个小写字母"/>
+  <input type="submit">
+</form>
+<p/>
+<script>
+function check(){
+	var em = document.getElementById("email");
+	if(em.value == ""){
+		alert("请输入email地址");	return false;
+	}else if(!em.checkValidity()){
+		alert("请输入正确的email地址");return false;
+	}else{
+		alert("email地址有效");
+	}	
+	
+    var pass1=document.getElementById("pass1");
+    var pass2=document.getElementById("pass2");
+    if(pass1.value!=pass2.value)
+        pass2.setCustomValidity("密码不一致。");
+    else
+        pass2.setCustomValidity("");
+}
+</script>
+<form id=testform onsubmit="return check();">
+  <label for=email>Email</label>
+  <input name=email id=email type=email />
+  <br/>
+  密码：
+  <input type=password name="pass1" id="pass1" />
+  <br/>
+  确认密码：
+  <input type=password name="pass2"  id="pass2"/>
+  <br/>
+  <br/>
+  <input type=submit>
+</form>
+<hr/>
+<h4>figure和figcaption 元素测试</h4>
+<figure> <img src="tyl.jpg" alt="谭咏麟"> </figure>
+<figure> <img src="tyl.jpg" alt="谭咏麟">
+  <figcaption>谭咏麟</figcaption>
+</figure>
+<figure> <img src="tyl1.jpg" alt="谭咏麟"> <img src="zyf.jpg" alt="周润发"> <img src="zxy.jpg" alt="张学友">
+  <figcaption>我喜爱的明星</figcaption>
+</figure>
+<hr/>
+<h4>details和summary 元素测试</h4>
+<details>
+<summary>
+精武风云
+<summary>
+<p/>
+陈真（甄子丹 饰）当年为报杀师之仇，独闯虹口道场...(精武风云电影介绍）
+</p>
+</details>
+<hr/>
+<h4>mark 元素测试</h4>
+<h1>搜索"
+  <mark>
+  HTML 5
+  <mark>
+  ",找到相关网页约10,200,000篇，用时0.041秒</h1>
+<section id="search-results">
+  <article>
+    <h2> <a href="http://developer.51cto.com/art/200907/133407.htm"> 专题：
+      <mark>HTML 5</mark>
+      下一代Web开发标准详解_51CTO.COM - 技术成就梦想 ... </a> </h2>
+    <p>
+      <mark>HTML 5</mark>
+      是近十年来Web开发标准最巨大的飞跃</p>
+  </article>
+  <article>
+    <h2> <a href="http://paranimage.com/list-of-html-5/">
+      <mark>HTML 5</mark>
+      一览 | 帕兰映像 </a> </h2>
+    <p>
+      <mark>html 5</mark>
+      最近被讨论的越来越多，越来越烈...</p>
+  </article>
+  <article>
+    <h2> <a href="http://www.chinabyte.com/keyword/HTML+5/">
+      <mark>html 5</mark>
+      _比特网 </a> </h2>
+    <p>
+      <mark>HTML 5</mark>
+      提供了一些新的元素和属性，反映典型...</p>
+  </article>
+  <article>
+    <h2> <a href="http://www.slideshare.net/mienflying/html5-4921810">
+      <mark>HTML 5</mark>
+      表单 </a> </h2>
+    <p>about
+      <mark>HTML 5</mark>
+      Form,the web form 2.0 tech</p>
+  </article>
+</section>
+刘德华：光芒万丈的不老情人
+<p>　　
+  有人说华仔是东方的
+  <mark>汤姆•克鲁斯</mark>
+  ，是忧郁的王子
+  <mark>劳伦斯•奥立佛</mark>
+  。华仔那张以鹰钩鼻为核心的脸蛋的确有些欧美人的韵味，与一般的亚洲人的脸不太一样。 </p>
+<hr/>
+<h4>progress 元素测试</h4>
+<script>
+var progressBar = document.getElementById('p');
+function button_onclick()
+{
+    var progressBar = document.getElementById('p');
+    progressBar.getElementsByTagName('span')[0].textContent ="0";
+    for(var i=0;i<=100;i++)
+        updateProgress(i);
+}
+function updateProgress(newValue) 
+{
+    var progressBar = document.getElementById('p');
+    progressBar.value = newValue;
+    progressBar.getElementsByTagName('span')[0].textContent = newValue;
+}
+</script>
+<section>
+  <h2>progress元素的使用示例</h2>
+  <p>完成百分比:
+    <progress id="p" max=100><span>0</span>%</progress>
+  </p>
+  <input type="button" onclick="button_onclick()"  value="请点击"/>
+</section>
+<hr/>
+<h4>meter 元素测试</h4>
+<meter value="40" min="0" max="100">40%100</meter>
+<hr/>
+<h4>ol 元素测试</h4>
+<h3>ol列表的star属性示例</h3>
+<ol start=3>
+  <li>列表内容5</li>
+  <li>列表内容6</li>
+  <li>列表内容7</li>
+  <li>列表内容8</li>
+  <li>列表内容9</li>
+  <li>列表内容10</li>
+</ol>
+<hr/>
+<h4>dl 元素测试</h4>
+<h3>用于术语解释的dl列表示例</h3>
+<article>
+  <h1>aritcle元素</h1>
+  <p>一块独立的内容。它可以用来表示RRS中一块独立的内容，也可以用来表示博客中独立的一篇文章。...</p>
+  <aside>
+    <h2>术语解释</h2>
+    <dl>
+      <dt><dfn>RSS</dfn></dt>
+      <dd>RSS也叫聚合RSS是在线共享内容的一种简易方式(也叫聚合内容)...</dd>
+      <dt><dfn>博客</dfn></dt>
+      <dd>博客，又译为网络日志、部落格或部落阁等，是一种通常由个人管理...</dd>
+    </dl>
+  </aside>
+</article>
+<dl>
+<dt>作者</dt>
+<dd>陆凌牛</dd>
+<dt>出版社</dt>
+<dd>机械工业出版社</dd>
+<dt>类别</dt>
+<dd>网络开发</dd>
+</dl>
+<hr/>
+<h4>cite 元素测试</h4>
+<h3>cite元素示例</h3>
+<p>我最喜欢的电影是由甄子丹主演的<cite>精武风云</cite>。</p>

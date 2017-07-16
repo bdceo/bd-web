@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<head>
+<meta charset="utf-8" />
+<title>自测aaa</title>
+<style type="text/css"></style>
+<script>
+	function testFinally() {
+		try {
+			/*x = 10 + a;
+			return 1;
+			throw "错了";// 手动抛出错误
+			throw new Error("testFinally():手动抛出某内置错误");*/
+			throw new CustomError("自定义异常");
+		} catch (e) {
+			console.log(e.message);
+			if (e instanceof TypeError) {
+				console.log("类型错误");
+			} else if (e instanceof ReferenceError) {
+				console.log("引用错误");
+			} else if (e instanceof CustomError) {
+				console.log("自定义错误");
+			}
+			return 2;
+		} finally {
+			return 3;
+		}
+	}
+	// 自动以异常，引用原型链
+	function CustomError(message) {
+		this.name = "CustomError";
+		this.message = message;
+	}
+	CustomError.prototype = new Error();
+
+	// 向服务器发送错误消息
+	function logError(sev, msg) {
+		var img = new Image();
+		img.src = "server.jsp?op=err&sev=" + encodeURIComponent(sev) + "&msg="
+				+ encodeURIComponent(msg);
+	}
+
+	function fun() {
+		var f = testFinally();
+		console.log("finally = " + f);
+		console.error("error");
+		console.info("info");
+		console.warn("warn");
+	}
+</script>
+</head>
+<body>
+	<br />
+	<input type="button" onclick="fun()" value="fun()">
+</body>
+</html>

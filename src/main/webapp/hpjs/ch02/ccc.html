@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<head>
+<meta charset="utf-8"/> 
+<title>自测ccc</title>
+<style type="text/css"></style>
+<script> 
+	// 对象-原型
+	var book = {
+		title : "HPjs",
+		publisher : "bdceo"
+	};
+	//alert(book.toString());
+	//alert(book._proto_);
+	alert(book.hasOwnProperty("title"));
+	alert(book.hasOwnProperty("toString"));
+	
+	alert("title" in book);
+	alert("toString" in book);
+	 
+</script>
+
+<script>
+	function Book(title, publ){
+		this.title = title;
+		this.publ = publ;
+	}
+	Book.prototype.bookTitle = function(){
+		alert(this.title);
+	};
+	
+	var b1 = new Book("设计模式", "Trott");
+	var b2 = new Book("高级JS", "Zakas");
+	
+	alert(b1 instanceof Book);
+	alert(b2 instanceof Object);
+	
+	b1.bookTitle();
+	alert(b1.toString());
+</script>
+</head>
+<body>
+</body>
+</html>

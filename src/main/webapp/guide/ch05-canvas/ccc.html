@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<head>
+<meta charset="utf-8"/> 
+<title>自测ccc</title>
+<script>
+var globalId,i = 0;
+function draw(id){
+	globalId = id;
+	setInterval(Composite, 1000);
+}
+function Composite(){
+	var canvas = document.getElementById(globalId);
+	context = canvas.getContext("2d");
+	var oprtns = new Array("source-atop", "source-in", "source-out", "source-over"
+						, "destination-atop", "destination-in", "destination-out", "destination-over"
+						, "lighter", "copy", "xor");
+	if(i>10) i = 0;
+	context.clearRect(0, 0, canvas.width, canvas.height);
+	context.save();
+	
+	context.fillStyle = "blue";
+	context.fillRect(10, 10, 60, 60);
+	
+	context.globalCompositeOperation = oprtns[i];
+	context.beginPath();
+	context.fillStyle = "red";
+	context.arc(60, 60, 30, 0, Math.PI*2, false);
+	context.fill();
+	
+	context.restore();
+	i += 1;
+}
+</script>
+</head>
+
+<body onLoad="draw('canvas')">
+<canvas id="canvas" width="400" height="300"/>
+</body>
+</html>

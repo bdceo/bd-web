@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<head>
+<meta charset="utf-8" />
+<title>自测bbb</title>
+<style type="text/css"></style>
+<script>
+	// 高级定时器： 链式setTimeout替代setInterval
+	function fun() {
+		var sp = document.getElementById("distime");
+		var interval = 1000;
+		setTimeout(function() {
+			sp.innerHTML = (new Date()).toLocaleString();
+			setTimeout(arguments.callee, interval);
+		}, interval);
+	}
+
+	// 数组分块
+	var array = new Array();
+	setTimeout(function() {
+		var item = array.shift;
+		if (array.length > 0) {
+			setTimeout(arguments.callee, 100);
+		}
+	}, 100);
+	// 待处理函数和执行换进过的实例
+	function chunk(array, process, context) {
+		setTimeout(function() {
+			var item = array.shift;
+			process.call(context, item);
+			if (array.length > 0) {
+				setTimeout(arguments.callee, 100);
+			}
+		}, 100);
+	}
+
+	// 函数节流
+	var processor = {
+		timeoutId : null,
+		performProcessing : function() {
+			// 实际执行代码
+			var sp = document.getElementById("distime");
+			sp.innerHTML = (new Date()).toLocaleString();
+		},
+		process : function() {
+			clearTimeout(this.timeoutId);
+			var that = this;// setTimeout的执行环境总是window
+			this.timeoutId = setTimeout(function() {
+				that.performProcessing();
+			}, 1000);
+		}
+	};
+	processor.process();
+	// 简化版
+	function throttle(fn, context) {
+		clearTime(fn.tid);
+		fn.tid = setTimeout(function() {
+			fn.call(context);
+		}, 100);
+	}
+</script>
+</head>
+<body>
+	<br />
+	<input type="button" onclick="fun()" value="fun()">
+	<span id="distime"></span>
+</body>
+</html>

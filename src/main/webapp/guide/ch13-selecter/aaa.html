@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+
+<head>
+<meta charset="utf-8" />
+<title>自测aaa</title>
+<style type="text/css">
+/*css2中的属性选择器*/
+[id=stion0] {
+	background-color: green;
+}
+
+/*css3中的属性选择器*/
+[id *=\-1] {
+	background-color: red;
+} /*  */
+[id ^=sec] {
+	background-color: yellow;
+}
+
+[id $=\-2] {
+	background-color: blue
+}
+
+a[href $=\/],a[href $=htm]:after,a[href $=html]:after {
+	content: "网页";
+	color: red;
+}
+
+a[href $=jpg]:after {
+	content: "图片";
+	color: yellow;
+}
+/* 结构性，伪类，元素选择器*/
+p:first-line {
+	color: #0000FF
+}
+
+dd:first-letter {
+	color: blue
+}
+
+li:before {
+	content: "li_"
+}
+
+#mv li:after {
+	content: "(仅用于测试，请勿用于商业用途。)";
+	font-size: 12px;
+	color: red;
+}
+
+#fl li:first-child {
+	background-color: yellow;
+}
+
+#fl li:last-child {
+	background-color: skyblue;
+}
+
+#fl li:nth-child(2) {
+	background-color: red;
+}
+
+#fl li:nth-last-child(2) {
+	background-color: blue;
+}
+
+#fl li:nth-child(odd) {
+	background-color: gray;
+} /*
+#fl li:nth-last-child(even) {
+	background-color: green;
+}*/
+h2:nth-child(odd) {
+	background-color: yellow;
+}
+
+h2:nth-child(even) {
+	background-color: skyblue;
+}
+
+h2:nth-of-type(odd) {
+	background-color: yellow;
+}
+
+h2:nth-of-type(even) {
+	background-color: skyblue;
+}
+
+#xh li:nth-child(1) {
+	background-color: limegreen;
+}
+
+#xh li:nth-child(2) {
+	background-color: red;
+}
+
+#xh li:nth-child(3) {
+	background-color: gray;
+}
+
+#xh li:nth-child(4) {
+	background-color: yellow;
+}
+
+#xh li:nth-child(4n+1) {
+	background-color: limegreen;
+}
+
+#xh li:nth-child(4n+2) {
+	background-color: red;
+}
+
+#xh li:nth-child(4n+3) {
+	background-color: gray;
+}
+
+#xh li:nth-child(4n+4) {
+	background-color: yellow;
+}
+/*
+li:nth-child(1):nth-last-child(1){
+    background-color: yellow;
+}*/
+li:only-child {
+	background-color: yellow;
+}
+</style>
+</head>
+<body>
+	<div id="stion0">示例文本0</div>
+	<div id="section1">示例文本1</div>
+	<div id="subsection1-1">示例文本1-1</div>
+	<div id="subsection1-2">示例文本1-2</div>
+	<div id="section2">示例文本2</div>
+	<div id="subsection2-1">示例文本2-1</div>
+	<div id="subsection2-2">示例文本2-2</div>
+	<hr>
+	<ul>
+		<li><a href="http://Lulingniu/">HTML5+CSS3权威指南</a></li>
+		<li><a href="http://Lulingniu/CSS3.htm">CSS3的新特性</a></li>
+		<li><a href="photo.jpg">图像素材</a></li>
+	</ul>
+	<hr>
+	<p>
+		段落中的第一行。<br> 段落中的第二行
+	</p>
+	<dd>This is an english text。</dd>
+	<dd>这是一段中文文字。</dd>
+	<ul>
+		<li>列表项目1</li>
+		<li>列表项目2</li>
+		<li>列表项目3</li>
+		<li>列表项目4</li>
+		<li>列表项目5</li>
+		</li>
+	</ul>
+	<h1>电影清单</h1>
+	<ul id="mv">
+		<li><a href="movie1.mp4">狄仁杰之通天帝国</a></li>
+		<li><a href="movie2.mp4">精武风云</a></li>
+		<li><a href="movie3.mp4">大笑江湖</a></li>
+	</ul>
+	<hr>
+	<h2>列表A</h2>
+	<ul id="fl">
+		<li>列表项目1</li>
+		<li>列表项目2</li>
+		<li>列表项目3</li>
+		<li>列表项目4</li>
+		<li>列表项目5</li>
+		<li>列表项目1</li>
+		<li>列表项目2</li>
+		<li>列表项目3</li>
+		<li>列表项目4</li>
+		<li>列表项目5</li>
+	</ul>
+	<div>
+		<h2>文章标题A</h2>
+		<p>文章正文。</p>
+		<h2>文章标题B</h2>
+		<p>文章正文。</p>
+		<h2>文章标题C</h2>
+		<p>文章正文。</p>
+		<h2>文章标题D</h2>
+		<p>文章正文。</p>
+	</div>
+	<ul id="xh">
+		<li>列表项目1</li>
+		<li>列表项目2</li>
+		<li>列表项目3</li>
+		<li>列表项目4</li>
+		<li>列表项目5</li>
+		<li>列表项目6</li>
+		<li>列表项目7</li>
+		<li>列表项目8</li>
+		<li>列表项目9</li>
+		<li>列表项目10</li>
+		<li>列表项目11</li>
+		<li>列表项目12</li>
+	</ul>
+	<h2>ul列表A</h2>
+	<ul>
+		<li>列表项目A01</li>
+	</ul>
+	<h2>ul列表B</h2>
+	<ul>
+		<li>列表项目B01</li>
+		<li>列表项目B02</li>
+		<li>列表项目B03</li>
+	</ul>
+</body>
+</html>

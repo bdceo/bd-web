@@ -1,0 +1,24 @@
+*{ margin:0px; padding:0px;}
+img{ display:block; border:0px;}
+li{ list-style:none;}
+
+
+body{ font-size:12px; font-family:Arial, Helvetica, sans-serif;}
+.index{ width:640px; height:960px; margin:0 auto;}
+.top{ width:640px; height:60px;
+ background:url(../images/topi.png) no-repeat;}
+.top h2{ color:#FFF; font-size:25px; font-weight:bold; text-shadow:5px 5px 5px gray;padding-top:12px; text-align:center;}
+.main{ width:640px; height:872px;
+background:#66050a;display:block;}
+.lunshu{ width:640px; height:auto; padding-top:15px;}
+.lunshu p{ font-size:16px; color:#FFF; float:left; width:135px; padding-left:25px;}
+.lunshu p input{width:45px; height:24px; border:0px; background-color:transparent; color:#FFF; font-size:20px; font-weight:bold; text-align:center;}
+.lunshu .chz{ clear:both; padding-left:520px; padding-top:15px; }
+.main .zhuanp{ clear:both; width:559px; height:600px; margin:0 auto; background:url(../images/zhuanpan1_04.png) no-repeat;}
+.start{ padding-left:500px;}
+.bottom{ width:640px; height:auto;}
+.bottom h2{ font-size:20px; color:#FFF; padding-left:20px;}
+.bottom li{ font-size:14px; color:#FFF; padding-left:35px; line-height:22px;}
+.bottom li input{ width:200px; height:24px; border:0px; border-bottom:1px solid #FFF; background-color:transparent;color:#FFF; font-weight:bold; font-size:20px; text-align:center;}
+
+

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE dwr PUBLIC "-//GetAhead Limited//DTD Direct Web Remoting 2.0//EN" "http://getahead.org/dwr/dwr20.dtd">
+<dwr>
+	<allow>
+		<convert converter="bean"
+			match="com.bdsoft.test.ajaxeg.upload.UploadInfo" />
+		<create creator="new" javascript="Demo">
+			<param name="class" value="com.bdsoft.web2p0.dwr.Demo" />
+		</create>
+		<create creator="new" javascript="DemoDate">
+			<param name="class" value="java.util.Date" />
+		</create>
+		<create creator="new" javascript="JUserCheck">
+			<param name="class" value="com.bdsoft.test.dao.DwrDao" />
+			<include method="check" />
+		</create>
+		<create creator="new" javascript="UploadMonitor">
+			<param name="class"
+				value="com.bdsoft.test.ajaxeg.upload.UploadMonitor" />
+		</create>
+
+		<convert converter="bean"
+			match="com.bdsoft.web2p0.ch22.struts.form.NewsForm" />
+		<create creator="new" javascript="NewsFormDAO"
+			class="com.bdsoft.web2p0.ch22.dao.NewsFormDAO">
+			<include method="deleteNews" />
+		</create>
+	</allow>
+</dwr>

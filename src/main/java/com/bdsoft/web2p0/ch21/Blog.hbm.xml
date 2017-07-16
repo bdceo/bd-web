@@ -1,0 +1,65 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+          "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+          "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.bdsoft.web2p0.ch21">
+	<class name="Blog" table="blog" discriminator-value="C">
+
+		<id name="id">
+			<generator class="increment" />
+		</id>
+
+		<property name="username" />
+		<property name="password" />
+		<property name="subject" />
+		<property name="email" />
+		<property name="image" />
+		<property name="visitcount" />
+	</class>
+
+	<class name="Sort" table="sort" discriminator-value="C">
+
+		<id name="id">
+			<generator class="increment" />
+		</id>
+
+		<property name="name" />
+		<property name="blogid" />
+	</class>
+
+	<class name="Article" table="article" discriminator-value="C">
+
+		<id name="id">
+			<generator class="increment" />
+		</id>
+
+		<property name="title" />
+		<property name="content" />
+		<property name="pubtime" />
+		<property name="blogid" />
+		<property name="sortid" />
+	</class>
+
+	<class name="FeedBack" table="feedback" discriminator-value="C">
+
+		<id name="id">
+			<generator class="increment" />
+		</id>
+
+		<property name="uname" />
+		<property name="content" />
+		<property name="pubtime" />
+		<property name="articleid" />
+	</class>
+
+	<class name="Links" table="links" discriminator-value="C">
+
+		<id name="id">
+			<generator class="increment" />
+		</id>
+
+		<property name="name" />
+		<property name="url" />
+		<property name="blogid" />
+	</class>
+</hibernate-mapping>

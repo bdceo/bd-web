@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<head>
+<meta charset="utf-8" />
+<title>自测ccc</title>
+<style type="text/css"></style>
+<script>
+	function fun() {
+		// 构造函数
+		function Person(name, sex) {
+			this.name = name;
+			this.sex = sex;
+		}
+		// 定义Person的原型，原型中的属性可以被自定义对象引用
+		Person.prototype = {
+			getName : function() {
+				return this.name;
+			},
+			getSex : function() {
+				return this.sex;
+			}
+		}
+		var zhang = new Person("ZhangSan", "man");
+		console.log(zhang.getName()); // "ZhangSan"
+		var chun = new Person("ChunHua", "woman");
+		console.log(chun.getName()); // "ChunHua"
+		console.log(zhang.getName());
+	}
+</script>
+</head>
+<body>
+	<br />
+	<input type="button" onclick="fun()" value="fun()">
+</body>
+</html>

@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<head>
+<meta charset="utf-8" />
+<title>自测aaa</title>
+<style type="text/css"></style>
+<script type="text/javascript">
+	function fun1() {
+		for ( var i = 0; i < 15000; i++) {
+			document.getElementById("here").innerHTML += "a";
+		}
+	}
+
+	function fun2() {
+		var content = "";
+		for ( var i = 0; i < 15000; i++) {
+			content += "a";
+		}
+		document.getElementById("here2").innerHTML = content;
+	}
+	
+	function tableInnerHTML(){
+		var i, h = ['<table border="1" width="100%">'];
+		h.push('<thead><tr>');
+		h.push('<th>ID<\/th><th>Yes?<\/th><th>Name<\/th><th>Url<\/th><th>Action<\/th>');
+		h.push('<\/tr><\/thead>');
+		h.push('<tbody>');
+		for(i = 0; i<= 1000; i++){
+			h.push('<tr>');
+			h.push('<td>' + i + '<\/td>');
+			h.push('<td>' + 'And the answore is..' + (i%2?'Y':'N') + '<\/td>');
+			h.push('<td>' + 'My name is #' + i + '<\/td>');
+			h.push('<td>' + '<a href="http://xx.org/"' + i + '.html>http://xx.org/' + i + '.html<\/a><\/td>');
+			h.push('<td>' + '<ul><li><a href="#">Edit<\/a><\/li><li><a href="#">Del<\/a><\/li><\/ul>' + '<\/td>');
+			h.push('<\/tr>');
+		}
+		h.push('<\/tbody>');
+		h.push('<\/table>');
+		document.getElementById("here").innerHTML = h.join('');
+	}
+	
+	function tableDOM(){
+		var i, table, thead, tbody, tr, th, td, a, ul, li;
+		tbody = document.createElement("tbody");
+		for (i = 0; i <= 1000; i++){
+			tr = document.createElement("tr");
+			
+			td = document.createElement("td");
+			td.appendChild(document.createTextNode(i));
+			tr.appendChild(td);
+
+			td = document.createElement("td");
+			td.appendChild(document.createTextNode('And the answore is..' + (i%2?'Y':'N')));
+			tr.appendChild(td);
+
+			td = document.createElement("td");
+			td.appendChild(document.createTextNode('My name is #' + i));
+			tr.appendChild(td);
+
+			td = document.createElement("td");
+			a = document.createElement("a");
+			a.setAttribute("href", "http://xx.org/" + i + ".html");
+			a.appendChild(document.createTextNode("http://xx.org/" + i + ".html"));
+			td.appendChild(a);
+			tr.appendChild(td);
+
+			td = document.createElement("td");
+			ul = document.createElement("ul");
+			
+			li = document.createElement("li");
+			a = document.createElement("a");
+			a.setAttribute("href", "#");
+			a.appendChild(document.createTextNode("Edit"));
+			li.appendChild(a);
+			ul.appendChild(li);
+			
+			li = document.createElement("li");
+			a = document.createElement("a");
+			a.setAttribute("href", "#");
+			a.appendChild(document.createTextNode("Del"));
+			li.appendChild(a);
+			ul.appendChild(li); 
+
+			td.appendChild(ul);
+			tr.appendChild(td);
+			
+			tbody.appendChild(tr);
+		}
+		
+		tr = document.createElement("tr");
+		th = document.createElement("th");
+		th.appendChild(document.createTextNode("ID"));
+		tr.appendChild(th);
+		th = document.createElement("th");
+		th.appendChild(document.createTextNode("Name"));
+		tr.appendChild(th);
+		th = document.createElement("th");
+		th.appendChild(document.createTextNode("Yes?"));
+		tr.appendChild(th);
+		th = document.createElement("th");
+		th.appendChild(document.createTextNode("Url"));
+		tr.appendChild(th);
+		th = document.createElement("th");
+		th.appendChild(document.createTextNode("Action"));
+		tr.appendChild(th);
+		
+		thead = document.createElement("thead");
+		thead.appendChild(tr);
+		table = document.createElement("table");
+		table.setAttribute("border", "1");
+		table.setAttribute("width", "100%");
+		table.appendChild(thead);
+		table.appendChild(tbody);
+		
+		document.getElementById("here").appendChild(table);
+	}
+	
+	function tableCloneNode(){
+		var i, table, thead, tbody, tr, th, td, a, ul, li,
+			oth = document.createElement("th"),
+			otd = document.createElement("td"),
+			otr = document.createElement("tr"),
+			oli = document.createElement("li"),
+			oul = document.createElement("ul"),
+			oa = document.createElement("a"),
+			tbody = document.createElement("tbody");
+		
+		for (i = 0; i <= 1000; i++){
+			tr = otr.cloneNode(false);
+			
+			td = otd.cloneNode(false);
+			td.appendChild(document.createTextNode(i));
+			tr.appendChild(td);
+
+			td = otd.cloneNode(false);
+			td.appendChild(document.createTextNode('And the answore is..' + (i%2?'Y':'N')));
+			tr.appendChild(td);
+
+			td = otd.cloneNode(false);
+			td.appendChild(document.createTextNode('My name is #' + i));
+			tr.appendChild(td);
+
+			td = otd.cloneNode(false);
+			a = oa.cloneNode(false);
+			a.setAttribute("href", "http://xx.org/" + i + ".html");
+			a.appendChild(document.createTextNode("http://xx.org/" + i + ".html"));
+			td.appendChild(a);
+			tr.appendChild(td);
+
+			td = otd.cloneNode(false);
+			ul = oul.cloneNode(false);
+			
+			li = oli.cloneNode(false);
+			a = oa.cloneNode(false);
+			a.setAttribute("href", "#");
+			a.appendChild(document.createTextNode("Edit"));
+			li.appendChild(a);
+			ul.appendChild(li);
+
+			li = oli.cloneNode(false);
+			a = oa.cloneNode(false);
+			a.setAttribute("href", "#");
+			a.appendChild(document.createTextNode("Del"));
+			li.appendChild(a);
+			ul.appendChild(li); 
+
+			td.appendChild(ul);
+			tr.appendChild(td);
+			
+			tbody.appendChild(tr);
+		}
+
+		tr = otr.cloneNode(false);
+		th = oth.cloneNode(false);
+		th.appendChild(document.createTextNode("ID"));
+		tr.appendChild(th);
+		th = oth.cloneNode(false);
+		th.appendChild(document.createTextNode("Name"));
+		tr.appendChild(th);
+		th = oth.cloneNode(false);
+		th.appendChild(document.createTextNode("Yes?"));
+		tr.appendChild(th);
+		th = oth.cloneNode(false);
+		th.appendChild(document.createTextNode("Url"));
+		tr.appendChild(th);
+		th = oth.cloneNode(false);
+		th.appendChild(document.createTextNode("Action"));
+		tr.appendChild(th);
+		
+		thead = document.createElement("thead");
+		thead.appendChild(tr);
+		table = document.createElement("table");
+		table.setAttribute("border", "1");
+		table.setAttribute("width", "100%");
+		table.appendChild(thead);
+		table.appendChild(tbody);
+		
+		document.getElementById("here").appendChild(table);
+	}
+</script>
+</head>
+<body onload="tableCloneNode();">
+	<dd id="here">sdfs</dd>
+	<br />
+	<dd id="here2">sdfds</dd>
+</body>
+</html>

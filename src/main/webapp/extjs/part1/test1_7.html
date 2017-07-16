@@ -1,0 +1,59 @@
+<HTML>
+	<HEAD>
+		<TITLE>New Document</TITLE>
+		  <link rel="stylesheet" type="text/css" href="/jslib/extjs/resources/css/ext-all.css" />
+		  <script src="/jslib/extjs/adapter/ext/ext-base.js"></script>  
+		  <script src="/jslib/extjs/ext-all.js"></script>
+	</HEAD>
+	<script type="text/javascript"> 
+	Ext.onReady(function(){	 
+    	//普通树加载
+    	var root=new Ext.tree.TreeNode({
+					id:"root",text:"树的根"});
+		root.appendChild(new Ext.tree.TreeNode({
+					id:"c1",text:"子节点" }));
+		var tree=new Ext.tree.TreePanel({
+				renderTo:"first",root:root,
+				width:100,height:120	});
+       //动态加载树
+		var root2=new Ext.tree.AsyncTreeNode({
+				id:"rt2",text:"树的根" });
+		var tree2=new Ext.tree.TreePanel({
+				renderTo:"second",root:root2,
+				loader:new Ext.tree.TreeLoader({url:"treedata.js"}),
+				width:100,height:90		});
+       //随意拖动
+		new Ext.dd.DDProxy("block");
+		//指定节点事件或连接:
+		var root3=new Ext.tree.TreeNode({
+				id:"rt3",text:"根节点",
+				href:"http://www.baidu.com",
+				hrefTarget:"_blank" });
+		var c1=new Ext.tree.TreeNode({
+				id:"c1",text:"子节点_1",
+				href:"http://www.sina.com",
+				hrefTarget:"_blank" });
+		var c2=new Ext.tree.AsyncTreeNode({
+				id:"c2",text:"子节点_2" });
+		root3.appendChild(c1);
+		root3.appendChild(c2);
+		var tree3=new Ext.tree.TreePanel({
+				renderTo:"third",	root:root3,
+				width:100,height:140,
+				loader:new Ext.tree.TreeLoader({
+					applyLoader:true,
+					url:"treedata.js"	}) });
+		tree3.on("click",function(node,event){
+				alert("您点击了"+node.text);	 });
+		c1.on("click",function(node,event){
+				alert("您点击了"+node.text); });
+		 
+	});
+</script>
+	<BODY>
+		<div id="first"></div>
+		<div id="second"></div>
+		<div id="third"></div>
+		<input type="button" id="block" value="拖动" />
+	</BODY>
+</HTML>

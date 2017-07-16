@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<head>
+<meta charset="utf-8" />
+<title>自测aaa</title>
+<style type="text/css"></style>
+<script>
+	function fun() {
+		// 只能给引用类型值动态添加属性
+		var person = new Object();
+		person.name = "bdceo";
+		console.log(person.name);
+		// 基本类型的值无法添加属性
+		var name = "bdceo";
+		name.tp = 1;
+		console.log(name.tp);
+
+		// 引用类型的对象属性复制
+		var obj = new Object();
+		var obj2 = obj;
+		obj.name = "bdcoo";
+		console.log(obj2.name);
+
+		// 参数是按值传递的
+		var count = 20;
+		var result = addTen(count);
+		console.log("count = " + count);
+		console.log("result = " + result);
+
+		var str = 'str';
+		setStr(str);
+		console.log("str = " + str);
+
+		person = new Object();
+		obj = setName(person);
+		console.log("person.name = " + person.name);
+		console.log("obj.name = " + obj.name);
+
+		console.log(person instanceof Object);
+		console.log(person instanceof Array);
+	}
+	function addTen(num) {
+		num += 10;
+		return num;
+	}
+	function setName(obj) {
+		obj.name = "bdceo";
+		obj = new Object();
+		obj.name = "bdcoo";
+		return obj;
+	}
+	function setStr(str) {
+		str = "function-str";
+	}
+</script>
+</head>
+<body onload="fun();">
+</body>
+</html>

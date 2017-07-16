@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<head>
+<meta charset="utf-8" />
+<title>自测aaa</title>
+<style type="text/css"></style>
+<script>
+	function fun() {
+		// 浏览器支持情况 
+		var d2 = document.implementation.hasFeature("Core", "2.0");
+		console.log("DOM2 = " + d2);
+		var d3 = document.implementation.hasFeature("Core", "3.0");
+		console.log("DOM3 = " + d3);
+		var h2 = document.implementation.hasFeature("HTML", "2.0");
+		console.log("HTML2 = " + h2);
+		var c2 = document.implementation.hasFeature("CSS", "2.0");
+		console.log("CSS2 = " + c2);
+		c2 = document.implementation.hasFeature("CSS2", "2.0");
+		console.log("CSS2 = " + c2);
+
+		var w = getViewport();
+		console.log(w.width + "/" + w.height);
+		w = getRealViewport();
+		console.log(w.width + "/" + w.height);
+
+		var ele = document.getElementById("btn");
+		w = getBoundingClientRect(ele);
+		console.log(w.left + "/" + w.top + "/" + w.right + "/" + w.bottom);
+	}
+	// 获取元素的偏移量:循环至根
+	function getElementLeft(ele) {
+		var curLeft = ele.offsetLeft;
+		var pele = ele.offsetParent;
+		while (pele !== null) {
+			curLeft += pele.offsetLeft;
+			pele = pele.offsetParent;
+		}
+		return curLeft;
+	}
+	function getElementTop(ele) {
+		var curTop = ele.offsetTop;
+		var pele = ele.offsetParent;
+		while (pele !== null) {
+			curTop = ele.offsetTop;
+			pele = pele.offsetParent;
+		}
+		return curTop;
+	}
+	// 获取浏览器可视窗口大小
+	function getViewport() {
+		if (document.compatMode == "BackCompat") {
+			return {
+				width : document.body.clientWidth,
+				height : document.body.clientHeight
+			};
+		} else {
+			return {
+				width : document.documentElement.clientWidth,
+				height : document.documentElement.clientHeight
+			};
+		}
+	}
+	function getRealViewport() {
+		if (document.compatMode == "BackCompat") {
+			return {
+				width : Math.max(document.body.clientWidth,
+						document.body.scrollWidth),
+				height : Math.max(document.body.clientHeight,
+						document.body.scrollHeight)
+			};
+		} else {
+			return {
+				width : Math.max(document.documentElement.clientWidth,
+						document.documentElement.scrollWidth),
+				height : Math.max(document.documentElement.clientHeight,
+						document.documentElement.scrollHeight)
+			};
+		}
+		z
+	}
+	// 元素滚到顶部
+	function scrollToTop(ele) {
+		if (ele.scrollTop != 0) {
+			ele.scrollTop = 0;
+		}
+	}
+	// 获取元素的四边坐标
+	function getBoundingClientRect(ele) {
+		var scrollTop = document.documentElement.scrollTop;
+		var scrollLeft = document.documentElement.scrollLeft;
+		console.log("htlm:" + scrollTop + "/" + scrollLeft);
+		if (ele.getBoundingClientRect) {
+			if (typeof arguments.callee.offset != "number") {
+				var tmp = document.createElement("div");
+				tmp.style.cssText = "position:absolute;left:0;top:0;";
+				document.body.appendChild(tmp);
+				arguments.callee.offset = -tmp.getBoundingClientRect().top
+						- scrollTop;
+				document.body.removeChild(tmp);
+				tmp = null;
+			}
+			var rect = ele.getBoundingClientRect();
+			var offset = arguments.callee.offset;
+			console.log("offset = " + offset);
+			return {
+				left : rect.left + offset,
+				right : rect.right + offset,
+				top : rect.top + offset,
+				bottom : rect.bottom + offset
+			};
+		} else {
+			var aleft = getElementLeft(ele);
+			var atop = getElementTop(ele);
+			return {
+				left : aleft - scrollLeft,
+				right : aleft + ele.offsetWidth - scrollLeft,
+				top : atop - scrollTop,
+				bottom : atop + ele.offsetHeight - scrollTop
+			};
+		}
+	}
+</script>
+</head>
+<body>
+	<br />
+	<input type="button" id="btn" onclick="fun()" value="fun()">
+</body>
+</html>

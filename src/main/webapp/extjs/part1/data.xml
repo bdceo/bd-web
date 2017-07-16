@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataset>
+	<row>
+		<id>1</id>
+		<name>EasyJWeb</name>
+		<organization>EasyJF</organization>
+		<homepage>www.easyjf.com</homepage>
+	</row>
+	<row>
+		<id>2</id>
+		<name>jfox</name>
+		<organization>huihoo</organization>
+		<homepage>www.huihoo.org</homepage>
+	</row>
+	<row>
+		<id>3</id>
+		<name>springside</name>
+		<organization>springside</organization>
+		<homepage>www.springside.com</homepage>
+	</row>
+</dataset>

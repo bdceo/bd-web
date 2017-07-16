@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<head>
+<meta charset="utf-8" />
+<title>自测ccc</title>
+<style type="text/css"></style>
+<script type="text/javascript">
+	function fun1() {
+		var md = document.getElementById("mydiv"), ch = md.firstChild(), name = "";
+		do {
+			name = ch.nodeName;
+		} while (ch = ch.nextSibling());
+		return name;
+	}
+	function fun2() {
+		var md = documen.getElementById("mydiv"), ch = md.childNodes(), len = ch.length, name = "";
+		for ( var i = 0; i < len; i++) {
+			name = ch[i].nodeName;
+		}
+		return name;
+	}
+	function fun3() {
+		var arr = [], divs = document.getElementsByTagName("div"), cls = "", len = divs.length;
+		for ( var i = 0; i < len; i++) {
+			cls = divs[i].className;
+			if (cls === "warning" || cls === "notice") {
+				arr.push(divs[i]);
+			}
+		}
+	}
+	function fun4() {
+		// 结合Css选择器
+		document.querySelectorAll("#menu a");
+		document.querySelectorAll("div.arning, div.notice");
+		// 返回第一个符合条件的元素
+		document.querySelector(".myClass");
+	}
+
+	//关于getComputedStyle的解释，参考：http://www.zhangxinxu.com/wordpress/?p=2378
+	function fun5() {
+		var computed, tmp = "", bodystyle = document.body.style;
+		if (document.body.currentStyle) {
+			computed = document.body.currentStyle;
+		} else {
+			computed = document.defaultView.getComputedStyle(document.body, '');
+		}
+		bodystyle.color = "red";
+		tmp = computed.backgroundColor;
+		bodystyle.color = "green";
+		tmp = computed.backgroundImage;
+		bodystyle.color = "yellow";
+		tmp = computed.backgroundAttachment;
+
+		// 修改后：通过延迟访问布局信息避免“重排”所代理啊的性能提升
+		bodystyle.color = "red";
+		bodystyle.color = "green";
+		bodystyle.color = "yellow";
+		tmp = computed.backgroundColor;
+		tmp = computed.backgroundImage;
+		tmp = computed.backgroundAttachment;
+	}
+	//最小化重绘和重排-改变样式
+	function fun6() {
+		var el = document.getElementById("myDiv");
+		el.style.borderLeft = "1px";
+		el.style.borderRight = "2px";
+		el.style.padding = "5px";
+
+		//合并所有修改，一次处理（推荐）
+		el.style.cssText = "border-left:1px;border-right:2px;padding:5px;";
+		el.style.cssText += "display:line-box;";// 追加样式
+		// 直接修改样式引用
+		el.className = "newclass";
+	}
+	//最小化重绘和重排-批量修改DOM
+	function appendData2Ele(ele, data) {
+		var a, li, len = data.length;
+		for ( var i = 0; i < len; i++) {
+			a = document.createElement("a");
+			a.setAttribute("href", data[i].url);
+			a.appendChildNode(document.createTextNode(data[i].name));
+			li = document.createElement("li");
+			li.appendChild(a);
+			ele.appendChild(li);
+		}
+	}
+	function fun7() {
+		var data = [ {
+			"name" : "Nicholas",
+			"url" : "http://nczonline.net"
+		}, {
+			"name" : "Ross",
+			"url" : "http://techfoolery.com"
+		} ];
+		var ul = document.getElementById("mylist");
+		// 默认通用方法(每添加一个新条目都会导致重排)
+		appendData2Ele(ul, data);
+
+		//1-隐藏元素，应用修改，重新显示
+		ul.style.display = "none";
+		appendData2Ele(ul, data);
+		ul.style.display = "block";
+
+		// 2-使用文档片段（只访问一次dom，推荐使用）
+		var df = document.createDocumentFragment();
+		appendData2Ele(df, data);
+		ul.appendChild(df);
+
+		// 3-拷贝原始元素，修改副本，再替换原始元素
+		var ul2 = ul.cloneNode(true);
+		appendData2Ele(ul2, data);
+		ul.paranetNode.replaceChild(ul2, ul);
+	}
+
+	// 缓存布局信息
+	function fun8() {
+		var ele = document.getElementById("mylist");
+		ele.style.left = ele.offsetLeft + 5 + 'px';
+		ele.style.top = ele.offsetTop + 5 + 'px';
+
+		// 缓存布局信息到局部变量
+		var cur = ele.offsetLeft;
+		cur++;
+		ele.style.left = cur + 'px';
+		ele.style.top = cur + 'px';
+	}
+
+	// 事件委托
+	function fun9() {
+		document.getElementById("mylist").onclick = function(e) {
+			// 浏览器兼容(事件对象，事件源)
+			e = e || window.event;
+			var target = e.target || e.srcElement;
+			if (target.nodeName !== "A") {
+				return;
+			}
+			// TODO
+			// 阻止默认行为，取消冒泡
+			if (typeof e.preventDefault === "function") {
+				e.preventDefault();
+				e.stopPropagation();
+			} else {
+				e.returnValue = false;
+				e.cancelBubble = true;
+			}
+		};
+	}
+</script>
+</head>
+<body onload="fun8();">
+	<ul id="mylist" style="left: 10px; top: 10px;">
+		<li><a href="http://phpied.com">Stoyan</a></li>
+		<li><a href="http://julienlecomte.com">Julien</a></li>
+	</ul>
+</body>
+</html>

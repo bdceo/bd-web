@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+
+<head>
+<meta charset="utf-8"/>
+<title>自测aaa</title>
+<script>
+get_location();
+
+function get_location(){
+	if(navigator.geolocation){
+		navigator.geolocation.getCurrentPosition(show_map, handle_error, 
+		{enableHighAccuracy:true, maximumAge:1000});
+	}else{
+		alert("浏览器不支持");
+	}
+}
+
+function show_map(pos){
+	var lat = pos.coords.latitude;
+	var lng = pos.coords.lngitude;
+	showObject(pos, 0);
+}
+
+function showObject(obj, k){
+	if(!obj){return;}
+	for(var i in obj){
+		if(typeof(obj[i]) != "object" || obj[i] == null){
+			for(var j=0; j<k; j++){
+				document.write("&nbsp;&nbsp;&nbsp;&nbsp;");
+			}
+			document.write(i + " : " + obj[j] + "<br/>");
+		}else{
+			document.write(i + " : <br/>");
+			showObject(obj, k+1);
+		}
+	}	
+}
+
+function handle_error(err){
+    //错误处理
+     switch(err.code){
+         case 1 :
+             alert("位置服务被拒绝。");
+             break;
+         case 2:
+             alert("暂时获取不到位置信息。");
+             break;
+         case 3:
+             alert("获取信息超时。");
+             break;
+         default:
+             alert("未知错误。");
+             break;
+    }
+}
+</script>
+</head>
+<body>
+<div id="map" style="width:400px; height:400px"></div>
+</body>
+</html>

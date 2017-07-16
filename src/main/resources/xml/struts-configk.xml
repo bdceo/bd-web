@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts-config PUBLIC
+          "-//Apache Software Foundation//DTD Struts Configuration 1.2//EN"
+          "http://jakarta.apache.org/struts/dtds/struts-config_1_2.dtd">
+<struts-config>
+	<form-beans>
+		<!-- 测试Form配置 -->
+		<form-bean name="getTreeForm"
+			type="com.bdsoft.test.form.GetTreeForm" />
+		<form-bean name="testForm" type="com.bdsoft.test.form.TestForm" />
+		<!-- 测试Form配置结束 -->
+		<!-- web2p0测试Form配置 -->
+		<form-bean name="logonForm"
+			type="com.bdsoft.web2p0.ch22.struts.form.LogonForm">
+		</form-bean>
+		<form-bean name="newsForm"
+			type="com.bdsoft.web2p0.ch22.struts.form.NewsForm">
+		</form-bean>
+		<form-bean name="listForm"
+			type="com.bdsoft.web2p0.ch26.ListForm">
+		</form-bean>
+		<form-bean name="LogonForm"
+			type="com.bdsoft.web2p0.ch26.LogonForm">
+		</form-bean>
+		<!-- web2p0测试Form配置结束 -->
+		<form-bean name="androidForm"
+			type="com.bdsoft.android.form.AndroidForm">
+		</form-bean>
+	</form-beans>
+	<action-mappings>
+		<!-- 测试Action配置 -->
+		<action name="getTreeForm" parameter="ope" path="/getTree"
+			type="com.bdsoft.test.action.GetTreeAction" />
+		<action parameter="ope" path="/load"
+			type="com.bdsoft.test.action.LoadAction" validate="false" />
+		<!-- 测试Action配置结束 -->
+		<!-- web2p0测试Action配置 -->
+		<action path="/logon" attribute="logonForm" scope="request"
+			name="logonForm" parameter="method"
+			type="com.bdsoft.web2p0.ch22.struts.action.LogonAction">
+			<forward name="success" path="/web2p0/ch22/main.jsp"></forward>
+		</action>
+		<action path="/newsOption" attribute="newsForm" scope="request"
+			name="newsForm" parameter="method"
+			type="com.bdsoft.web2p0.ch22.struts.action.NewsOptionAction">
+			<forward name="pageList" path="/web2p0/ch22/main.jsp"></forward>
+			<forward name="typeNews" path="/web2p0/ch22/news.jsp"></forward>
+			<forward name="addSuccess"
+				path="/newsOption.do?method=list">
+			</forward>
+			<forward name="modifyMe"
+				path="/web2p0/ch22/modify_news.jsp">
+			</forward>
+			<forward name="addFailure"
+				path="/web2p0/ch22/add_news.html">
+			</forward>
+		</action>
+		<action attribute="listForm" input="/web2p0/ch26/list.jsp"
+			name="listForm" path="/listAction" parameter="method" scope="request"
+			type="com.bdsoft.web2p0.ch26.ListAction" validate="false">
+			<forward name="list" path="/web2p0/ch26/list.jsp" />
+		</action>
+		<action attribute="LogonForm" input="/web2p0/ch26/logon.jsp"
+			name="LogonForm" path="/LogonAction" parameter="method"
+			scope="request" type="com.bdsoft.web2p0.ch26.LogonAction"
+			validate="false">
+			<forward name="logout" path="/web2p0/ch26/logon.jsp" />
+			<forward name="logon" path="/listAction.do?method=lookList" />
+		</action>
+		<!-- web2p0测试Action配置结束 -->
+		<!-- 其他 -->
+		<action name="androidForm" parameter="ope" path="/android"
+			type="com.bdsoft.android.action.AndroidAction">
+			<forward name="result" path="/android/result.jsp" />
+		</action>
+		<!-- 其他结束 -->
+	</action-mappings>
+
+	<message-resources parameter="ApplicationResources" />
+	<!-- 配置Spring的集成
+		<plug-in
+		className="org.springframework.web.struts.ContextLoaderPlugIn">
+		<set-property property="contextConfigLocatioin"
+		value="classpath*:applicatioinContext.xml" />
+		</plug-in> -->
+</struts-config>

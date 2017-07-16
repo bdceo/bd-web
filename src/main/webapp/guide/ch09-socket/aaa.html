@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+
+<head>
+<meta charset="utf-8"/>
+<title>自测aaa</title>
+<script>
+window.addEventListener("message", function(ev){
+		if(ev.origin != "http://www.blue-butterfly.net"){
+			return;
+		}
+		alert("从" + ev.origin + "那里传过来的消息：\n\"" + ev.data + "\"");
+	},false);
+
+function hello(){
+	 var ifm = window.frames[0];
+	 ifm.postMessage("通了吧？", "http://www.blue-butteryfly.net/test/");
+}
+</script>
+</head>
+<body>
+<h1>跨域通信示例</h1>
+<iframe width="400" src="http://www.blue-butterfly.net/test/"
+onload="hello()"> </iframe>
+</body>
+</html>

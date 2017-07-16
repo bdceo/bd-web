@@ -1,0 +1,139 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+	<head>
+		<title>myJson</title>
+		<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  		<script type="text/javascript" src="../js/json.js"></script>
+		<script type="text/javascript" src="user.js"></script>
+	</head>
+	<script type="text/javascript">
+     	function showJson(){
+     	    //{"type":"111","code":"22"}
+     		var user={
+     			"userName":"Jdi",
+     			"age":"23",
+     			"info":{"tel":"123456","mobile":"1342536"},
+     			"address":[
+     				{"city":"邢台","postcode":"054001"},
+     				{"city":"北京","postcode":"100022"}
+     			]
+     		}//json格式对象数据
+     		alert(user.userName);
+     		user.userName="bdceo";
+     		alert(user.userName);
+     		alert(user.age);
+     		alert(user.info.tel);
+     		alert(user.address[0].city);
+     		alert(user.address[1].postcode);
+     	}
+     	/*   json解析数组   */
+ 		function parseArr(){
+ 			var str={"users":[{"name":"jdi","age":"22"},{"name":"bdceo","age":"24"},{"name":"laoding","age":"21"}]};
+ 			var obj=str.users;
+ 			alert("一共有"+obj.length+"个人");
+ 			for(var i=0;i<obj.length;i++){
+ 				alert("姓名："+obj[i].name+",年龄："+obj[i].age);	
+ 			}				
+ 		}
+     	/*  导入了json-js库的使用方式   */
+     	function showCar(){
+     		var carw=new Car("BMW","730i",2008,"white");
+     		alert(carw.toJSONString());
+     		alert(JSON.stringify(carw));
+     	}
+     	function Car(make,model,year,color){
+     		this.make=make;
+     		this.model=model;
+     		this.year=year;
+     		this.color=color;
+     	}
+     	/*用eval解析json*/
+     	function myEval(){
+     	     var str ={"name":"Violet","ops":"character"};
+			 var obj = eval('(' + str + ')');   
+		     alert(obj.toJSONString());    
+		}
+		/*JSON.stringify*/
+		function myEval2() {   
+        	var str = { "name": "Violet", "occupation": "character" };   
+       		//var obj = str.parseJSON();   
+      		//alert(obj.toJSONString());
+      		alert(JSON.stringify(str));
+ 		} 		
+     </script>
+	<body>
+		<h1>
+			测试JSON
+		</h1>
+		<br>
+		<input type="button" onclick="showJson()" value="点我-纯js写法" />
+		<br>
+		<br>
+		<input type="button" onclick="showCar()" value="点我-toJSONString" />
+		<br>
+		<br>
+		<input type="button" onclick="myEval()" value="点我-用eval解析JSON" />
+		<br>
+		<br>
+		<input type="button" onclick="myEval2()" value="点我-JSON.stringify" />
+		<br>
+		<br>
+		<input type="button" onclick="parseArr()" value="点我-解析数组" />
+
+		<hr />
+		<h2>
+			AJAX+JSON示例
+		</h2>
+		<hr>
+		姓名：
+		<input name="userName" id="userName" type="text">
+		<br>
+		密码：
+		<input name="password" id="password" type="password">
+		<br>
+		部门：
+		<input name="department" id="department" type="text">
+		<br>
+		职务：
+		<input name="headship" id="headship" type="text">
+		<br>
+		性别：
+		<SELECT id="sex">
+			<option value="1">
+				男
+			</option>
+			<option value="2">
+				女
+			</option>
+		</SELECT>
+		<br>
+		年龄：
+		<input name="old" id="old" type="text">
+		<br>
+		<input type="button" name="btn" value="新增用户" onClick="addNew()">
+		<br>
+		<br>
+		<TABLE id="userTable" border="1" width="500px" bgcolor="#eeeeee">
+			<TR>
+				<TD align="center">
+					姓名
+				</TD>
+				<TD align="center">
+					密码
+				</TD>
+				<TD align="center">
+					部门
+				</TD>
+				<TD align="center">
+					职务
+				</TD>
+				<TD align="center">
+					性别
+				</TD>
+				<TD align="center">
+					年龄
+				</TD>
+			</TR>
+		</TABLE>
+	</body>
+</html>

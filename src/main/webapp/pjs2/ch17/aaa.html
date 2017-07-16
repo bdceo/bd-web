@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<head>
+<meta charset="utf-8" />
+<title>自测aaa</title>
+<style type="text/css"></style>
+<script>
+	// 跨浏览器版本xhr
+	function createXHR() {
+		if (typeof XMLHttpRequest != "undefined") {
+			return new XMLHttpRequest();
+		} else if (typeof ActiveXObject != "undefined") {
+			if (typeof arguments.callee.activeXString != "string") {
+				var versions = [ "MSXML2.XMLHttp.6.0", "MSXML2.XMLHttp.3.0",
+						"MSXML2.XMLHttp" ];
+				for ( var i = 0, len = versions.length; i < len; i++) {
+					try {
+						var xhr = new ActiveXObject(versions[i]);
+						arguments.callee.activeXString = versions[i];
+						return xhr;
+					} catch (e) {
+					}
+				}
+				return new ActiveXObject(arguments.callee.activeXString);
+			}
+		} else {
+			throw new Error("No XHR object avaliable.");
+		}
+	}
+	function fun() {
+	}
+</script>
+</head>
+<body>
+	<br />
+	<input type="button" onclick="fun()" value="fun()">
+</body>
+</html>

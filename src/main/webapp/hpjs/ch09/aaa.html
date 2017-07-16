@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<head>
+<meta charset="utf-8" />
+<title>自测aaa</title>
+<style type="text/css"></style>
+<script>
+	function fun() {
+		Timer.start("test");
+		for ( var i = 0; i < 100000; i++) {
+			var d = document.createElement("div");
+			d.appendChild(document.createTextNode(("div:" + i)));
+		}
+		Timer.stop("test");
+		console.log("耗时：" + Timer.getTime("test"));
+	}
+	// 定时器
+	var Timer = {
+		_data : {},
+		start : function(key) {
+			Timer._data.key = new Date();
+		},
+		stop : function(key) {
+			var time = Timer._data.key;
+			if (time) {
+				Timer._data.key = new Date() - time;
+			}
+		},
+		getTime : function(key) {
+			return Timer._data.key;
+		}
+	};
+</script>
+</head>
+<body onload="fun();">
+</body>
+</html>

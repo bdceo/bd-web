@@ -1,0 +1,26 @@
+/*idÑ¡ÔñÆ÷*/
+#win {
+	border: 10px red double;
+	width: 300px;
+	height: 200px;
+	position: absolute;
+	z-index: 1;
+	left: 380px;
+	top: 200px;
+	display: none;
+}
+
+#title {
+	background-color: blue;
+	color: yellow;
+	padding-left: 5px;
+}
+
+#main {
+	padding-top: 5px;
+	padding-left: 5px;
+}
+#close{
+	margin-left:180px;
+	cursor:pointer;
+}

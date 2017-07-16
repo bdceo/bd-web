@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+
+<head>
+<meta charset="utf-8"/>
+<title>自测ccc</title>
+<style type="text/css">
+/* UI元素状态选择器*/
+input[type="text"]:hover {
+	background-color: greenyellow;
+}
+input[type="text"]:focus {
+	background-color: skyblue;
+}
+input[type="text"]:active {
+	background-color: yellow;
+}
+input[type="text"]:enabled {
+	background-color:yellow;
+}
+input[type="text"]:disabled {
+	background-color:gray;
+}
+input[type="text"]:read-only {
+ background-color: gray;
+}
+input[type="text"]:read-write {
+ background-color: greenyellow;
+}
+input[type="text"]:-moz-read-only {
+ background-color: gray;
+}
+input[type="text"]:-moz-read-write {
+ background-color: greenyellow;
+}
+input[type="checkbox"]:checked {
+	outline:2px solid blue;
+}
+input[type="checkbox"]:-moz-checked {
+ outline:2px solid blue;
+}
+/*input[type="checkbox"]:-webkit-default {
+    outline:2px solid blue;
+}*/
+input[type="radio"]:indeterminate {
+	outline: solid 3px blue;
+}
+p[id="s"]::selection{
+    background:red;
+    color:#FFF;
+}
+p::-moz-selection{
+    background:red;
+    color:#FFF;
+}
+input[type="text"]::selection{
+    background:red;
+    color:#FFF;
+}
+input[type="text"]::-moz-selection{
+    background:gray;
+    color:#FFF;
+}
+td::selection{
+    background:red;
+    color:#FFF;
+}
+td::-moz-selection{
+    background:red;
+    color:#FFF;
+}
+dd ~ p {background-color:#00FF00;}
+</style>
+<script language="javascript">
+function chg(){
+	var r1 = document.getElementById("radio1");
+	var tx = document.getElementById("text1");
+	if(r1.checked){
+		tx.disabled= "";
+	}else{
+		tx.value="";
+		tx.disabled="disabled"
+	}
+}
+</script>
+</head>
+<body>
+<form>
+  <p>姓名：
+    <input type="text" name="name" />
+  </p>
+  <p>地址：
+    <input type="text" name="address" />
+  </p>
+</form>
+<hr>
+<form>
+  <input type="radio" id="radio1" name="radio" 
+ onchange="chg();">
+  可用
+  </radio>
+  <input type="radio" id="radio2" name="radio" 
+onchange="chg();">
+  不可用
+  </radio>
+  <br/>
+  <input type=text id="text1" disabled />
+</form>
+<hr>
+<form>
+  <p>名前：
+    <input type="text" name="name" />
+  <p>地址：
+    <input type="text" name="address" value="江苏省常州市"
+ readonly="readonly" />
+  </p>
+</form>
+<hr>
+<form>
+  兴趣:
+  <input type="checkbox">
+  阅读
+  </input>
+  <input type="checkbox" >
+  旅游
+  </input>
+  <input type="checkbox">
+  看电影
+  </input>
+  <input type="checkbox">
+  上网
+  </input>
+</form>
+<hr>
+<form>
+  年龄：
+  <input type="radio" name="radio" value="male" />
+  男
+  <input type="radio" name="radio" value="female" />
+  女
+</form>
+<hr>
+<p>这是一段测试文字。</p>
+<input type="text" value="这是一段测试文字。"/>
+<p/>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td>测试文字</td>
+    <td>测试文字</td>
+  </tr>
+  <tr>
+    <td>测试文字</td>
+    <td>测试文字</td>
+  </tr>
+</table><hr/>
+<span style="width:733px; border: 1px solid #666; padding:5px;">
+<div>
+	<p id="s">p元素为div元素的子元素</p>
+	<p>p元素为div元素的子元素</p>
+</div>
+<hr />
+<p>p元素为div元素的兄弟元素</p>
+<p>p元素为div元素的兄弟元素</p>
+<dd>dd元素为div元素的兄弟元素</dd>
+<hr />
+<p>p元素为dd元素的兄弟元素</p>
+<hr />
+<div>p元素为div元素的子元素</div>
+<hr />
+<p>p元素为dd元素的兄弟元素</p>
+</span>
+</body>
+</html>

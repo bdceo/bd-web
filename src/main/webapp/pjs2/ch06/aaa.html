@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<head>
+<meta charset="utf-8" />
+<title>自测aaa</title>
+<style type="text/css"></style>
+<script>
+	function fun() {
+		// 函数封装创建对象-简单工厂模式
+		var p1 = createPerson("bdceo", 24, "Programer");
+		var p2 = createPerson("bdcoo", 28, "Manager");
+		p1.sayName();
+		p2.sayName();
+		console.log(typeof p1);
+
+		// 构造函数模式
+		p1 = new Person("bdceo", 24, "Programer");
+		p2 = new Person("bdcoo", 28, "Manager");
+		p1.sayName();
+		p2.sayName();
+		console.log("p1's constructor is Person = "
+				+ (p1.constructor == Person));
+		console.log("p1 is Object = " + (p1 instanceof Object));
+		console.log("p1 is Person = " + (p1 instanceof Person));
+		console.log("sayName is same = " + (p1.sayName == p2.sayName));
+		// 作为普通函数调用
+		Person("bdceo@qq.com", 18, "Student");// 添加到了window中
+		sayName();// 相当于window、this，打印的是bdceo@qq.com
+		// 在另一个对象中调用
+		var obj = new Object();
+		Person.call(obj, "Object", 30, "CEO");
+		obj.sayName();
+		console.log(obj.age);
+	}
+	// 工厂模式
+	function createPerson(name, age, job) {
+		var p = new Object();
+		p.name = name;
+		p.age = age;
+		p.job = job;
+		p.sayName = function() {
+			console.log("my name is " + this.name);
+		};
+		return p;
+	}
+	// 构造函数模式
+	function Person(name, age, job) {
+		this.name = name;
+		this.age = age;
+		this.job = job;
+		this.sayName = function() {
+			console.log("Hey, My name is " + this.name);
+			//console.log(arguments.callee.caller);
+		}
+	}
+	// 原型
+	function fun1() {
+		// 原型模式
+		var p1 = new Personal();
+		var p2 = new Personal();
+		p1.sayName();
+		p2.sayName();
+		console.log("sayNmae same? = " + (p1.sayName == p2.sayName));
+		console.log("prototype = " + Personal.prototype);
+		console.log("constructor = " + Personal.prototype.constructor);
+		console.log("isPrototypeOf = " + Personal.prototype.isPrototypeOf(p1));
+
+		p1.name = "Cato";
+		console.log("屏蔽原型中的属性 = " + p1.name);
+		console.log("hasOwnProperty = " + p1.hasOwnProperty("name"));
+		console.log("in = " + ("name" in p1));
+		console.log("hasPrototypeProperty = "
+				+ hasPrototypeProperty(p1, "name"));
+		delete p1.name;
+		console.log("删除后原型中的属性 = " + p1.name);
+		console.log("hasOwnProperty = " + p1.hasOwnProperty("name"));
+		console.log("in = " + ("name" in p1));
+		console.log("hasPrototypeProperty = "
+				+ hasPrototypeProperty(p1, "name"));
+
+		console.log("constructor = " + p1.constructor);
+	}
+	// 原型模式
+	function Personal() {
+	}
+	Personal.prototype.name = "bdceo";
+	Personal.prototype.age = 24;
+	Personal.prototype.job = "Programer";
+	Personal.prototype.sayName = function() {
+		console.log("Prototype the name is " + this.name);
+	};
+	// 更简单的原型模式
+	Personal.prototype = {
+		constructor : Personal,
+		name : "BDCEO",
+		age : 24,
+		job : "Programeer",
+		sayName : function() {
+			console.log("Simple Prototype name is " + this.name);
+		}
+	};
+	// 是否只在原型中存在属性
+	function hasPrototypeProperty(obj, name) {
+		return !obj.hasOwnProperty(name) && (name in obj);
+	}
+	// 原型的动态性
+	function fun2() {
+		function Man() {
+		}
+		var man = new Man();
+		Man.prototype.sayHi = function() {
+			console.log("Hi man!");
+		};
+		man.sayHi();
+		Man.prototype = {
+			constructor : Man,
+			name : "bigMan",
+			sayName : function() {
+				console.log(this.name);
+			}
+		};
+		//man.sayName(); // error, 重写了实例的原型对象，新方法和属性均无法读取
+		man = new Man();// 只能重新构造新对象实例
+		man.sayName();
+
+		// 修改引用类型对象的原型
+		String.prototype.bdStr = function() {
+			return this.indexOf("bd") >= 0;
+		};
+		var str = "ddb3ceo";
+		console.log(str.bdStr());
+	}
+	// 组合使用构造函数和原型模式
+	function fun3() {
+		function Man(name, age, job) {
+			this.name = name;
+			this.age = age;
+			this.job = job;
+			this.friends = [ "bdceo", "bdcoo" ];
+		}
+		Person.prototype = {
+			constructor : Man,
+			sayName : function() {
+				console.log("the man is " + this.name);
+			}
+		};
+		var m1 = new Man("bdcfo", 19, "CFO");
+		var m2 = new Man("bdcmo", 19, "CEO");
+		m1.friends.push("bdcfo");
+		console.log(m1.friends);
+		console.log(m2.friends);
+		console.log(m1.friends == m2.friends);
+		console.log(m1.sayName == m2.sayName);
+	}
+	// 动态原型模式
+	function fun4() {
+		function Man(name, age, job) {
+			this.name = name;
+			this.age = age;
+			this.job = job;
+			this.friends = [ "bdceo", "bdcoo" ];
+			if ((typeof this.sayName) != "function") {
+				Man.prototype.sayName = function() {
+					console.log("name is " + this.name);
+				};
+			}
+		}
+		var man = new Man("bdceo", 19, "ceo");
+		man.sayName();
+	}
+	// 寄生构造函数模式
+	function fun5() {
+		function Man(name, age, job) {
+			var o = new Object();
+			o.name = name;
+			o.age = age;
+			o.job = job;
+			o.sayName = function() {
+				console.log(this.name);
+			};
+			return o;
+		}
+		var man = new Man("bdceo", 19, "ceo");
+		man.sayName();
+
+		// 特殊数组
+		function SpecialArray() {
+			var arr = new Array();
+			arr.push.apply(arr, arguments);
+			arr.toPipedStr = function() {
+				return this.join("_");
+			};
+			return arr;
+		}
+		var colors = new SpecialArray("blue", "yellow", "red");
+		console.log(colors.toPipedStr());
+	}
+</script>
+</head>
+<body>
+	<br />
+	<input type="button" onclick="fun()" value="fun()">
+	<br />
+	<input type="button" onclick="fun1()" value="fun1()">
+	<br />
+	<input type="button" onclick="fun2()" value="fun2()">
+	<br />
+	<input type="button" onclick="fun3()" value="fun3()">
+	<br />
+	<input type="button" onclick="fun4()" value="fun4()">
+	<br />
+	<input type="button" onclick="fun5()" value="fun5()">
+</body>
+</html>

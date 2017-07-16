@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+
+<head>
+<meta charset="utf-8"/>
+<title>自测aaa</title>
+<script>
+function checkSupport(){
+	if(navigator.geolocation){
+		document.getElementById("support").innerHTML="恭喜，浏览器支持！";
+		navigator.geolocation.getCurrentPosition(updateLocation, handleLocationError, {timeout:1000,maximumAge:20000});
+		
+		// 重复性的位置更新请求
+		//var wathId = navigator.geolocation.watchPosition(updateLocation, handleLocationError);
+		// 停止接受位置更新信息
+		//navigator.geolocation.clearWatch(watchId);
+	}else{
+		document.getElementById("support").innerHTML="老兄，升级一下浏览器吧！";
+	}
+}
+
+// 角度转弧度
+function toRadians(degree){
+	return degree * Math.PI / 180;
+}
+
+// 计算坐标之间的距离
+function distance(lat1, lng1, lat2, lng2){
+	// R 是地球的半径，单位km
+	var R = 6371;
+	var delLat = toRadians(lat2 - lat1);
+	var delLng = toRadians(lng2 - lng1);
+	lat1 = toRadians(lat1);
+	lat2 = toRadians(lat2);
+	
+	var a = Math.sin(delLat / 2)
+	      * Math.sin(delLat /2 )
+		  + Math.cos(lat1)
+		  * Math.cos(lat2)
+		  * Math.sin(delLng / 2)
+		  * Math.sin(delLng / 2);
+	
+	var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+	var d = R * c;
+	return d;
+}
+var totalDistance = 0.0;
+var lastLat,lastLng;
+
+function updateLocation(pos){
+	var lat = pos.coords.latitude;// 纬度
+	var lng = pos.coords.longitude;// 经度
+	var acc = pos.coords.accuracy;// 准确度
+	var tt = pos.timestamp;// 时间戳
+	
+	document.getElementById("lat").innerHTML = lat;
+	document.getElementById("lng").innerHTML = lng;
+	document.getElementById("acc").innerHTML = "准确度：" + acc;
+	document.getElementById("tt").innerHTML = "更新时间：" + tt;
+	
+	if(acc >= 500){
+		updateStatus("准确度较低，不做更新。");
+		return;
+	}
+	
+	// 计算距离
+	if((lat !== null) && (lng !== null)){
+		var currentDistance = distance(lat, lng, lastLat, lastLng);
+		document.getElementById("curDist").innerHTML = "当前行进了：" + currentDistance.toFixed(4) + "km"
+		
+		totalDistance += currentDistance;
+				
+		document.getElementById("totalDist").innerHTML = "目前总行进了：" + currentDistance.toFixed(4) + "km"
+	}
+	
+	lastLat = lat;
+	lastLng = lng;
+	
+	updateStatus("位置更新成功。");
+}
+function handleLocationError(error){
+	switch(error.code){
+	case 0:
+		updateStatus("获取位置信息出错：" + error.message);
+		break;
+	case 1:
+		updateStatus("用户拒绝共享位置信息。");
+		break;
+	case 2:
+		updateStatus("获取位置信息失败：" + error.message);
+		break;
+	case 3:
+		updateStatus("获取数据超时。");
+		break;
+	}
+}
+function updateStatus(info){
+	document.getElementById("support").innerHTML = info;
+}
+</script>
+</head>
+<body onLoad="checkSupport()">
+<div id="support"></div>
+<div id="lat"></div>
+<div id="lng"></div>
+<div id="acc"></div>
+<div id="tt"></div>
+<div id="curDist"></div>
+<div id="totalDist"></div>
+<hr/>
+</body>
+</html>

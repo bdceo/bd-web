@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<head>
+<meta charset="utf-8" />
+<title>自测aaa</title>
+<style type="text/css">
+h2:before {
+	content: 'COLUMN';
+	color: white;
+	background-color: orange;
+	font-family: 'Comic Sans MS', Helvetica, sans-serif;
+	padding: 1px 5px;
+	margin-right: 10px;
+}
+
+h2.sample:before {
+	content: none
+}
+
+h1.new:after {
+	content: url(new.gif);
+}
+
+h1.head01:before {
+	content: url(new.gif);
+}
+
+h1.head02 {
+	background-image: url(new.gif);
+	background-repeat: no-repeat;
+	padding-left: 28px;
+}
+
+img:after {
+	content: attr(alt);
+	display: block;
+	text-align: center;
+	margin-top: 5px;
+}
+
+h1:before {
+    content: counter(mycounter,upper-alpha)'.';
+    color:blue;
+    font-size:42px;
+}
+
+h1 {
+	counter-increment: mycounter;
+}
+</style>
+<body>
+	<h2>标题文字 1</h2>
+	<h2 class="sample">标题文字2</h2>
+	<h2>标题文字3</h2>
+	<hr />
+	<h1 class="new">标题A</h1>
+	<h1 class="new">标题B</h1>
+	<h1>标题C</h1>
+	<h1>标题D</h1>
+	<h1>标题E</h1>
+	<hr />
+	<h1 class="head01">标题A</h1>
+	<h1 class="head02">标题B</h1>
+	<hr />
+	<p>
+		<img src="sky.jpg" alt="蓝天白云" />
+	</p>
+	<hr />
+	<h1>大标题</h1>
+	<p>示例文字。</p>
+	<h1>大标题</h1>
+	<p>示例文字。</p>
+	<h1>大标题</h1>
+	<p>示例文字。</p>
+</body>
+</html>

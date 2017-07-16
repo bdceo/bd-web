@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<head>
+<meta charset="utf-8"/> 
+<title>自测ccc</title>
+<script> 
+var db = openDatabase("db_h5", "1.0", "test database", 2 * 1024 * 1024);
+
+function log(id, name){
+	var row = document.createElement("tr");
+	var idCell = document.createElement("td");
+	var nameCell = document.createElement("td");
+	
+	idCell.textContent = id;
+	nameCell.textContent = name;
+	
+	row.appendChild(idCell);
+	row.appendChild(nameCell);
+	
+	document.getElementById("racers").appendChild(row);
+}
+
+function doQuery(){
+	db.transaction(function (tx) {
+		tx.executeSql("select * from racers", [], function(tx,result){
+			for(var i=0; i<result.rows.length; i++){
+				var item = result.rows.item(i);
+				log(item.id, item.name);
+			}
+		});
+	});
+}
+
+function initDatabase(){
+	var names = ["bdceo", "bdcoo", "bdcfo", "bdcto"];
+	db.transaction(function(tx){
+		tx.executeSql("create table if not exists racers(id integer primary key autoincrement, name)");
+		for(var i=0; i<names.length; i++){
+			tx.executeSql("insert into racers(name) values(?)", [names[i]]);
+		}	
+		doQuery();
+	});
+} 
+
+</script>
+</head>
+
+<body onLoad="initDatabase()">
+<div id="support"></div>
+
+<table id="racers" border="1" cellspacing="0" style="width:100%">
+    <th>Id</th>
+    <th>Name</th>
+</table>
+</body>
+</html>

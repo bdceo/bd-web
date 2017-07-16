@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<head>
+<meta charset="utf-8"/> 
+<title>自测bbb</title>
+<script>
+	var cap = 1000;
+	var intArray = new Array(cap);
+	var intStr = "";
+	for(var i=0; i<cap; i++){
+		intArray[i] = parseInt(Math.random()*cap);
+		if(i != 0){
+			intStr += ";";
+		}
+		intStr += intArray[i];
+	}
+	var wk = new Worker("table.js");
+	wk.postMessage(intStr);
+	wk.onmessage = function(event){
+		if(event.data != ""){
+			var j, k, tr, td;
+			var intArray = event.data.split(";");
+			var table = document.getElementById("table");
+			for(var i=0; i<intArray.length; i++){
+				j = parseInt(i/10, 0);// 行号
+				k = i%10;// 列号
+				if(k == 0){// 该行不存在，添加行
+					tr = document.createElement("tr");
+					tr.id = "tr" + j;
+					table.appendChild(tr);
+				}else{
+					tr = document.getElementById("tr" + j);
+				}
+				
+				td = document.createElement("td");
+				tr.appendChild(td);
+				td.innerHTML = intArray[ j*10 + k];
+				td.style.backgroundColor = "blue";
+				td.style.color = "white";
+				td.width = "30";				
+			}
+		}
+	};
+</script>
+</head>
+<body>
+<h1>从随机生成的数字中抽取3的倍数并显示示例</h1>
+<table id="table">
+</table>
+</body>
+</html>

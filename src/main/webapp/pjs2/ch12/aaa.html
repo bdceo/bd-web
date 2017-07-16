@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<head>
+<meta charset="utf-8" />
+<title>自测aaa</title>
+<style type="text/css"></style>
+<script>
+	var EventUtil = {
+		addHandler : function(ele, eve, handler) {
+			if (ele.addEventListener) {// DOM2
+				ele.addEventListener(eve, handler, false);
+			} else if (ele.attachEvent) {// IE
+				ele.attachEvent("on" + eve, handler);
+			} else {// DOM0
+				ele["on" + eve] = handler;
+			}
+		},
+		removeHandler : function(ele, eve, handler) {
+			if (ele.removeEventListener) {
+				ele.removeEventListener(eve, handler, false);
+			} else if (ele.detachEvent) {
+				ele.detachEvent("on" + eve, handler);
+			} else {
+				ele["on" + eve] = null;
+			}
+		},
+		getEvent : function(event) {
+			return event ? event : window.event;
+		},
+		getTarget : function(event) {
+			return event.target || event.srcElement;
+		},
+		preventDefault : function(event) {
+			if (event.preventDefault) {
+				event.preventDefault();
+			} else {
+				event.returnValue = false;
+			}
+		},
+		stopPropagation : function(event) {
+			if (event.stopPropagation) {
+				event.stopPropagation();
+			} else {
+				event.cancelBubble = true;
+			}
+		},
+		getRelateTarget : function(event) {
+			if (event.relatedTarget) {
+				return event.relatedTarget;
+			} else if (event.toElement) {
+				return event.toElement;
+			} else if (event.fromElement) {
+				return event.fromElement;
+			} else {
+				return null;
+			}
+		},
+		getMouseButton : function(event) {
+			if (document.implementation.hasFeature("MouseEvents", "2.0")) {
+				return event.button;
+			} else {
+				switch (event.button) {
+				case 0:
+				case 1:
+				case 3:
+				case 5:
+				case 7:
+					return 0;
+				case 2:
+				case 6:
+					return 2;
+				case 4:
+					return 1;
+				}
+			}
+		},
+		getKeyCode : function(event) {
+			if (typeof event.charCode == "number") {
+				return event.charCode;
+			} else {
+				return event.keyCode;
+			}
+		},
+		getWheelDelta : function(event) {
+			if (event.wheelDelta) {// 兼容opera等其他浏览器
+				return ((client.engine.opera && client.engine.opera < 9.5) ? -event.wheelDelta
+						: event.wheelDelta);
+			} else {// firefox
+				return -event.detail * 40;
+			}
+		},
+		getClipboardText : function(event) {
+			var data = (event.clipboardData || window.clipboardData);
+			return data.getData("text");
+		},
+		setClipboardText : function(event, value) {
+			if (event.clipboardData) {
+				return event.clipboardData.setData("text/plain", value);
+			} else if (window.clipboardData) {
+				return window.clipboardData.setData("text", value);
+			}
+		}
+	};
+
+	function fun(eve) {
+		console.log(eve);
+	}
+	EventUtil.addHandler(window, "load", function(event) {
+		var mm = document.getElementById("mm");
+		EventUtil.addHandler(document, "contextmenu", function(event) {
+			event = EventUtil.getEvent(event);
+			EventUtil.preventDefault(event);
+
+			mm.style.visibility = "visible";
+			mm.style.left = event.clientX + "px";
+			mm.style.top = event.clientY + "px";
+		});
+		EventUtil.addHandler(document, "click", function(event) {
+			document.getElementById("mm").style.visibility = "hidden";
+		});
+		EventUtil.addHandler(mm, "click", function(event) {
+			console.log("mm click");
+			even = EventUtil.getEvent(event);
+			var target = EventUtil.getTarget(event);
+			switch (target.id) {
+			case "1":
+				console.log("1");
+				break;
+			case "2":
+				console.log("2");
+				break;
+			case "3":
+				console.log("3");
+				break;
+			}
+			EventUtil.stopPropagation(event);
+			EventUtil.preventDefault(event);
+		});
+	});
+</script>
+</head>
+<body>
+	<br />
+	<input type="button" onclick="fun(event)" value="fun()">
+	<br>
+	<span>右击空白处，显示自定义菜单</span>
+	<ul id="mm"
+		style="background-color: silver; visibility: hidden; position: absolute">
+		<li id="1">java</li>
+		<li id="2">spring</li>
+		<li id="3">thread</li>
+	</ul>
+</body>
+</html>

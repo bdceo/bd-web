@@ -1,0 +1,28 @@
+
+<input type="hidden" id="hid" />
+
+<script>
+	var obj = new Object();
+
+	obj.name = 'bdceo';
+
+	var arr = new Array();
+	obj.subs = arr;
+
+	for ( var i = 0; i < 4; i++) {
+		var ele = new Object();
+		ele.code = i;
+		ele.info = 'bd' + i + 'arr';
+		arr.push(ele);
+	}
+
+	console.log(obj);
+
+	var str = JSON.stringify(obj);
+	console.log(str);
+
+	var hd = document.getElementById("hid");
+	hd.value = str;
+
+	alert(hd.value);
+</script>

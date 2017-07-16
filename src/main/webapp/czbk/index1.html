@@ -1,0 +1,32 @@
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<title></title> 
+		<script type="text/javascript" src="/js/jquery_1.3.js"></script>
+	</head>
+	<script type="text/javascript">
+		function dis(){ 
+			$("div").fadeIn(1000,function(){
+				return false;
+			});
+			setTimeout(function(){
+				$("div").fadeOut(1000,function(){
+					return false;
+				});	
+			},2000);			
+		}
+	</script>
+	<body>
+		校验用户名是否存在的例子
+		<br>
+		<form action="ajaxServer" method="post">
+			用户名：
+			<input type="text" id="name" name="name" />
+			<input type="submit" value="校验" onClick="test()">
+		</form>
+		<input type="button" onClick="dis()" value="jQuery">
+		<div style="display: none" id="dis">
+			<img src="js/4a.jpg">
+		</div>
+	</body>
+</html>

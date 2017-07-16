@@ -1,0 +1,69 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+	<head>
+		<title>json2.html</title>
+		<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  		<script type="text/javascript" src="/js/json.js"></script>
+		<script type="text/javascript" src="/js/json-util.js"></script>
+		<script type="text/javascript">
+			var jsonObj2={persons:[{name:"Jdi",sex:"男",age:"18"}, {name:"bdceo",sex:"男",age:"28"}, {name:"dcy",sex:"男",age:"15"} ]};
+			var persons=jsonObj2.persons;
+			var person={name:"laoding",sex:"男",age:"19"};			
+			alert("现在有 "+persons.length+" 个人。");
+			display();
+			//替换不删除
+			var self={name:"老丁",sex:"男",age:"23"};		
+			var brother={name:"老毕",sex:"男",age:"24"};
+			//persons.splice(1,0,self,brother,self);//开始位置,删除个数,插入对象
+			//替换并删除
+			//jsonObj2.persons.splice(0,1,self,brother);//开始位置,删除个数,插入对象						
+			function addLast(){
+				persons.push(person);//数组最后加一条记录
+				alert("在数组最后添加一个人，现在有 "+persons.length+" 个人。");
+				display();
+			}
+			function addFirst(){
+				persons.unshift(person);//数组最前面加一条记录
+				alert("在数组最前边添加一个人，现在有 "+persons.length+" 个人。");
+				display();
+			}
+			function delLast(){
+				persons.pop();//删除最后一项
+				alert("删除数组最后那个人后，现在有 "+persons.length+" 个人。");
+				display();
+			}
+			function delFirst(){
+				persons.shift();//删除第一项
+				alert("删除数组第一个人后，现在有 "+persons.length+" 个人。");
+				display();
+			}
+			function delAtXX(){
+				var index=1,count=1;
+				persons.splice(index,count);//开始位置,删除个数
+				alert("从第 "+(index+1)+" 的位置删除 "+count+" 个人后还有 "+persons.length+" 个人。");
+				display();
+			}
+			function display(){
+				var str="";
+				for(var i=0;i<persons.length;i++){
+					var p=persons[i];
+					str+=i+1+" - 姓名："+p.name+"，性别："+p.sex+"，年龄："+p.age+"岁。\n";
+				}
+				alert(str);
+			}			
+		</script>
+	</head>
+	<body>
+		<h2>测试JSON的增删改查...哈哈</h2>
+		<input type="button" value="添加到最后" onclick="addLast()"/>
+		<br><br>
+		<input type="button" value="添加到最前" onclick="addFirst()"/>
+		<br><br>
+		<input type="button" value="删除最后那个" onclick="delLast()"/>
+		<br><br>
+		<input type="button" value="删除第一个" onclick="delFirst()"/>
+		<br><br>
+		<input type="button" value="从指定位置删除指定个数人" onclick="delAtXX()"/>
+		<br><br>
+	</body>
+</html>

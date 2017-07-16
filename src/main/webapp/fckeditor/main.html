@@ -1,0 +1,59 @@
+<html>
+	<head>
+		<title>树形图</title>
+		<link rel="StyleSheet" type="text/css" href="dtree.css">
+		<script type="text/javascript" src="dtree.js"></script>
+	</head>
+	<body>
+		<div class="dtree">
+			<p>
+			<h4>
+				<a href="javascript:tree.openAll()">展开所有节点</a> |
+				<a href="javascript:tree.closeAll()">折叠所有节点</a>
+			</h4> 
+			<!--add()中的参数列表：
+				     第一个：id，是节点的索引编号，从0开始
+				     第二个：pid，是引用父节点的位置索引，根节点必须是-1
+				     第三个：name，当前节点的名称
+				     第四个：url，指要链接到的页面
+				     第五个：title，当前节点的一个小提示  
+				     第六个：target，表示链接的页面显示位置
+				     第七个：icon，指定节点图片
+				     第八个：icoOpen，指定节点图片-->
+			<script type="text/javascript">
+				<!--
+					tree=new dTree("tree");
+				
+					tree.add(0,-1,"客户关系管理系统","/test/jdbc/disInfo.jsp","根节点");
+					tree.add(1,0,"营销管理","/testjdbc/disInfo.jsp","营销管理");
+ 					tree.add(2,0,"客户管理","/testjdbc/disInfo.jsp","客户管理");
+					tree.add(3,0,"服务管理","/testjdbc/disInfo.jsp","服务管理");
+					tree.add(4,0,"统计报表","/testjdbc/disInfo.jsp","统计报表");
+					tree.add(5,0,"基础数据","/testjdbc/disInfo.jsp","基础数据");
+					
+					tree.add(6,1,"销售机会管理","/test/jdbc/disInfo.jsp","销售机会管理","","menu/doc.gif");
+					tree.add(7,1,"客户开发计划","/test/jdbc/disInfo.jsp","客户开发计划","","menu/doc.gif");
+					
+					tree.add(8,2,"客户信息管理","/test/jdbc/disInfo.jsp");
+					tree.add(9,2,"客户流失管理","/test/jdbc/disInfo.jsp");
+					
+					tree.add(10,3,"创建","/test/jdbc/disInfo.jsp");
+					tree.add(11,3,"分配","/test/jdbc/disInfo.jsp");
+					tree.add(12,3,"处理","/test/jdbc/disInfo.jsp");
+					tree.add(13,3,"反馈","/test/jdbc/disInfo.jsp");
+					tree.add(14,3,"归档","/test/jdbc/disInfo.jsp");
+					
+					tree.add(15,4,"客户贡献分析","/test/jdbc/disInfo.jsp");
+					tree.add(16,4,"客户构成分析","/test/jdbc/disInfo.jsp");
+					tree.add(17,4,"客户服务分析","/test/jdbc/disInfo.jsp");
+					tree.add(18,4,"客户流失分析","/test/jdbc/disInfo.jsp");
+					
+					tree.add(19,5,"数据字典管理","/test/jdbc/disInfo.jsp");
+					tree.add(20,5,"查询产品信息","/test/jdbc/disInfo.jsp");
+					tree.add(21,5,"查询库存","/test/jdbc/disInfo.jsp");
+					document.write(tree);
+				//-->
+			</script>
+		</div>
+	</body>
+</html>

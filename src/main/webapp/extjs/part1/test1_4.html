@@ -1,0 +1,94 @@
+<HTML>
+ <HEAD>
+  <TITLE> New Document </TITLE> 
+  <link rel="stylesheet" type="text/css" href="/jslib/extjs/resources/css/ext-all.css" />
+  <script src="/jslib/extjs/adapter/ext/ext-base.js"></script>  
+  <script src="/jslib/extjs/ext-all.js"></script>
+ </HEAD>
+<script type="text/javascript">
+	Ext.onReady(function(){
+		new Ext.Panel({renderTo:"first",title:"使用column布局",
+					   width:400,
+					   height:200,
+					   layout:"column",
+					   items:[{columnWidth:.5,title:"panel_1"},
+					          {columnWidth:.5,title:"panel_2"}]
+					  });
+		new Ext.Panel({renderTo:"second",title:"容器组件",
+					   width:500,
+					   height:100,
+					   layout:"column",
+					   items:[{width:100,title:"col_1"},
+					          {width:200,title:"col_2"},
+							  {width:100,title:"col_3"},
+							  {title:"col_4"}]
+					  });
+		new Ext.Panel({renderTo:"fit",title:"使用fit布局",
+					   width:300,
+					   height:150,
+					   //layout:"fit",
+					   items:[{columnWidth:.5,title:"panel_1"},
+					          {columnWidth:.5,title:"panel_2"}]
+					  });
+		new Ext.Panel({renderTo:"form",title:"使用form布局",
+					   width:300, 
+					   height:120,
+					   layout:"form",
+					   hideLabels:false,
+					   labelAlign:"right",
+					   defaultType:"textfield",
+					   items:[{fieldLabel:"姓名",name:"name"},
+					          {fieldLabel:"地址",name:"address"},
+							  {fieldLabel:"电话",name:"tel"}]
+					  });
+		new Ext.FormPanel({renderTo:"formpanel",title:"使用form布局",
+					   width:300, 
+					   height:120,
+					   hideLabels:false,
+					   labelAlign:"right",
+					   defaultType:"textfield",
+					   items:[{fieldLabel:"姓名",name:"name"},
+					          {fieldLabel:"地址",name:"address"},
+							  {fieldLabel:"电话",name:"tel"}]
+					  });
+        new Ext.Panel({renderTo:"accordion",title:"使用accordion布局",
+					   width:150, 
+					   height:200,
+					   layout:"accordion",
+					   layouConfig:{animate:true},
+					   items:[{title:"子元素1",html:"这是子元素1"},
+					          {title:"子元素3",html:"这是子元素3"},
+							  {title:"子元素2",html:"这是子元素2"}]
+					  });
+		new Ext.Panel({renderTo:"table",title:"使用table布局",
+					   width:450, 
+					   height:200,
+					   layout:"table",
+					   layouConfig:{columns:3},
+					   items:[{title:"子元素1",html:"这是子元素1",rowspan:2,height:100},
+					          {title:"子元素2",html:"这是子元素2",colspan:2},
+							  {title:"子元素3",html:"这是子元素3"},
+							  {title:"子元素4",html:"这是子元素4"}]
+					  });
+	});
+	function viewport(){
+		new Ext.Viewport({layout:"border", 
+						  items:[{region:"north",height:50,title:"顶端面板"},
+							     {region:"south",height:50,title:"底部面板"},
+								 {region:"center",title:"中央面板"},
+								 {region:"west",width:100,title:"左边面板"},
+								 {region:"east",width:100,title:"右边面板"}]
+						});
+	}
+</script>
+ <BODY>
+   <div id="first"></div>
+   <div id="second"></div>
+   <div id="fit"></div>
+   <div id="form"></div>
+   <div id="formpanel"></div>
+   <div id="accordion"></div>
+   <div id="table"></div>
+   <br/>
+ </BODY>
+</HTML>

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<head>
+<meta charset="utf-8" />
+<title>自测aaa</title>
+<style type="text/css"></style>
+<script src="../pjs.js" type="text/javascript"></script>
+</head>
+<body>
+	<br />
+	<input type="button" onclick="fun()" value="fun()" id="bbb">
+	<br />
+	<input type="button" onclick="fun1()" value="fun1()" id="ccc">
+
+
+	<script>
+		// 作用域安全的构造函数
+		function Person(name) {
+			// 判断this的指向，确保调用Person能正确创建其对象实例
+			if (this instanceof Person) {
+				this.name = name;
+			} else {
+				return new Person(name);
+			}
+		}
+		// 基于继承
+		function Student(name, code) {
+			Person.call(this, name);
+			this.code = code;
+		}
+		function fun() {
+			var stu = new Student("bdceo", "004");
+			console.log(stu.name);
+
+			// 基于原型继承,确保Person.call中的this是Person的实例
+			Student.prototype = new Person();
+			stu = new Student("bdceo", "004");
+			console.log(stu.name);
+		}
+
+		// 惰性载入函数:每次分支判断都重新覆盖函数本身，第二次调用，直接执行
+		function createXHR() {
+			if (typeof XMLHttpRequest != "undefined") {
+				createXHR = function() {
+					return new XMLHttpRequest();
+				};
+			} else if (typeof ActiveXObject != "undefined") {
+				createXHR = function() {
+					if (typeof arguments.callee.activeXString != "string") {
+						var versions = [ "MSXML2.XMLHttp.6.0",
+								"MSXML2.XMLHttp.3.0", "MSXML2.XMLHttp" ];
+						for ( var i = 0, len = versions.length; i < len; i++) {
+							try {
+								var xhr = new ActiveXObject(versions[i]);
+								arguments.callee.activeXString = versions[i];
+								return xhr;
+							} catch (e) {
+							}
+						}
+						return new ActiveXObject(arguments.callee.activeXString);
+					}
+				};
+			} else {
+				createXHR = function() {
+					throw new Error("No XHR object avaliable.");
+				};
+			}
+			return createXHR();
+		}
+
+		// 绑定函数
+		function bind(fn, context) {
+			return function() {
+				// arguments就是内部函数的所有参数
+				return fn.apply(context, arguments);
+			};
+		}
+		var handler = {
+			msg : "msg of handler",
+			clk : function(event) {
+				console.log(this.msg + "_" + event.type);
+			}
+		};
+		var btn = document.getElementById("bbb");
+		//EventUtil.addHandler(btn, "click", handler.clk);// msg属性无法引用
+		// 匿名函数，没问题
+		EventUtil.addHandler(btn, "click", function(event) {
+			hander.clk(event);
+		});
+		// 函数绑定实现，没问题，推荐
+		EventUtil.addHandler(btn, "click", bind(handler.clk, handler));
+
+		//函数柯里化
+		function add(a, b) {
+			return a + b;
+		}
+		function currAdd(b) {
+			return add(5, b);
+		}
+
+		function curr(fn) {
+			var args = Array.prototype.slice.call(arguments, 1);
+			return function() {
+				var innerArgs = Array.prototype.slice.call(arguments);
+				var finaArgs = args.concat(innerArgs);
+				return fn.apply(null, finaArgs);
+			}
+		}
+		function fun1() {
+			var cur = curr(add, 4);
+			console.log(cur(2));
+		}
+		// 演化出更高级的带参数的绑定
+		function bindWithParam(fn, context) {
+			var args = Array.prototype.slice.call(arguments, 2);
+			return function() {
+				var innerArgs = Array.prototype.slice.call(arguments);
+				var finaArgs = args.concat(innerArgs);
+				return fn.apply(context, finaArgs);
+			}
+		}
+	</script>
+</body>
+</html>

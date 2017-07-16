@@ -1,0 +1,56 @@
+<html>
+	<head>
+		<title>相关选择</title>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+	</head>
+	<script type="text/javascript">
+		function getResult(stateVal) {
+			var url = "/SelectCityServlet?state="+stateVal;
+			if (window.XMLHttpRequest) {
+				req = new XMLHttpRequest();
+			}else if (window.ActiveXObject) {
+				req = new ActiveXObject("Microsoft.XMLHTTP");
+			}
+			if(req){
+				req.open("GET",url, true);
+				req.onreadystatechange = complete;
+				req.send(null);
+			}
+		}
+		function complete(){
+			if (req.readyState == 4) {
+				if (req.status == 200) {
+					var city = req.responseXML.getElementsByTagName("city");
+					var str=new Array();
+					for(var i=0;i<city.length;i++){
+						str[i]=city[i].firstChild.data;
+					}
+					buildSelect(str,document.getElementById("city"));
+				}
+			}
+		}
+		function buildSelect(str,sel) {
+			sel.options.length=0;
+			for(var i=0;i<str.length;i++) {
+				sel.options[sel.options.length]=new Option(str[i],str[i])
+			}
+		}
+</script>
+	<body>
+		<select name="state" onChange="getResult(this.value)">
+			<option value="">
+				请选择
+			</option>
+			>
+			<option value="hn">
+				湖南
+			</option>
+			>
+			<option value="hb">
+				湖北
+			</option>
+			>
+		</select>
+		<select id="city"></select>
+	</body>
+</html>

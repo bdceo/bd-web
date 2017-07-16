@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+
+<head>
+<meta charset="utf-8"/>
+<title>自测aaa</title>
+<script>
+function draw(id){
+	var canvas = document.getElementById(id);
+	var context = canvas.getContext("2d");
+	
+	context.fillStyle = "#eeeeff";
+	context.fillRect(0, 0, 400, 300);
+	
+	/* 绘制矩形
+	context.fillStyle = "red";
+	context.strokeStyle = "blue";
+	context.lineWidth = 2;
+	context.fillRect(50, 50, 100, 100);
+	context.strokeRect(50, 50, 100, 100);	*/
+	
+	/* 绘制圆形
+	var n = 0;
+	for(var i =0; i<10; i++){
+		context.beginPath();
+		context.arc(i*25, i*25, i*10, 0, Math.PI * 2, true);
+		context.closePath();
+		context.fillStyle = "rgba(255, 0, 0, 0.25)";
+		context.fill();
+	}*/
+	
+	/* moveTo 和 lineTo
+	var n = 0;
+	var dx = 150;
+	var dy = 150;
+	var s = 100;
+	context.beginPath();
+	context.fillStyle = "rgb(100, 255, 100)";
+	context.strokeStyle = "rgb(0, 0, 100)";
+	var x = Math.sin(0);
+	var y = Math.cos(0);
+	var dig = Math.PI / 15 * 11;
+	for(var i=0; i<30; i++){
+		var x = Math.sin(i * dig);
+		var y = Math.cos(i * dig);
+		context.lineTo(dx + x*s, dy + y*s);
+	}
+	context.closePath();
+	context.fill();
+	context.stroke();*/
+	
+	/* bezierCurveTo 绘制贝济埃曲线
+  	   quadraticCurveTo 绘制二次样条曲线
+	var n = 0;
+	var dx = 150;
+	var dy = 150;
+	var s = 100;
+	context.beginPath();
+	context.globalCompositeOperation = "and";
+	context.fillStyle = "rgb(100, 255, 100)";
+	context.strokeStyle = "rgb(0, 0, 100)";
+	var x = Math.sin(0);
+	var y = Math.cos(0);
+	var dig = Math.PI / 15 * 11;
+	context.moveTo(dx, dy);
+	for(var i=0; i<30; i++){
+		var x = Math.sin(i * dig);
+		var y = Math.cos(i * dig);
+//		context.bezierCurveTo(dx + x*s, dy + y*s - 100, dx + x*s + 100, dy + y*s, dx + x*s, dy + y*s);
+		context.quadraticCurveTo(dx + x*s, dy + y*s - 100, dx + x*s, dy + y*s);
+	}
+	context.closePath();
+	context.fill();
+	context.stroke();*/
+	
+	/* 绘制线性渐变
+	var g1 = context.createLinearGradient(0, 0, 0, 300);
+	g1.addColorStop(0, "rgb(255, 255, 0)");
+	g1.addColorStop(1, "rgb(0, 255, 255)");
+	context.fillStyle = g1;
+	context.fillRect(0, 0, 400, 300);
+	
+	var n = 0;
+	var g2 = context.createLinearGradient(0, 0, 300, 0);
+	g2.addColorStop(0, "rgba(0, 0, 255, 0.5)");
+	g2.addColorStop(1, "rgba(255, 0, 0, 0.5)");
+	for(var i=0; i < 10; i++){
+		context.beginPath();
+		context.fillStyle = g2;
+		context.arc(i*25, i*25, i*10, 0, Math.PI*2, true);
+		context.closePath();
+		context.fill();
+	}*/
+	
+	/* 绘制径向渐变
+	var g1 = context.createRadialGradient(400, 0, 0, 400, 0, 400);
+	g1.addColorStop(0.1, "rgb(255, 255, 0)");
+	g1.addColorStop(0.3, "rgb(255, 0, 255)");
+	g1.addColorStop(1, "rgb(0, 255, 255)");
+	context.fillStyle = g1;
+	context.fillRect(0, 0, 400, 300);
+	
+	var n = 0;
+	var g2 = context.createRadialGradient(250, 250, 0, 250, 250, 300);
+	g2.addColorStop(0.1, "rgba(255, 0, 0, 0.5)");
+	g2.addColorStop(0.7, "rgba(255, 255, 0, 0.5)");	
+	g2.addColorStop(1, "rgba(0, 0, 255, 0.5)");
+	for(var i=0; i < 10; i++){
+		context.beginPath();
+		context.fillStyle = g2;
+		context.arc(i*25, i*25, i*10, 0, Math.PI*2, true);
+		context.closePath();
+		context.fill();
+	}*/
+	
+	/* 坐标变换
+	context.translate(200, 30);
+	context.fillStyle = "rgba(255, 0, 0, 0.25)";
+	for(var i=0; i<50; i++){
+		context.translate(25, 25);
+		context.scale(0.95, 0.95);
+		context.rotate(Math.PI / 10);
+		context.fillRect(0, 0, 100, 50);
+	}*/
+	
+	/* 坐标变换与路径结合
+	context.translate(200, 30);
+	for(var i=0; i<50; i++){
+		context.translate(25, 25);
+		context.scale(0.95, 0.95);
+		context.rotate(Math.PI / 10);
+		create5Start(context);
+		context.fill();
+	}*/
+	
+	/* 矩阵变换
+	var colors = ["red", "orange", "yellow", "green", "blue", "navy", "purple"];
+	context.lineWidth = 10;
+	context.transform(1, 0, 0, 1, 100, 0);
+	for(var i=0; i<colors.length; i++){
+		context.transform(1, 0, 0, 1, 0, 10);
+		context.strokeStyle = colors[i];
+		context.beginPath();
+		context.arc(50, 100, 100, 0, Math.PI, true);
+		context.stroke();
+	}*/
+	
+	/* 矩阵变换 setTransform
+	context.strokeStyle = "red";
+	context.strokeRect(30, 10, 60, 20);
+	
+	var rad = 45 * Math.PI /180;
+	context.setTransform(Math.cos(rad), Math.sin(rad), -Math.sin(rad), Math.cos(rad), 0, 0);
+	context.strokeStyle = "blue";
+	context.strokeRect(30, 10, 60, 20);
+	
+	context.setTransform(2.5, 0, 0, 2.5, 0, 0);
+	context.strokeStyle = "green";
+	context.strokeRect(30, 10, 60, 20);
+	
+	context.setTransform(1, 0, 0, 1, 40, 80);
+	context.strokeStyle = "gray";
+	context.strokeRect(30, 10, 60, 20);*/
+	
+	/* 图形组合 
+	var oprtns = new Array("source-atop", "source-in", "source-out", "source-over"
+						, "destination-atop", "destination-in", "destination-out", "destination-over"
+						, "lighter", "copy", "xor");
+	var i = 8;
+	context.fillStyle = "blue";
+	context.fillRect(10, 10, 60, 60);
+	
+	context.globalCompositeOperation = oprtns[i];
+	context.beginPath();
+	context.fillStyle = "red";
+	context.arc(60, 60, 30, 0, Math.PI*2, false);
+	context.fill();*/
+	
+	/* 绘制阴影
+	context.shadowOffsetX = 10;
+	context.shadowOffsetY = 10;
+	context.shadowColor = "rgba(100, 100, 100, 0.5)";
+	context.shadowBlur = 7.5;
+	context.translate(0, 20);
+	for(var i=0; i<4; i++){
+		context.translate(50, 50);
+		create5Start(context);
+		context.fill();
+	} */
+	
+	/* 绘制图像 
+	image = new Image();
+	image.src = "tyl.jpg";
+	image.onload = function(){
+//		drawImage(context, image);
+		drawImage2(context, image);		
+	};*/
+	
+	/* 图像平铺 
+	image = new Image();
+	image.src = "tyl2.jpg";
+	image.onload = function(){
+		drawImage3(canvas, context, image);		
+	};*/
+	
+	/* 图像平铺 
+	image = new Image();
+	image.src = "tyl3.jpg";
+	image.onload = function(){
+		var ptrn = context.createPattern(image, "repeat-x");
+		context.fillStyle = ptrn;
+		context.fillRect(0, 0, 400, 300);
+	};*/
+	
+	/* 绘制裁剪
+	var gr = context.createLinearGradient(0,400,300,0);  
+    gr.addColorStop(0,'rgb(255,255,0)');  
+    gr.addColorStop(1,'rgb(0,255,255)');  
+    context.fillStyle = gr;  
+    context.fillRect(0, 0, 400, 300); 
+	image = new Image();  
+    image.src = "tyl.jpg";
+    image.onload = function(){  
+        drawImg(context, image);
+    }; */   
+	
+	/* 像素处理 
+	var image = new Image(); 
+    image.src = "tyl.jpg"; 
+    image.onload = function () {
+       context.drawImage(image, 0, 0);
+       var imagedata = context.getImageData(0,0,image.width,image.height);        
+	   for (var i = 0, n = imagedata.data.length; i < n; i += 4) {
+		   imagedata.data[i+0] = 255 - imagedata.data[i+0]; // red
+		   imagedata.data[i+1] = 255 - imagedata.data[i+2]; // green
+		   imagedata.data[i+2] = 255 - imagedata.data[i+1]; // blue
+       }
+       context.putImageData(imagedata, 0, 0);
+    }; */   
+	
+	/* 绘制文字 
+	context.fillStyle = "#00f";
+	context.font = "italic 30px sans-serif";
+	context.textBaseline = "top";
+	var txt = "哈哈";
+	var tm1 = context.measureText(txt);
+	context.fillText(txt, 10, 10);
+	context.fillText(tm1.width, tm1.width + 10, 10);
+
+	context.font = "bold 30px sans-serif";
+	context.strokeText("嘿嘿", 0, 50);*/
+	
+	/* 保存文件 */
+	context.fillStyle = "rgb(0, 0, 255)";
+    context.fillRect(0, 0, canvas.width, canvas.height);
+    context.fillStyle = "rgb(255, 255, 0)";
+    context.fillRect(10, 20, 50, 50); 
+    window.location =canvas.toDataURL("image/jpeg");
+	
+}
+function drawImg(context, image){
+	create5StarClip(context);
+	context.drawImage(image, -50, -150, 300, 300);
+}
+function create5StarClip(context){  
+    var n = 0;  
+    var dx = 100;  
+    var dy = 0;  
+    var s = 150;  
+    context.beginPath();  
+    context.translate(100,150);  
+    var x = Math.sin(0);  
+    var y = Math.cos(0);  
+    var dig = Math.PI / 5 * 4;  
+    for(var i = 0; i < 5; i++) 
+    {  
+        var x = Math.sin(i * dig);  
+        var y = Math.cos(i * dig);  
+        context.lineTo( dx + x * s,dy + y * s);  
+    }  
+    context.clip();  
+}
+function drawImage3(canvas, context, image){
+    var scale = 5;
+	var n1 = image.width/scale;
+	var n2 = image.height/scale;
+	var n3 = canvas.width/n1;
+	var n4 = canvas.width/n2;
+	for(var i=0; i<n3; i++){
+		for(var j=0; j<n4; j++){
+			context.drawImage(image, i*n1, j*n2, n1, n2);
+		}
+	}
+}
+function drawImage2(context, image){
+    var i = 0;
+	context.drawImage(image, 0, 0, 100, 100);
+	context.drawImage(image, 23, 5, 57, 80, 110, 0, 100, 100);
+}
+function drawImage(context, image){
+	for(var i=0; i<7; i++){
+		context.drawImage(image, i*50, i*25, 100, 100);
+	}
+}
+function create5Start(context){
+	var n = 0;  
+    var dx = 100;  
+    var dy = 0;  
+    var s = 50;  
+    // 创建路径  
+    context.beginPath();  
+    context.fillStyle = 'rgba(255,0,0,0.5)';  
+    var x = Math.sin(0);  
+    var y = Math.cos(0);  
+    var dig = Math.PI / 5 * 4;  
+    for(var i = 0; i <  5; i++) 
+    {  
+        var x = Math.sin(i * dig);  
+        var y = Math.cos(i * dig);  
+        context.lineTo( dx + x * s,dy + y * s);  
+    }     
+    context.closePath();
+}
+</script>
+</head>
+<body onLoad="draw('canvas')">
+<canvas id="canvas" width="400" height="300"/>
+</body>
+</html>

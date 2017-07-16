@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<head>
+<meta charset="utf-8"/> 
+<title>自测ddd</title>
+<script> 
+var data;
+
+function loadData(){
+	data = JSON.parse(sessionStorage["key"]);	
+}
+
+function saveData(){
+	sessionStorage["key"] = JSON.stringify(data);	
+}
+
+window.addeventListener("load", loadData, true);
+window.addeventListener("unload", saveData, true);
+</script>
+</head>
+
+<body onLoad="initDatabase()">
+<div id="support"></div>
+
+<table id="racers" border="1" cellspacing="0" style="width:100%">
+    <th>Id</th>
+    <th>Name</th>
+</table>
+</body>
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<head>
+<meta charset="utf-8"/> 
+<title>自测aaa</title>
+<script>
+function checkSupport(){
+	if(window.WebSocket){
+		document.getElementById("support").innerHTML="恭喜，浏览器支持！";
+	}else{
+		document.getElementById("support").innerHTML="老兄，升级一下浏览器吧！";
+	}
+	
+	log(log.buffer.join("\n"));
+	document.getElementById("sendButton").onclick = function(){
+		w.send(document.getElementById("inputMessage").value);
+	}
+}
+
+var log = function(s){
+	if(document.readyState !== "complete"){
+		log.buffer.push(s);
+	}else{
+		document.getElementById("output").innerHTML += (s + "\n");
+	}
+}
+log.buffer = [];
+
+url = "ws://localhost:8080/echo";
+w = new WebSocket(url);
+w.onopen = function(){
+	log("已连接");
+	w.send("感谢接受WebSocket请求");
+}
+w.onmessage = function(e){
+	log(e.data);
+}
+w.onclose = function(e){
+	log("已断开");
+}
+
+</script>
+</head>
+
+<body onLoad="checkSupport()">
+<div id="support"></div>
+<input type="text" id="inputMessage" value="哈哈，WebSocket！"/>
+<button id="sendButton">发送</button>
+<pre id="output"></pre>
+</body>
+</html>
